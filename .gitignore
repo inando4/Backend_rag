@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.sqlite
+
+# Entorno virtual
+env/
+venv/
+ENV/
+*.egg-info/
+
+# Django stuff
+/media
+/staticfiles
+/static
+
+# Archivos de configuración sensibles
+*.env
