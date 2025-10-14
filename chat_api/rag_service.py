@@ -141,23 +141,36 @@ class RAGService:
 
             PREGUNTA: {query}
 
-            INSTRUCCIONES:
-            - Responde solo con información del contexto proporcionado
-            - Si no tienes información suficiente, indica que no puedes responder esa consulta específica
+            INSTRUCCIONES IMPORTANTES:
+            - NO muestres tu proceso de razonamiento ni pensamientos internos
+            - NO uses etiquetas como <think> o expliques cómo llegas a la respuesta
+            - Responde DIRECTAMENTE con la información solicitada
+            - Usa un formato claro con viñetas o numeración cuando sea apropiado
+            - Solo incluye información del contexto proporcionado
+            - Si no tienes información suficiente, indica brevemente que no puedes responder esa consulta
             - Mantén un tono profesional y amigable
-            - Sé conciso pero completo en tu respuesta
+            - Sé completo en tu respuesta, proporcionando todos los detalles relevantes del contexto
 
-            RESPUESTA:"""
+            RESPUESTA DIRECTA:"""
             
-            # Llamada a Groq
+            # Llamada a Groq con max_tokens aumentado
             response = self.groq_client.chat.completions.create(
-                model="llama3-8b-8192",
+                model="llama-3.3-70b-versatile",
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=500,
+                max_tokens=1500,  # Aumentado de 500 a 1500
                 temperature=0.7
             )
             
-            return response.choices[0].message.content.strip()
+            # Limpiar respuesta de posibles etiquetas de razonamiento
+            answer = response.choices[0].message.content.strip()
+            
+            # Eliminar cualquier etiqueta de pensamiento que pueda aparecer
+            import re
+            answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
+            answer = re.sub(r'<[^>]+>', '', answer)  # Eliminar otras etiquetas HTML-like
+            answer = answer.strip()
+            
+            return answer
             
         except Exception as e:
             print(f"Error en Groq API: {e}")
