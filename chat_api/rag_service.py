@@ -102,13 +102,13 @@ class RAGService:
         # Combinar puntuaciones
         combined_results = []
         for i, score in enumerate(scores[0]):
-            if score > 0.1:  # Umbral más bajo
+            if score > 0.3:  # Umbral más bajo
                 doc_idx = indices[0][i]
                 semantic_score = float(score)
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
                 # Combinar puntuaciones (puedes ajustar los pesos)
-                combined_score = (semantic_score * 0.6) + (keyword_score * 0.4)
+                combined_score = (semantic_score * 0.7) + (keyword_score * 0.3)
                 
                 combined_results.append({
                     'documento': self.documents[doc_idx],
@@ -158,7 +158,8 @@ class RAGService:
                 model="llama-3.3-70b-versatile",
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=1500,  # Aumentado de 500 a 1500
-                temperature=0.7
+                temperature=0.1,
+                top_p=0.9
             )
             
             # Limpiar respuesta de posibles etiquetas de razonamiento
