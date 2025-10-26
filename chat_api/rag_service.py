@@ -2,28 +2,43 @@ import json
 import os
 import faiss
 import numpy as np
+import re
+import unicodedata
+import socket
+import time
+import logging
+import requests
 from sentence_transformers import SentenceTransformer
-from collections import defaultdict  # AGREGAR ESTA LÍNEA
+from collections import defaultdict
 from groq import Groq
 from django.conf import settings
 from django.utils import timezone
+
+logger = logging.getLogger(__name__)
 
 class RAGService:
     def __init__(self):
         # Rutas de archivos
         self.base_path = os.path.join(settings.BASE_DIR, 'data')
-        self.json_path = os.path.join(self.base_path, 'dataset_rag_matriculas_mejorado.json')
+        self.json_path = os.path.join(self.base_path, 'dataset_v2.json')
         self.index_path = os.path.join(self.base_path, 'index.faiss')
         
         # Inicializar modelo de embeddings
-        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+        self.model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
         
-        # Inicializar Groq
-        self.groq_client = Groq(api_key=os.getenv('GROQ_API_KEY'))
+        # Configuración LLM (local o API)
+        self.llm_strategy = os.getenv('LLM_STRATEGY', 'local')  # 'local', 'api', 'hybrid'
+        self.ollama_url = "http://localhost:11434/api/generate"
+        
+        # Inicializar Groq (solo si se usa API)
+        if self.llm_strategy in ['api', 'hybrid']:
+            self.groq_client = Groq(api_key=os.getenv('GROQ_API_KEY'))
         
         # Cargar datos y crear índice
         self.documents = self.load_documents()
         self.index = self.load_or_create_index()
+        
+        logger.info(f"✅ RAG Service iniciado con estrategia: {self.llm_strategy}")
     
     def load_documents(self):
         """Cargar documentos desde JSON"""
@@ -31,7 +46,7 @@ class RAGService:
             with open(self.json_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except FileNotFoundError:
-            print(f"Error: No se encontró {self.json_path}")
+            logger.error(f"Error: No se encontró {self.json_path}")
             return []
     
     def load_or_create_index(self):
@@ -46,7 +61,7 @@ class RAGService:
         if not self.documents:
             return None
         
-        # Crear embeddings - CORREGIDO: usar 'content' en lugar de 'contenido'
+        # Crear embeddings
         texts = [doc['content'] for doc in self.documents]
         embeddings = self.model.encode(texts)
         
@@ -65,28 +80,104 @@ class RAGService:
         return index
     
     def keyword_search(self, query, documents):
-        """Búsqueda por palabras clave"""
-        query_words = query.lower().split()
+        """Búsqueda por palabras clave mejorada con sinónimos"""
+        
+        def normalize(text):
+            text = unicodedata.normalize('NFD', text)
+            text = ''.join(c for c in text if unicodedata.category(c) != 'Mn')
+            return text.lower()
+        
+        query_normalized = normalize(query)
+        query_words = query_normalized.split()
+        
+        # Sinónimos del dominio AMPLIADOS
+        synonyms = {
+            'matricula': ['matricula', 'inscripcion', 'registro'],
+            'convalidacion': ['convalidacion', 'validacion', 'reconocimiento'],
+            'excepcion': ['excepcion', 'especial', 'extraordinaria'],
+            'requisitos': ['requisitos', 'documentos', 'expediente'],
+            'cronograma': ['cronograma', 'fecha', 'fechas', 'calendario', 'plazo', 'cuando', 'cuanto'],  # ✅ Ampliado
+            'reserva': ['reserva', 'suspension', 'pausa'],
+            'reactualizacion': ['reactualizacion', 'reactivacion', 'renovacion'],
+            'presentar': ['presentar', 'entregar', 'donde', 'lugar'],  # ✅ Nuevo
+            'expediente': ['expediente', 'tramite', 'solicitud', 'documento']  # ✅ Nuevo
+        }
+        
+        # Expandir query con sinónimos
+        expanded_words = set(query_words)
+        for word in query_words:
+            for key, syn_list in synonyms.items():
+                if word in syn_list:
+                    expanded_words.update(syn_list)
+        
+        # ✅ DETECTAR PREGUNTAS SOBRE FECHAS/LUGARES
+        date_question = any(w in query_normalized for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
+        place_question = any(w in query_normalized for w in ['donde', 'lugar', 'presentar', 'entregar'])
+        
         keyword_scores = defaultdict(float)
         
         for i, doc in enumerate(documents):
-            content = doc['content'].lower()
+            content_normalized = normalize(doc['content'])
             score = 0
             
-            # Buscar coincidencias exactas de frases
-            for word in query_words:
-                if word in content:
-                    score += content.count(word) * 2  # Mayor peso para coincidencias exactas
+            # Buscar palabras expandidas
+            for word in expanded_words:
+                if word in content_normalized:
+                    count = content_normalized.count(word)
+                    score += count * 2  # ✅ Aumentado de 1.5 a 2
             
-            # Buscar frases completas
-            if ' '.join(query_words) in content:
-                score += 10  # Peso alto para frases completas
+            # Buscar frases completas (mayor peso)
+            if query_normalized in content_normalized:
+                score += 30  # ✅ Aumentado de 20 a 30
+            
+            # ✅ BONUS EXTRA para documentos con fechas si se pregunta por fechas
+            if date_question:
+                # Detectar patrones de fechas en el contenido
+                date_patterns = [
+                    r'\d{1,2}\s+de\s+\w+',  # "17 de marzo"
+                    r'del\s+\d{1,2}\s+al\s+\d{1,2}',  # "del 17 al 28"
+                    r'\d{1,2}\s*[-/]\s*\d{1,2}',  # "17-28" o "17/28"
+                ]
                 
+                for pattern in date_patterns:
+                    if re.search(pattern, content_normalized):
+                        score += 50  # ✅ BONUS MASIVO para documentos con fechas
+                        break
+                
+                # Bonus por campos estructurados
+                if 'fecha_relevante' in doc and doc['fecha_relevante']:
+                    score += 40
+                
+                if 'actividad_cronograma' in doc and doc['actividad_cronograma']:
+                    score += 30
+            
+            # ✅ BONUS EXTRA para documentos con lugares si se pregunta por lugares
+            if place_question:
+                place_keywords = ['escuela', 'oficina', 'caja', 'lugar', 'presentar', 'entregar']
+                for kw in place_keywords:
+                    if kw in content_normalized:
+                        score += 20
+                
+                if 'lugar_pago' in doc and doc['lugar_pago']:
+                    score += 35
+            
+            # Bonus por keywords del documento
+            if 'keywords' in doc:
+                for kw in doc.get('keywords', []):
+                    if normalize(kw) in query_normalized:
+                        score += 10  # ✅ Aumentado de 5 a 10
+            
+            # ✅ Bonus por categoría relevante
+            if 'categoria_principal' in doc:
+                categoria = normalize(doc['categoria_principal'])
+                if any(w in categoria for w in expanded_words):
+                    score += 15
+            
             keyword_scores[i] = score
             
         return keyword_scores
     
-    def search_documents(self, query, top_k=3):
+    def search_documents(self, query, top_k=5):
         """Búsqueda híbrida: semántica + palabras clave"""
         if not self.index or not self.documents:
             return []
@@ -94,21 +185,31 @@ class RAGService:
         # Búsqueda semántica
         query_embedding = self.model.encode([query])
         faiss.normalize_L2(query_embedding)
-        scores, indices = self.index.search(query_embedding, top_k * 2)  # Obtener más candidatos
+        scores, indices = self.index.search(query_embedding, top_k * 3)
         
         # Búsqueda por palabras clave
         keyword_scores = self.keyword_search(query, self.documents)
         
+        # ✅ Detectar si es una pregunta sobre fechas/lugares
+        query_lower = query.lower()
+        is_date_query = any(w in query_lower for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
+        is_place_query = any(w in query_lower for w in ['donde', 'lugar', 'presentar', 'entregar'])
+        
         # Combinar puntuaciones
         combined_results = []
         for i, score in enumerate(scores[0]):
-            if score > 0.3:  # Umbral más bajo
+            if score > 0.2:  # ✅ Umbral reducido de 0.3 a 0.2
                 doc_idx = indices[0][i]
                 semantic_score = float(score)
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
-                # Combinar puntuaciones (puedes ajustar los pesos)
-                combined_score = (semantic_score * 0.7) + (keyword_score * 0.3)
+                # ✅ Ajustar pesos dinámicamente según el tipo de pregunta
+                if is_date_query or is_place_query:
+                    # Dar más peso a keywords cuando se pregunta por fechas/lugares
+                    combined_score = (semantic_score * 0.4) + (keyword_score * 0.6)
+                else:
+                    # Peso normal
+                    combined_score = (semantic_score * 0.7) + (keyword_score * 0.3)
                 
                 combined_results.append({
                     'documento': self.documents[doc_idx],
@@ -120,73 +221,261 @@ class RAGService:
         # Ordenar por puntuación combinada
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
-        # Filtrar y devolver top_k
+        # ✅ Logging mejorado
+        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}")
+        logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
+        
+        for i, doc in enumerate(combined_results[:top_k], 1):
+            logger.info(f"  {i}. Score: {doc['score']:.2f} (Sem: {doc['semantic_score']:.2f}, KW: {doc['keyword_score']:.2f})")
+        
         return combined_results[:top_k]
     
-    def generate_response(self, query, context_docs):
-        """Generar respuesta usando Groq"""
+    def _ensure_ollama_running(self):
+        """Verificar que Ollama esté corriendo"""
         try:
-            # DEBUG: Verificar estructura de datos
-            print(f"Estructura de context_docs: {context_docs[0] if context_docs else 'Vacío'}")
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = sock.connect_ex(('localhost', 11434))
+            sock.close()
             
-            # Construir contexto - CORREGIDO: usar 'content' en lugar de 'contenido'
-            context = "\n\n".join([doc['documento']['content'] for doc in context_docs])
+            if result == 0:
+                logger.info("✅ Ollama está corriendo")
+                return True
+            else:
+                logger.warning("⚠️ Ollama no está corriendo")
+                logger.info("💡 Inicia Ollama con: ollama serve")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Error verificando Ollama: {e}")
+            return False
+    
+    def _build_prompt(self, query, context):
+        """Construir prompt optimizado con extracción forzada de fechas"""
+        return f"""Eres un asistente especializado en normativas académicas de la Universidad Nacional de San Agustín (UNSA).
+
+        CONTEXTO RELEVANTE:
+        {context}
+
+        Pregunta: {query}
+
+        IMPORTANTE:
+        - Si el contexto menciona fechas, cópialas EXACTAMENTE como aparecen
+        - Si el contexto menciona lugares, nómbralos específicamente
+        - Si el contexto menciona costos, inclúyelos
+        - NO inventes información
+        - NO uses plantillas como "[día] de [mes]"
+        - Sé directo y claro
+
+        Respuesta:"""
+        
+        # Verificar que Ollama esté corriendo
+        if not self._ensure_ollama_running():
+            raise Exception("Ollama no está disponible. Ejecuta: ollama serve")
+        
+        try:
+            logger.info("🤖 Generando respuesta con Ollama...")
+            start_time = time.time()
             
-            # Prompt para Groq
-            prompt = f"""Eres un asistente virtual de la Universidad Nacional de San Agustín (UNSA). 
-            Responde de manera clara y precisa basándote únicamente en el siguiente contexto sobre normativas universitarias.
-
-            CONTEXTO:
-            {context}
-
-            PREGUNTA: {query}
-
-            INSTRUCCIONES IMPORTANTES:
-            - NO muestres tu proceso de razonamiento ni pensamientos internos
-            - NO uses etiquetas como <think> o expliques cómo llegas a la respuesta
-            - Responde DIRECTAMENTE con la información solicitada
-            - Usa un formato claro con viñetas o numeración cuando sea apropiado
-            - Solo incluye información del contexto proporcionado
-            - Si no tienes información suficiente, indica brevemente que no puedes responder esa consulta
-            - Mantén un tono profesional y amigable
-            - Sé completo en tu respuesta, proporcionando todos los detalles relevantes del contexto
-
-            RESPUESTA DIRECTA:"""
+            response = requests.post(
+                self.ollama_url,
+                json={
+                    "model": "llama3.2:3b",
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.2,
+                        "num_predict": 1500,
+                        "top_p": 0.8
+                    }
+                },
+                timeout=120
+            )
             
-            # Llamada a Groq con max_tokens aumentado
+            elapsed = time.time() - start_time
+            logger.info(f"⏱️ Tiempo de generación: {elapsed:.2f}s")
+            
+            if response.status_code == 200:
+                answer = response.json()['response'].strip()
+                
+                # Limpiar respuesta
+                answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
+                answer = re.sub(r'<[^>]+>', '', answer)
+                
+                return answer.strip()
+            else:
+                raise Exception(f"Ollama error: {response.status_code}")
+                
+        except Exception as e:
+            logger.error(f"Error en Ollama: {e}")
+            raise
+        
+    
+    
+    def _generate_with_groq(self, prompt):
+        """Generar respuesta con Groq API"""
+        try:
+            logger.info("☁️ Generando respuesta con Groq API...")
+            start_time = time.time()
+            
             response = self.groq_client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=1500,  # Aumentado de 500 a 1500
+                max_tokens=1500,
                 temperature=0.1,
                 top_p=0.9
             )
             
-            # Limpiar respuesta de posibles etiquetas de razonamiento
+            elapsed = time.time() - start_time
+            logger.info(f"⏱️ Tiempo de generación: {elapsed:.2f}s")
+            
             answer = response.choices[0].message.content.strip()
             
-            # Eliminar cualquier etiqueta de pensamiento que pueda aparecer
-            import re
+            # Limpiar respuesta
             answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
-            answer = re.sub(r'<[^>]+>', '', answer)  # Eliminar otras etiquetas HTML-like
-            answer = answer.strip()
+            answer = re.sub(r'<[^>]+>', '', answer)
             
-            return answer
+            return answer.strip()
             
         except Exception as e:
-            print(f"Error en Groq API: {e}")
+            logger.error(f"Error en Groq: {e}")
+            raise
+    
+    def _generate_with_ollama(self, prompt, context=None, max_retries=2):
+        """Generar respuesta con Ollama (local) con validación"""
+        
+        # Verificar que Ollama esté corriendo
+        if not self._ensure_ollama_running():
+            raise Exception("Ollama no está disponible. Ejecuta: ollama serve")
+        
+        for attempt in range(max_retries):
+            try:
+                logger.info(f"🤖 Generando respuesta con Ollama (intento {attempt + 1}/{max_retries})...")
+                start_time = time.time()
+                
+                response = requests.post(
+                    self.ollama_url,
+                    json={
+                        "model": "llama3.2:3b",
+                        "prompt": prompt,
+                        "stream": False,
+                        "options": {
+                            "temperature": 0.0 if attempt > 0 else 0.1,  # ✅ Más determinístico en reintentos
+                            "num_predict": 1500,
+                            "top_p": 0.8  # ✅ Reducir creatividad
+                        }
+                    },
+                    timeout=120
+                )
+                
+                elapsed = time.time() - start_time
+                logger.info(f"⏱️ Tiempo de generación: {elapsed:.2f}s")
+                
+                if response.status_code == 200:
+                    answer = response.json()['response'].strip()
+                    
+                    # Limpiar respuesta
+                    answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
+                    answer = re.sub(r'<[^>]+>', '', answer)
+                    answer = answer.strip()
+                    
+                    # ✅ Validar fechas si tenemos contexto
+                    if context and self._validate_dates_in_response(answer, context):
+                        return answer
+                    elif not context:
+                        return answer
+                    else:
+                        # Si la validación falla, intentar de nuevo con prompt más estricto
+                        if attempt < max_retries - 1:
+                            logger.warning("⚠️ Reintentando con instrucciones más estrictas...")
+                            prompt = prompt.replace(
+                                "INSTRUCCIONES CRÍTICAS",
+                                "⚠️ ADVERTENCIA: Tu respuesta anterior contenía fechas incorrectas. INSTRUCCIONES CRÍTICAS"
+                            )
+                            continue
+                        else:
+                            logger.error("❌ Máximo de reintentos alcanzado. Devolviendo respuesta sin validar.")
+                            return answer
+                else:
+                    raise Exception(f"Ollama error: {response.status_code}")
+                    
+            except Exception as e:
+                logger.error(f"Error en Ollama: {e}")
+                if attempt == max_retries - 1:
+                    raise
+        
+        return answer
+    
+    def generate_response(self, query, context_docs):
+        """Generar respuesta con estrategia configurable"""
+        try:
+            # Construir contexto
+            context = "\n\n".join([doc['documento']['content'] for doc in context_docs])
+            
+            # ✅ DEBUG: Ver qué contexto se envía
+            logger.info("=" * 80)
+            logger.info("📄 CONTEXTO ENVIADO AL LLM:")
+            logger.info(context[:500] + "..." if len(context) > 500 else context)
+            logger.info("=" * 80)
+            
+            prompt = self._build_prompt(query, context)
+            
+            # Seleccionar estrategia
+            if self.llm_strategy == 'local':
+                return self._generate_with_ollama(prompt)
+            
+            elif self.llm_strategy == 'api':
+                return self._generate_with_groq(prompt)
+            
+            else:  # hybrid
+                try:
+                    return self._generate_with_ollama(prompt)
+                except Exception as e:
+                    logger.warning(f"⚠️ Ollama falló ({e}), usando Groq API...")
+                    return self._generate_with_groq(prompt)
+        
+        except Exception as e:
+            logger.error(f"Error en generación: {e}")
             return "Lo siento, no puedo procesar tu consulta en este momento. Por favor, intenta más tarde."
     
     def get_answer(self, question):
         """Método principal para obtener respuesta"""
+        logger.info(f"🔍 Nueva consulta: {question}")
+        
         # Buscar documentos relevantes
         relevant_docs = self.search_documents(question)
         
         if not relevant_docs:
             return "No encontré información relevante para tu consulta. Por favor, reformula tu pregunta o consulta sobre temas como matrículas, convalidaciones, reservas, o reactualización."
         
+        # Log documentos recuperados con título generado
+        for i, doc in enumerate(relevant_docs, 1):
+            doc_data = doc['documento']
+            
+            # ✅ Construir título descriptivo multicampo
+            title_parts = []
+            
+            if doc_data.get('categoria_principal'):
+                title_parts.append(doc_data['categoria_principal'])
+            
+            if doc_data.get('actividad_cronograma'):
+                title_parts.append(f"({doc_data['actividad_cronograma']})")
+            elif doc_data.get('sub_categoria'):
+                title_parts.append(f"({doc_data['sub_categoria']})")
+            
+            if doc_data.get('id_chunk'):
+                title_parts.append(f"[{doc_data['id_chunk']}]")
+            
+            title = " ".join(title_parts) if title_parts else "Documento sin identificador"
+            
+            logger.info(f"  {i}. {title}")
+            logger.info(f"      Score: {doc['score']:.3f} (Sem: {doc['semantic_score']:.2f}, KW: {doc['keyword_score']:.2f})")
+        
         # Generar respuesta
-        return self.generate_response(question, relevant_docs)
+        answer = self.generate_response(question, relevant_docs)
+        logger.info(f"✅ Respuesta generada: {len(answer)} caracteres")
+        
+        return answer
+
 
 # Instancia global del servicio
 rag_service = RAGService()

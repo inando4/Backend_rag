@@ -5,6 +5,7 @@ from django.utils import timezone
 from .serializers import ChatRequestSerializer, ChatResponseSerializer
 from .models import ChatMessage
 from .rag_service import rag_service
+import traceback  # ✅ AGREGAR
 
 @api_view(['POST'])
 def chat_message(request):
@@ -36,19 +37,33 @@ def chat_message(request):
             return Response(response_serializer.data, status=status.HTTP_200_OK)
             
         except Exception as e:
+            # ✅ IMPRIMIR ERROR COMPLETO
+            print("\n" + "="*80)
+            print("❌ ERROR CAPTURADO:")
+            print("="*80)
+            print(f"Tipo de error: {type(e).__name__}")
+            print(f"Mensaje: {str(e)}")
+            print("\nTraceback completo:")
+            traceback.print_exc()
+            print("="*80 + "\n")
+            
             return Response(
-                {'error': 'Error interno del servidor'},
+                {
+                    'error': str(e),
+                    'type': type(e).__name__
+                },
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
 def chat_history(request):
     """
     Endpoint para obtener historial de chat
     """
-    messages = ChatMessage.objects.all()[:50]  # Últimos 50 mensajes
+    messages = ChatMessage.objects.all()[:50]
     data = []
     
     for msg in messages:

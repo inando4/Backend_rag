@@ -1,0 +1,721 @@
+INFO 2025-10-15 16:07:35,087 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-15 16:09:31,337 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-15 16:13:21,960 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-15 16:17:06,754 chat_api.rag_service 🔍 Nueva consulta: hola
+INFO 2025-10-15 16:24:54,724 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-15 16:24:58,959 chat_api.rag_service 🔍 Nueva consulta: hola
+INFO 2025-10-15 16:25:58,455 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-15 16:29:13,203 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-15 16:29:23,427 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-15 16:29:45,521 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-15 16:29:57,882 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-15 16:30:06,551 chat_api.rag_service 🔍 Nueva consulta: asdfasf
+INFO 2025-10-15 16:31:28,190 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-15 16:31:37,461 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-15 16:31:37,498 chat_api.rag_service 📊 Recuperados 0 documentos para: Hola...
+INFO 2025-10-15 16:31:47,836 chat_api.rag_service 🔍 Nueva consulta: Cómo hago una reactualizacion de matricula
+INFO 2025-10-15 16:31:47,850 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo hago una reactualizacion de matricula...
+INFO 2025-10-15 16:31:47,850 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 51.342
+INFO 2025-10-15 16:31:47,851 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 32.364
+INFO 2025-10-15 16:31:47,851 chat_api.rag_service   3. Pautas Generales de Matrícula - Información Completa - Score: 31.488
+INFO 2025-10-15 16:31:47,851 chat_api.rag_service   4. Reactualización de Matrícula - Proceso Completo - Score: 29.591
+INFO 2025-10-15 16:31:47,851 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 24.334
+INFO 2025-10-15 16:31:47,851 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 16:31:47,851 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 16:32:32,197 chat_api.rag_service ⏱️ Tiempo de generación: 44.35s
+INFO 2025-10-15 16:32:32,198 chat_api.rag_service ✅ Respuesta generada: 1231 caracteres
+INFO 2025-10-15 16:37:43,347 chat_api.rag_service 🔍 Nueva consulta: Cuantos creditos cómo minimo tengo que llevar en cada semestre?
+INFO 2025-10-15 16:37:43,376 chat_api.rag_service 📊 Recuperados 5 documentos para: Cuantos creditos cómo minimo tengo que llevar en c...
+INFO 2025-10-15 16:37:43,376 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 48.407
+INFO 2025-10-15 16:37:43,377 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 26.391
+INFO 2025-10-15 16:37:43,377 chat_api.rag_service   3. Pautas Generales de Matrícula - Información Completa - Score: 20.504
+INFO 2025-10-15 16:37:43,377 chat_api.rag_service   4. Reserva de Matrícula - Proceso Completo - Score: 17.438
+INFO 2025-10-15 16:37:43,377 chat_api.rag_service   5. Requisitos de Cursos - Reglamento Completo - Score: 17.135
+INFO 2025-10-15 16:37:43,377 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 16:37:43,377 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 16:38:17,086 chat_api.rag_service ⏱️ Tiempo de generación: 33.71s
+INFO 2025-10-15 16:38:17,087 chat_api.rag_service ✅ Respuesta generada: 1264 caracteres
+INFO 2025-10-15 17:16:56,120 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 17:16:56,149 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 17:16:56,149 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 17:16:56,149 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 17:16:56,149 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 17:16:56,149 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 17:16:56,149 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 17:16:56,150 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:16:56,150 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+ERROR 2025-10-15 17:18:56,254 chat_api.rag_service Error en Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=120)
+ERROR 2025-10-15 17:18:56,254 chat_api.rag_service Error en generación: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=120)
+INFO 2025-10-15 17:18:56,254 chat_api.rag_service ✅ Respuesta generada: 87 caracteres
+INFO 2025-10-15 17:20:36,314 chat_api.rag_service 🔍 Nueva consulta: como hago una reactualizacion de matricula
+INFO 2025-10-15 17:20:36,341 chat_api.rag_service 📊 Recuperados 5 documentos para: como hago una reactualizacion de matricula...
+INFO 2025-10-15 17:20:36,341 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 51.347
+INFO 2025-10-15 17:20:36,341 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 32.373
+INFO 2025-10-15 17:20:36,341 chat_api.rag_service   3. Pautas Generales de Matrícula - Información Completa - Score: 31.493
+INFO 2025-10-15 17:20:36,341 chat_api.rag_service   4. Reactualización de Matrícula - Proceso Completo - Score: 29.584
+INFO 2025-10-15 17:20:36,342 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 24.342
+INFO 2025-10-15 17:20:36,342 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:20:36,342 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:21:25,540 chat_api.rag_service ⏱️ Tiempo de generación: 49.20s
+INFO 2025-10-15 17:21:25,541 chat_api.rag_service ✅ Respuesta generada: 1054 caracteres
+INFO 2025-10-15 17:22:00,488 chat_api.rag_service 🔍 Nueva consulta: que pasa si desapruebo un curso 3 veces o más?
+INFO 2025-10-15 17:22:00,523 chat_api.rag_service 📊 Recuperados 5 documentos para: que pasa si desapruebo un curso 3 veces o más?...
+INFO 2025-10-15 17:22:00,523 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 207.270
+INFO 2025-10-15 17:22:00,523 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 94.845
+INFO 2025-10-15 17:22:00,523 chat_api.rag_service   3. Pautas Generales de Matrícula - Información Completa - Score: 91.596
+INFO 2025-10-15 17:22:00,523 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 62.814
+INFO 2025-10-15 17:22:00,523 chat_api.rag_service   5. Requisitos de Cursos - Reglamento Completo - Score: 58.359
+INFO 2025-10-15 17:22:00,524 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:22:00,524 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:22:22,314 chat_api.rag_service ⏱️ Tiempo de generación: 21.79s
+INFO 2025-10-15 17:22:22,314 chat_api.rag_service ✅ Respuesta generada: 443 caracteres
+INFO 2025-10-15 17:23:50,673 chat_api.rag_service 🔍 Nueva consulta: donde descargo mi talon de pago?
+INFO 2025-10-15 17:23:50,727 chat_api.rag_service 📊 Recuperados 0 documentos para: donde descargo mi talon de pago?...
+INFO 2025-10-15 17:24:11,799 chat_api.rag_service 🔍 Nueva consulta: cómo convalido un curso?
+INFO 2025-10-15 17:24:11,836 chat_api.rag_service 📊 Recuperados 5 documentos para: cómo convalido un curso?...
+INFO 2025-10-15 17:24:11,836 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 13.904
+INFO 2025-10-15 17:24:11,837 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 8.955
+INFO 2025-10-15 17:24:11,837 chat_api.rag_service   3. Proceso de Matrícula - Información Completa - Score: 6.666
+INFO 2025-10-15 17:24:11,837 chat_api.rag_service   4. Disposiciones Generales - Reglamento Completo - Score: 6.621
+INFO 2025-10-15 17:24:11,837 chat_api.rag_service   5. Retiro y Cancelación de Matrícula - Proceso Completo - Score: 6.170
+INFO 2025-10-15 17:24:11,837 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:24:11,838 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:25:28,884 chat_api.rag_service ⏱️ Tiempo de generación: 77.05s
+INFO 2025-10-15 17:25:28,885 chat_api.rag_service ✅ Respuesta generada: 2247 caracteres
+INFO 2025-10-15 17:26:28,895 chat_api.rag_service 🔍 Nueva consulta: como reservo mi matricula
+INFO 2025-10-15 17:26:28,930 chat_api.rag_service 📊 Recuperados 5 documentos para: como reservo mi matricula...
+INFO 2025-10-15 17:26:28,931 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 14.857
+INFO 2025-10-15 17:26:28,931 chat_api.rag_service   2. Proceso de Matrícula - Información Completa - Score: 13.064
+INFO 2025-10-15 17:26:28,931 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 11.357
+INFO 2025-10-15 17:26:28,931 chat_api.rag_service   4. Pautas Generales de Matrícula - Información Completa - Score: 11.210
+INFO 2025-10-15 17:26:28,931 chat_api.rag_service   5. Reactualización de Matrícula - Proceso Completo - Score: 9.955
+INFO 2025-10-15 17:26:28,932 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:26:28,932 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:27:17,632 chat_api.rag_service ⏱️ Tiempo de generación: 48.70s
+INFO 2025-10-15 17:27:17,632 chat_api.rag_service ✅ Respuesta generada: 1357 caracteres
+INFO 2025-10-15 17:28:43,363 chat_api.rag_service 🔍 Nueva consulta: cuando empiezan las clases en el semestre 2025-B?
+INFO 2025-10-15 17:28:43,390 chat_api.rag_service 📊 Recuperados 5 documentos para: cuando empiezan las clases en el semestre 2025-B?...
+INFO 2025-10-15 17:28:43,391 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 69.604
+INFO 2025-10-15 17:28:43,391 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 39.880
+INFO 2025-10-15 17:28:43,391 chat_api.rag_service   3. Pautas Generales de Matrícula - Información Completa - Score: 35.442
+INFO 2025-10-15 17:28:43,391 chat_api.rag_service   4. Reserva de Matrícula - Proceso Completo - Score: 29.221
+INFO 2025-10-15 17:28:43,391 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 24.705
+INFO 2025-10-15 17:28:43,391 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:28:43,391 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:30:20,859 chat_api.rag_service ⏱️ Tiempo de generación: 97.47s
+INFO 2025-10-15 17:30:20,859 chat_api.rag_service ✅ Respuesta generada: 2968 caracteres
+INFO 2025-10-15 17:30:41,831 chat_api.rag_service 🔍 Nueva consulta: cómo realizo una modificacion de matricula
+INFO 2025-10-15 17:30:41,851 chat_api.rag_service 📊 Recuperados 5 documentos para: cómo realizo una modificacion de matricula...
+INFO 2025-10-15 17:30:41,851 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 53.708
+INFO 2025-10-15 17:30:41,852 chat_api.rag_service   2. Pautas Generales de Matrícula - Información Completa - Score: 33.854
+INFO 2025-10-15 17:30:41,852 chat_api.rag_service   3. Matrícula por Excepción - Proceso Completo - Score: 32.392
+INFO 2025-10-15 17:30:41,852 chat_api.rag_service   4. Levantamiento de Reserva - Proceso Completo - Score: 24.300
+INFO 2025-10-15 17:30:41,852 chat_api.rag_service   5. Reactualización de Matrícula - Proceso Completo - Score: 23.945
+INFO 2025-10-15 17:30:41,852 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:30:41,852 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:31:37,638 chat_api.rag_service ⏱️ Tiempo de generación: 55.79s
+INFO 2025-10-15 17:31:37,639 chat_api.rag_service ✅ Respuesta generada: 1589 caracteres
+INFO 2025-10-15 17:37:37,278 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 17:37:37,304 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 17:37:37,304 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 17:37:37,304 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 17:37:37,304 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 17:37:37,304 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 17:37:37,304 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 17:37:37,305 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:37:37,305 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:38:57,512 chat_api.rag_service ⏱️ Tiempo de generación: 80.21s
+INFO 2025-10-15 17:38:57,526 chat_api.rag_service ✅ Respuesta generada: 1819 caracteres
+INFO 2025-10-15 17:39:28,589 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 17:39:28,608 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 17:39:28,609 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 17:39:28,609 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 17:39:28,609 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 17:39:28,609 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 17:39:28,609 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 17:39:28,609 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:39:28,609 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:40:46,339 chat_api.rag_service ⏱️ Tiempo de generación: 77.73s
+INFO 2025-10-15 17:40:46,339 chat_api.rag_service ✅ Respuesta generada: 2132 caracteres
+INFO 2025-10-15 17:44:28,239 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 17:44:28,260 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 17:44:28,260 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 17:44:28,260 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 17:44:28,261 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 17:44:28,261 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 17:44:28,261 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 17:44:28,261 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 17:44:28,261 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 17:45:41,409 chat_api.rag_service ⏱️ Tiempo de generación: 73.15s
+INFO 2025-10-15 17:45:41,409 chat_api.rag_service ✅ Respuesta generada: 1815 caracteres
+INFO 2025-10-15 18:04:09,488 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 18:04:09,525 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 18:04:09,525 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 18:04:09,525 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 18:04:09,526 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 18:04:09,526 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 18:04:09,526 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 18:04:09,526 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 18:04:09,526 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 18:05:34,891 chat_api.rag_service ⏱️ Tiempo de generación: 85.36s
+INFO 2025-10-15 18:05:34,891 chat_api.rag_service ✅ Respuesta generada: 2514 caracteres
+INFO 2025-10-15 18:07:07,437 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 18:07:07,476 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 18:07:07,476 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 18:07:07,476 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 18:07:07,476 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 18:07:07,476 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 18:07:07,476 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 18:07:07,477 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 18:07:07,477 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 18:08:53,306 chat_api.rag_service ⏱️ Tiempo de generación: 105.83s
+INFO 2025-10-15 18:08:53,307 chat_api.rag_service ✅ Respuesta generada: 3426 caracteres
+INFO 2025-10-15 18:09:53,902 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 18:09:53,925 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 18:09:53,925 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 18:09:53,925 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 18:09:53,925 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 18:09:53,925 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 18:09:53,925 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 18:09:53,925 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 18:09:53,925 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 18:10:56,240 chat_api.rag_service ⏱️ Tiempo de generación: 62.31s
+INFO 2025-10-15 18:10:56,240 chat_api.rag_service ✅ Respuesta generada: 1819 caracteres
+INFO 2025-10-15 18:12:19,126 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 18:12:19,182 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 18:12:19,182 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 18:12:19,182 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 18:12:19,182 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 18:12:19,182 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 18:12:19,182 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 18:12:19,183 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 18:12:19,183 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 18:13:21,806 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 18:13:21,829 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 18:13:21,829 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 18:13:21,829 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 18:13:21,829 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 18:13:21,829 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 18:13:21,830 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 18:13:21,830 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 18:13:21,830 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-15 18:13:33,351 chat_api.rag_service ⏱️ Tiempo de generación: 74.17s
+INFO 2025-10-15 18:13:33,352 chat_api.rag_service ✅ Respuesta generada: 2457 caracteres
+INFO 2025-10-15 18:14:32,761 chat_api.rag_service ⏱️ Tiempo de generación: 70.93s
+INFO 2025-10-15 18:14:32,761 chat_api.rag_service ✅ Respuesta generada: 1758 caracteres
+INFO 2025-10-15 18:20:31,738 chat_api.rag_service 🔍 Nueva consulta: Hola, cómo realizo una matricula por excepcion
+INFO 2025-10-15 18:20:31,782 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, cómo realizo una matricula por excepcion...
+INFO 2025-10-15 18:20:31,782 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.146
+INFO 2025-10-15 18:20:31,782 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.752
+INFO 2025-10-15 18:20:31,782 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.479
+INFO 2025-10-15 18:20:31,783 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.077
+INFO 2025-10-15 18:20:31,783 chat_api.rag_service   5. Disposiciones Transitorias - Reglamento Completo - Score: 8.059
+INFO 2025-10-15 18:20:31,783 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-15 18:20:31,783 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+ERROR 2025-10-15 18:22:31,885 chat_api.rag_service Error en Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=120)
+ERROR 2025-10-15 18:22:31,886 chat_api.rag_service Error en generación: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=120)
+INFO 2025-10-15 18:22:31,886 chat_api.rag_service ✅ Respuesta generada: 87 caracteres
+INFO 2025-10-19 01:42:23,135 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-19 01:42:40,727 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-19 01:42:41,045 chat_api.rag_service 📊 Recuperados 0 documentos para: Hola...
+INFO 2025-10-19 01:42:50,055 chat_api.rag_service 🔍 Nueva consulta: COmo se hace una matricula por excepcion
+INFO 2025-10-19 01:42:50,086 chat_api.rag_service 📊 Recuperados 5 documentos para: COmo se hace una matricula por excepcion...
+INFO 2025-10-19 01:42:50,086 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 33.014
+INFO 2025-10-19 01:42:50,086 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 28.590
+INFO 2025-10-19 01:42:50,086 chat_api.rag_service   3. Reserva de Matrícula - Proceso Completo - Score: 17.150
+INFO 2025-10-19 01:42:50,087 chat_api.rag_service   4. Levantamiento de Reserva - Proceso Completo - Score: 14.418
+INFO 2025-10-19 01:42:50,087 chat_api.rag_service   5. Proceso de Matrícula - Información Completa - Score: 13.879
+WARNING 2025-10-19 01:42:50,087 chat_api.rag_service ⚠️ Ollama no está corriendo
+INFO 2025-10-19 01:42:50,087 chat_api.rag_service 💡 Inicia Ollama con: ollama serve
+ERROR 2025-10-19 01:42:50,087 chat_api.rag_service Error en generación: Ollama no está disponible. Ejecuta: ollama serve
+INFO 2025-10-19 01:42:50,087 chat_api.rag_service ✅ Respuesta generada: 87 caracteres
+INFO 2025-10-19 01:43:20,193 chat_api.rag_service 🔍 Nueva consulta: Hola, como hago una matricula por excepcion
+INFO 2025-10-19 01:43:20,228 chat_api.rag_service 📊 Recuperados 5 documentos para: Hola, como hago una matricula por excepcion...
+INFO 2025-10-19 01:43:20,229 chat_api.rag_service   1. Matrícula por Excepción - Proceso Completo - Score: 23.112
+INFO 2025-10-19 01:43:20,229 chat_api.rag_service   2. Convalidaciones - Proceso Completo - Score: 17.713
+INFO 2025-10-19 01:43:20,229 chat_api.rag_service   3. Reactualización de Matrícula - Proceso Completo - Score: 9.452
+INFO 2025-10-19 01:43:20,229 chat_api.rag_service   4. Disposiciones Transitorias - Reglamento Completo - Score: 8.040
+INFO 2025-10-19 01:43:20,229 chat_api.rag_service   5. Proceso de Matrícula - Información Completa - Score: 8.030
+INFO 2025-10-19 01:43:20,229 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 01:43:20,229 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 01:44:31,820 chat_api.rag_service ⏱️ Tiempo de generación: 71.59s
+INFO 2025-10-19 01:44:31,833 chat_api.rag_service ✅ Respuesta generada: 2065 caracteres
+INFO 2025-10-19 04:35:00,840 chat_api.rag_service 🔍 Nueva consulta: Pregunta 1
+INFO 2025-10-19 04:35:00,952 chat_api.rag_service 📊 Recuperados 0 documentos para: Pregunta 1...
+INFO 2025-10-19 04:35:40,784 chat_api.rag_service 🔍 Nueva consulta: Pregunta 1
+INFO 2025-10-19 04:35:40,807 chat_api.rag_service 📊 Recuperados 0 documentos para: Pregunta 1...
+INFO 2025-10-19 04:36:54,882 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula
+INFO 2025-10-19 04:36:54,927 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula...
+INFO 2025-10-19 04:36:54,927 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 18.069
+INFO 2025-10-19 04:36:54,927 chat_api.rag_service   2. Reserva de Matrícula - Proceso Completo - Score: 13.982
+INFO 2025-10-19 04:36:54,927 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 10.873
+INFO 2025-10-19 04:36:54,927 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 9.496
+INFO 2025-10-19 04:36:54,928 chat_api.rag_service   5. Matrícula por Excepción - Proceso Completo - Score: 9.036
+INFO 2025-10-19 04:36:54,928 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:36:54,928 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:38:04,581 chat_api.rag_service ⏱️ Tiempo de generación: 69.65s
+INFO 2025-10-19 04:38:04,598 chat_api.rag_service ✅ Respuesta generada: 1687 caracteres
+INFO 2025-10-19 04:38:05,081 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una matricula por excepcion
+INFO 2025-10-19 04:38:05,138 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una matricula por excepcion...
+INFO 2025-10-19 04:38:05,138 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 33.126
+INFO 2025-10-19 04:38:05,138 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 29.120
+INFO 2025-10-19 04:38:05,138 chat_api.rag_service   3. Reserva de Matrícula - Proceso Completo - Score: 18.114
+INFO 2025-10-19 04:38:05,138 chat_api.rag_service   4. Pautas Generales de Matrícula - Información Completa - Score: 16.170
+INFO 2025-10-19 04:38:05,138 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 14.934
+INFO 2025-10-19 04:38:05,138 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:38:05,139 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:39:47,590 chat_api.rag_service ⏱️ Tiempo de generación: 102.45s
+INFO 2025-10-19 04:39:47,591 chat_api.rag_service ✅ Respuesta generada: 2982 caracteres
+INFO 2025-10-19 04:45:45,589 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula
+INFO 2025-10-19 04:45:45,630 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula...
+INFO 2025-10-19 04:45:45,630 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 18.069
+INFO 2025-10-19 04:45:45,631 chat_api.rag_service   2. Reserva de Matrícula - Proceso Completo - Score: 13.982
+INFO 2025-10-19 04:45:45,631 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 10.873
+INFO 2025-10-19 04:45:45,631 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 9.496
+INFO 2025-10-19 04:45:45,631 chat_api.rag_service   5. Matrícula por Excepción - Proceso Completo - Score: 9.036
+INFO 2025-10-19 04:45:45,631 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:45:45,631 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:46:49,553 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula
+INFO 2025-10-19 04:46:49,610 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula...
+INFO 2025-10-19 04:46:49,610 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 18.069
+INFO 2025-10-19 04:46:49,610 chat_api.rag_service   2. Reserva de Matrícula - Proceso Completo - Score: 13.982
+INFO 2025-10-19 04:46:49,610 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 10.873
+INFO 2025-10-19 04:46:49,610 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 9.496
+INFO 2025-10-19 04:46:49,611 chat_api.rag_service   5. Matrícula por Excepción - Proceso Completo - Score: 9.036
+INFO 2025-10-19 04:46:49,611 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:46:49,611 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:46:59,140 chat_api.rag_service ⏱️ Tiempo de generación: 73.51s
+INFO 2025-10-19 04:46:59,140 chat_api.rag_service ✅ Respuesta generada: 2244 caracteres
+INFO 2025-10-19 04:47:51,576 chat_api.rag_service ⏱️ Tiempo de generación: 61.96s
+INFO 2025-10-19 04:47:51,577 chat_api.rag_service ✅ Respuesta generada: 1790 caracteres
+INFO 2025-10-19 04:47:51,860 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una matricula por excepcion
+INFO 2025-10-19 04:47:51,888 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una matricula por excepcion...
+INFO 2025-10-19 04:47:51,889 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 33.126
+INFO 2025-10-19 04:47:51,889 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 29.120
+INFO 2025-10-19 04:47:51,889 chat_api.rag_service   3. Reserva de Matrícula - Proceso Completo - Score: 18.114
+INFO 2025-10-19 04:47:51,889 chat_api.rag_service   4. Pautas Generales de Matrícula - Información Completa - Score: 16.170
+INFO 2025-10-19 04:47:51,889 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 14.934
+INFO 2025-10-19 04:47:51,890 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:47:51,890 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:49:23,471 chat_api.rag_service ⏱️ Tiempo de generación: 91.58s
+INFO 2025-10-19 04:49:23,471 chat_api.rag_service ✅ Respuesta generada: 2987 caracteres
+INFO 2025-10-19 04:51:22,227 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula
+INFO 2025-10-19 04:51:22,315 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula...
+INFO 2025-10-19 04:51:22,316 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 18.069
+INFO 2025-10-19 04:51:22,316 chat_api.rag_service   2. Reserva de Matrícula - Proceso Completo - Score: 13.982
+INFO 2025-10-19 04:51:22,316 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 10.873
+INFO 2025-10-19 04:51:22,317 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 9.496
+INFO 2025-10-19 04:51:22,317 chat_api.rag_service   5. Matrícula por Excepción - Proceso Completo - Score: 9.036
+INFO 2025-10-19 04:51:22,318 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:51:22,318 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:52:08,018 chat_api.rag_service ⏱️ Tiempo de generación: 45.70s
+INFO 2025-10-19 04:52:08,019 chat_api.rag_service ✅ Respuesta generada: 1537 caracteres
+INFO 2025-10-19 04:55:41,947 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula
+INFO 2025-10-19 04:55:41,980 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula...
+INFO 2025-10-19 04:55:41,980 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 18.069
+INFO 2025-10-19 04:55:41,980 chat_api.rag_service   2. Reserva de Matrícula - Proceso Completo - Score: 13.982
+INFO 2025-10-19 04:55:41,980 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 10.873
+INFO 2025-10-19 04:55:41,980 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 9.496
+INFO 2025-10-19 04:55:41,980 chat_api.rag_service   5. Matrícula por Excepción - Proceso Completo - Score: 9.036
+INFO 2025-10-19 04:55:41,981 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:55:41,981 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:56:16,082 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula
+INFO 2025-10-19 04:56:16,114 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula...
+INFO 2025-10-19 04:56:16,114 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 18.069
+INFO 2025-10-19 04:56:16,114 chat_api.rag_service   2. Reserva de Matrícula - Proceso Completo - Score: 13.982
+INFO 2025-10-19 04:56:16,114 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 10.873
+INFO 2025-10-19 04:56:16,114 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 9.496
+INFO 2025-10-19 04:56:16,114 chat_api.rag_service   5. Matrícula por Excepción - Proceso Completo - Score: 9.036
+INFO 2025-10-19 04:56:16,115 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:56:16,115 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:56:44,286 chat_api.rag_service ⏱️ Tiempo de generación: 62.30s
+INFO 2025-10-19 04:56:44,286 chat_api.rag_service ✅ Respuesta generada: 2303 caracteres
+INFO 2025-10-19 04:57:04,524 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula
+INFO 2025-10-19 04:57:04,564 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula...
+INFO 2025-10-19 04:57:04,564 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 18.069
+INFO 2025-10-19 04:57:04,564 chat_api.rag_service   2. Reserva de Matrícula - Proceso Completo - Score: 13.982
+INFO 2025-10-19 04:57:04,565 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 10.873
+INFO 2025-10-19 04:57:04,565 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 9.496
+INFO 2025-10-19 04:57:04,565 chat_api.rag_service   5. Matrícula por Excepción - Proceso Completo - Score: 9.036
+INFO 2025-10-19 04:57:04,565 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:57:04,565 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:57:32,611 chat_api.rag_service ⏱️ Tiempo de generación: 76.50s
+INFO 2025-10-19 04:57:32,612 chat_api.rag_service ✅ Respuesta generada: 1650 caracteres
+INFO 2025-10-19 04:58:32,206 chat_api.rag_service ⏱️ Tiempo de generación: 87.64s
+INFO 2025-10-19 04:58:32,207 chat_api.rag_service ✅ Respuesta generada: 2392 caracteres
+INFO 2025-10-19 04:58:32,714 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una matricula por excepcion
+INFO 2025-10-19 04:58:32,735 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una matricula por excepcion...
+INFO 2025-10-19 04:58:32,735 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 33.126
+INFO 2025-10-19 04:58:32,735 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 29.120
+INFO 2025-10-19 04:58:32,735 chat_api.rag_service   3. Reserva de Matrícula - Proceso Completo - Score: 18.114
+INFO 2025-10-19 04:58:32,735 chat_api.rag_service   4. Pautas Generales de Matrícula - Información Completa - Score: 16.170
+INFO 2025-10-19 04:58:32,735 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 14.934
+INFO 2025-10-19 04:58:32,735 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-19 04:58:32,736 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-19 04:59:24,621 chat_api.rag_service ⏱️ Tiempo de generación: 51.89s
+INFO 2025-10-19 04:59:24,622 chat_api.rag_service ✅ Respuesta generada: 1730 caracteres
+INFO 2025-10-20 19:25:48,987 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-20 19:26:48,045 chat_api.rag_service 🔍 Nueva consulta: que pasa si desapruebo un curso mas de 3 veces
+INFO 2025-10-20 19:26:48,334 chat_api.rag_service 📊 Recuperados 5 documentos para: que pasa si desapruebo un curso mas de 3 veces...
+INFO 2025-10-20 19:26:48,334 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 101.546
+INFO 2025-10-20 19:26:48,334 chat_api.rag_service   2. Pautas Generales de Matrícula - Información Completa - Score: 41.194
+INFO 2025-10-20 19:26:48,334 chat_api.rag_service   3. Matrícula por Excepción - Proceso Completo - Score: 39.515
+INFO 2025-10-20 19:26:48,334 chat_api.rag_service   4. Levantamiento de Reserva - Proceso Completo - Score: 29.099
+INFO 2025-10-20 19:26:48,334 chat_api.rag_service   5. Proceso de Matrícula - Información Completa - Score: 28.179
+WARNING 2025-10-20 19:26:48,335 chat_api.rag_service ⚠️ Ollama no está corriendo
+INFO 2025-10-20 19:26:48,335 chat_api.rag_service 💡 Inicia Ollama con: ollama serve
+ERROR 2025-10-20 19:26:48,335 chat_api.rag_service Error en generación: Ollama no está disponible. Ejecuta: ollama serve
+INFO 2025-10-20 19:26:48,335 chat_api.rag_service ✅ Respuesta generada: 87 caracteres
+INFO 2025-10-20 19:28:00,004 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-20 19:28:26,023 chat_api.rag_service 🔍 Nueva consulta: hola
+INFO 2025-10-20 19:28:26,280 chat_api.rag_service 📊 Recuperados 0 documentos para: hola...
+INFO 2025-10-20 19:28:42,881 chat_api.rag_service 🔍 Nueva consulta: que pasa si desapruebo un curso mas de 3 veces
+INFO 2025-10-20 19:28:42,916 chat_api.rag_service 📊 Recuperados 5 documentos para: que pasa si desapruebo un curso mas de 3 veces...
+INFO 2025-10-20 19:28:42,916 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 101.546
+INFO 2025-10-20 19:28:42,916 chat_api.rag_service   2. Pautas Generales de Matrícula - Información Completa - Score: 41.194
+INFO 2025-10-20 19:28:42,916 chat_api.rag_service   3. Matrícula por Excepción - Proceso Completo - Score: 39.515
+INFO 2025-10-20 19:28:42,916 chat_api.rag_service   4. Levantamiento de Reserva - Proceso Completo - Score: 29.099
+INFO 2025-10-20 19:28:42,916 chat_api.rag_service   5. Proceso de Matrícula - Información Completa - Score: 28.179
+INFO 2025-10-20 19:28:42,917 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:28:42,917 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:29:19,758 chat_api.rag_service ⏱️ Tiempo de generación: 36.84s
+INFO 2025-10-20 19:29:19,759 chat_api.rag_service ✅ Respuesta generada: 1413 caracteres
+INFO 2025-10-20 19:30:19,426 chat_api.rag_service 🔍 Nueva consulta: cuantas veces como maximo se puede desaprobar un curso
+INFO 2025-10-20 19:30:19,462 chat_api.rag_service 📊 Recuperados 5 documentos para: cuantas veces como maximo se puede desaprobar un c...
+INFO 2025-10-20 19:30:19,464 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 35.442
+INFO 2025-10-20 19:30:19,464 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 17.487
+INFO 2025-10-20 19:30:19,464 chat_api.rag_service   3. Reserva de Matrícula - Proceso Completo - Score: 16.581
+INFO 2025-10-20 19:30:19,464 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 13.816
+INFO 2025-10-20 19:30:19,465 chat_api.rag_service   5. Reserva y Reincorporación - Proceso Completo - Score: 12.925
+INFO 2025-10-20 19:30:19,476 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:30:19,476 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:30:58,906 chat_api.rag_service ⏱️ Tiempo de generación: 39.43s
+INFO 2025-10-20 19:30:58,907 chat_api.rag_service ✅ Respuesta generada: 1659 caracteres
+INFO 2025-10-20 19:32:21,289 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula o modificacion de matricula?
+INFO 2025-10-20 19:32:21,325 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula o modificacion de ...
+INFO 2025-10-20 19:32:21,325 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 215.314
+INFO 2025-10-20 19:32:21,325 chat_api.rag_service   2. Pautas Generales de Matrícula - Información Completa - Score: 109.032
+INFO 2025-10-20 19:32:21,325 chat_api.rag_service   3. Matrícula por Excepción - Proceso Completo - Score: 105.776
+INFO 2025-10-20 19:32:21,325 chat_api.rag_service   4. Reserva de Matrícula - Proceso Completo - Score: 79.202
+INFO 2025-10-20 19:32:21,326 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 72.945
+INFO 2025-10-20 19:32:21,326 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:32:21,326 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:33:04,867 chat_api.rag_service ⏱️ Tiempo de generación: 43.54s
+INFO 2025-10-20 19:33:04,868 chat_api.rag_service ✅ Respuesta generada: 1593 caracteres
+INFO 2025-10-20 19:33:05,281 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una convalidación
+INFO 2025-10-20 19:33:05,299 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una convalidación...
+INFO 2025-10-20 19:33:05,300 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 26.316
+INFO 2025-10-20 19:33:05,300 chat_api.rag_service   2. Reserva de Matrícula - Proceso Completo - Score: 12.502
+INFO 2025-10-20 19:33:05,300 chat_api.rag_service   3. Levantamiento de Reserva - Proceso Completo - Score: 9.339
+INFO 2025-10-20 19:33:05,300 chat_api.rag_service   4. Proceso de Matrícula - Información Completa - Score: 8.453
+INFO 2025-10-20 19:33:05,300 chat_api.rag_service   5. Reserva y Reincorporación - Proceso Completo - Score: 8.010
+INFO 2025-10-20 19:33:05,300 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:33:05,300 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:33:52,911 chat_api.rag_service ⏱️ Tiempo de generación: 47.61s
+INFO 2025-10-20 19:33:52,912 chat_api.rag_service ✅ Respuesta generada: 1832 caracteres
+INFO 2025-10-20 19:36:14,064 chat_api.rag_service 🔍 Nueva consulta: Cual es el proceso para reailzcion un convalidacion
+INFO 2025-10-20 19:36:14,112 chat_api.rag_service 📊 Recuperados 5 documentos para: Cual es el proceso para reailzcion un convalidacio...
+INFO 2025-10-20 19:36:14,112 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 82.033
+INFO 2025-10-20 19:36:14,112 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 49.417
+INFO 2025-10-20 19:36:14,112 chat_api.rag_service   3. Pautas Generales de Matrícula - Información Completa - Score: 43.463
+INFO 2025-10-20 19:36:14,112 chat_api.rag_service   4. Reserva de Matrícula - Proceso Completo - Score: 41.277
+INFO 2025-10-20 19:36:14,112 chat_api.rag_service   5. Proceso de Matrícula - Información Completa - Score: 34.554
+INFO 2025-10-20 19:36:14,113 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:36:14,113 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:36:55,378 chat_api.rag_service ⏱️ Tiempo de generación: 41.26s
+INFO 2025-10-20 19:36:55,378 chat_api.rag_service ✅ Respuesta generada: 1756 caracteres
+INFO 2025-10-20 19:47:02,198 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula o modificacion de matricula?
+INFO 2025-10-20 19:47:02,225 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula o modificacion de ...
+INFO 2025-10-20 19:47:02,226 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 215.314
+INFO 2025-10-20 19:47:02,226 chat_api.rag_service   2. Pautas Generales de Matrícula - Información Completa - Score: 109.032
+INFO 2025-10-20 19:47:02,226 chat_api.rag_service   3. Matrícula por Excepción - Proceso Completo - Score: 105.776
+INFO 2025-10-20 19:47:02,226 chat_api.rag_service   4. Reserva de Matrícula - Proceso Completo - Score: 79.202
+INFO 2025-10-20 19:47:02,226 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 72.945
+INFO 2025-10-20 19:47:02,226 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:47:02,226 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:47:44,042 chat_api.rag_service ⏱️ Tiempo de generación: 41.82s
+INFO 2025-10-20 19:47:44,043 chat_api.rag_service ✅ Respuesta generada: 1522 caracteres
+INFO 2025-10-20 19:47:44,719 chat_api.rag_service 🔍 Nueva consulta: Cual es el proceso para reailzcion un convalidación
+INFO 2025-10-20 19:47:44,737 chat_api.rag_service 📊 Recuperados 5 documentos para: Cual es el proceso para reailzcion un convalidació...
+INFO 2025-10-20 19:47:44,737 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 82.039
+INFO 2025-10-20 19:47:44,737 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 49.423
+INFO 2025-10-20 19:47:44,737 chat_api.rag_service   3. Pautas Generales de Matrícula - Información Completa - Score: 43.465
+INFO 2025-10-20 19:47:44,737 chat_api.rag_service   4. Reserva de Matrícula - Proceso Completo - Score: 41.282
+INFO 2025-10-20 19:47:44,737 chat_api.rag_service   5. Proceso de Matrícula - Información Completa - Score: 34.554
+INFO 2025-10-20 19:47:44,737 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:47:44,737 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:48:26,857 chat_api.rag_service ⏱️ Tiempo de generación: 42.12s
+INFO 2025-10-20 19:48:26,857 chat_api.rag_service ✅ Respuesta generada: 1809 caracteres
+INFO 2025-10-20 19:57:10,614 chat_api.rag_service 🔍 Nueva consulta: Cómo se realiza una rematricula o modificacion de matricula?
+INFO 2025-10-20 19:57:10,643 chat_api.rag_service 📊 Recuperados 5 documentos para: Cómo se realiza una rematricula o modificacion de ...
+INFO 2025-10-20 19:57:10,643 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 215.314
+INFO 2025-10-20 19:57:10,643 chat_api.rag_service   2. Pautas Generales de Matrícula - Información Completa - Score: 109.032
+INFO 2025-10-20 19:57:10,643 chat_api.rag_service   3. Matrícula por Excepción - Proceso Completo - Score: 105.776
+INFO 2025-10-20 19:57:10,643 chat_api.rag_service   4. Reserva de Matrícula - Proceso Completo - Score: 79.202
+INFO 2025-10-20 19:57:10,643 chat_api.rag_service   5. Levantamiento de Reserva - Proceso Completo - Score: 72.945
+INFO 2025-10-20 19:57:10,643 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:57:10,643 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:57:56,919 chat_api.rag_service ⏱️ Tiempo de generación: 46.28s
+INFO 2025-10-20 19:57:56,919 chat_api.rag_service ✅ Respuesta generada: 1678 caracteres
+INFO 2025-10-20 19:57:57,348 chat_api.rag_service 🔍 Nueva consulta: Cual es el proceso para reailzcion un convalidación
+INFO 2025-10-20 19:57:57,364 chat_api.rag_service 📊 Recuperados 5 documentos para: Cual es el proceso para reailzcion un convalidació...
+INFO 2025-10-20 19:57:57,365 chat_api.rag_service   1. Convalidaciones - Proceso Completo - Score: 82.039
+INFO 2025-10-20 19:57:57,365 chat_api.rag_service   2. Matrícula por Excepción - Proceso Completo - Score: 49.423
+INFO 2025-10-20 19:57:57,365 chat_api.rag_service   3. Pautas Generales de Matrícula - Información Completa - Score: 43.465
+INFO 2025-10-20 19:57:57,365 chat_api.rag_service   4. Reserva de Matrícula - Proceso Completo - Score: 41.282
+INFO 2025-10-20 19:57:57,365 chat_api.rag_service   5. Proceso de Matrícula - Información Completa - Score: 34.554
+INFO 2025-10-20 19:57:57,365 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-20 19:57:57,365 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-20 19:58:41,441 chat_api.rag_service ⏱️ Tiempo de generación: 44.08s
+INFO 2025-10-20 19:58:41,442 chat_api.rag_service ✅ Respuesta generada: 1818 caracteres
+INFO 2025-10-26 16:41:38,499 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 16:44:37,016 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 16:45:35,186 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-26 16:46:14,800 chat_api.rag_service 🔍 Nueva consulta: ¿Cuál es el requisito fundamental de matrícula para solicitar la convalidación de cursos?
+INFO 2025-10-26 16:46:18,435 chat_api.rag_service 🔍 Nueva consulta: asdf
+INFO 2025-10-26 16:50:59,387 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 16:51:18,690 chat_api.rag_service 🔍 Nueva consulta: Hola
+INFO 2025-10-26 16:51:18,895 chat_api.rag_service 📊 Recuperados 0 documentos para: Hola...
+INFO 2025-10-26 16:51:25,364 chat_api.rag_service 🔍 Nueva consulta: ¿Cuál es el requisito fundamental de matrícula para solicitar la convalidación de cursos?
+INFO 2025-10-26 16:51:25,379 chat_api.rag_service 📊 Recuperados 5 documentos para: ¿Cuál es el requisito fundamental de matrícula par...
+INFO 2025-10-26 16:51:25,379 chat_api.rag_service   1. Sin título - Score: 11.213
+INFO 2025-10-26 16:51:25,379 chat_api.rag_service   2. Sin título - Score: 11.201
+INFO 2025-10-26 16:51:25,379 chat_api.rag_service   3. Sin título - Score: 10.292
+INFO 2025-10-26 16:51:25,379 chat_api.rag_service   4. Sin título - Score: 9.897
+INFO 2025-10-26 16:51:25,379 chat_api.rag_service   5. Sin título - Score: 9.825
+INFO 2025-10-26 16:51:25,388 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 16:51:25,388 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-26 16:51:52,299 chat_api.rag_service ⏱️ Tiempo de generación: 26.91s
+INFO 2025-10-26 16:51:52,299 chat_api.rag_service ✅ Respuesta generada: 951 caracteres
+INFO 2025-10-26 16:52:48,026 chat_api.rag_service 🔍 Nueva consulta: ¿Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 16:52:48,052 chat_api.rag_service 📊 Recuperados 5 documentos para: ¿Dónde y en qué fechas debo presentar mi expedient...
+INFO 2025-10-26 16:52:48,052 chat_api.rag_service   1. Sin título - Score: 9.374
+INFO 2025-10-26 16:52:48,052 chat_api.rag_service   2. Sin título - Score: 8.419
+INFO 2025-10-26 16:52:48,052 chat_api.rag_service   3. Sin título - Score: 7.990
+INFO 2025-10-26 16:52:48,052 chat_api.rag_service   4. Sin título - Score: 7.944
+INFO 2025-10-26 16:52:48,052 chat_api.rag_service   5. Sin título - Score: 7.549
+INFO 2025-10-26 16:52:48,072 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 16:52:48,072 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-26 16:53:01,605 chat_api.rag_service ⏱️ Tiempo de generación: 13.53s
+INFO 2025-10-26 16:53:01,606 chat_api.rag_service ✅ Respuesta generada: 795 caracteres
+INFO 2025-10-26 17:00:02,441 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:00:32,943 chat_api.rag_service 🔍 Nueva consulta: ¿Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 17:00:33,188 chat_api.rag_service 📊 Recuperados 5 documentos para: ¿Dónde y en qué fechas debo presentar mi expedient...
+INFO 2025-10-26 17:00:33,188 chat_api.rag_service   1. Sin título - Score: 9.374
+INFO 2025-10-26 17:00:33,188 chat_api.rag_service   2. Sin título - Score: 8.419
+INFO 2025-10-26 17:00:33,188 chat_api.rag_service   3. Sin título - Score: 7.990
+INFO 2025-10-26 17:00:33,188 chat_api.rag_service   4. Sin título - Score: 7.944
+INFO 2025-10-26 17:00:33,199 chat_api.rag_service   5. Sin título - Score: 7.549
+INFO 2025-10-26 17:00:33,212 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 17:00:33,212 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-26 17:00:50,227 chat_api.rag_service ⏱️ Tiempo de generación: 17.02s
+INFO 2025-10-26 17:00:50,228 chat_api.rag_service ✅ Respuesta generada: 894 caracteres
+INFO 2025-10-26 17:01:27,792 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:03:48,709 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:03:58,436 chat_api.rag_service 🔍 Nueva consulta: ¿Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 17:03:58,652 chat_api.rag_service 📊 Recuperados 5 documentos para: ¿Dónde y en qué fechas debo presentar mi expedient...
+INFO 2025-10-26 17:03:58,652 chat_api.rag_service   1. Sin título - Score: 9.374
+INFO 2025-10-26 17:03:58,652 chat_api.rag_service   2. Sin título - Score: 8.419
+INFO 2025-10-26 17:03:58,652 chat_api.rag_service   3. Sin título - Score: 7.990
+INFO 2025-10-26 17:03:58,652 chat_api.rag_service   4. Sin título - Score: 7.944
+INFO 2025-10-26 17:03:58,653 chat_api.rag_service   5. Sin título - Score: 7.549
+INFO 2025-10-26 17:03:58,653 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:03:58,653 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:03:58,653 chat_api.rag_service Se deben enumerar todas las hojas en la parte superior (foliado), iniciando con la Solicitud (1), Certificado (2), Copia Matrícula (3), y cada hoja de sílabo subsiguiente [10]. Se debe indicar el número total de hojas (fojas) en la segunda hoja de la solicitud [10]. Los sílabos deben estar en el orden en que se llenan las asignaturas que trae [8, 9].
+
+Las asignaturas a convalidar deberán tener **igual o mayor creditaje** y una similitud de por lo menos el **80% de sus contenidos** [2]. Se puede ...
+INFO 2025-10-26 17:03:58,653 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:03:58,662 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 17:03:58,662 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-26 17:04:08,733 chat_api.rag_service ⏱️ Tiempo de generación: 10.07s
+INFO 2025-10-26 17:04:08,734 chat_api.rag_service ✅ Respuesta generada: 647 caracteres
+INFO 2025-10-26 17:07:25,051 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:07:53,005 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:08:00,353 chat_api.rag_service 🔍 Nueva consulta: ¿Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 17:08:00,600 chat_api.rag_service 📊 Recuperados 5 documentos para: ¿Dónde y en qué fechas debo presentar mi expedient...
+INFO 2025-10-26 17:08:00,600 chat_api.rag_service   1. Sin título - Score: 45.894
+INFO 2025-10-26 17:08:00,600 chat_api.rag_service   2. Sin título - Score: 28.185
+INFO 2025-10-26 17:08:00,600 chat_api.rag_service   3. Sin título - Score: 25.046
+INFO 2025-10-26 17:08:00,600 chat_api.rag_service   4. Sin título - Score: 23.093
+INFO 2025-10-26 17:08:00,601 chat_api.rag_service   5. Sin título - Score: 17.119
+INFO 2025-10-26 17:08:00,601 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:08:00,601 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:08:00,601 chat_api.rag_service El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].
+
+Para las modalidades Ordinario, CEPRUNSA o Traslados Internos, el costo por curso convalidado de **otra Escuela de la UNSA** es de S/ 35.00 [11].
+
+Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula**...
+INFO 2025-10-26 17:08:00,601 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:08:00,610 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 17:08:00,610 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-26 17:08:07,924 chat_api.rag_service ⏱️ Tiempo de generación: 7.31s
+INFO 2025-10-26 17:08:07,925 chat_api.rag_service ✅ Respuesta generada: 402 caracteres
+INFO 2025-10-26 17:08:55,850 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:09:27,831 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:10:34,890 chat_api.rag_service 🔍 Nueva consulta: Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 17:10:35,119 chat_api.rag_service 📊 Query type - Fechas: True, Lugares: True
+INFO 2025-10-26 17:10:35,124 chat_api.rag_service 📊 Recuperados 5 documentos para: Dónde y en qué fechas debo presentar mi expediente...
+INFO 2025-10-26 17:10:35,124 chat_api.rag_service   1. Score: 91.37 (Sem: 0.42, KW: 152.00)
+INFO 2025-10-26 17:10:35,124 chat_api.rag_service   2. Score: 55.96 (Sem: 0.41, KW: 93.00)
+INFO 2025-10-26 17:10:35,124 chat_api.rag_service   3. Score: 49.46 (Sem: 0.64, KW: 82.00)
+INFO 2025-10-26 17:10:35,124 chat_api.rag_service   4. Score: 45.77 (Sem: 0.42, KW: 76.00)
+INFO 2025-10-26 17:10:35,124 chat_api.rag_service   5. Score: 33.78 (Sem: 0.46, KW: 56.00)
+INFO 2025-10-26 17:10:35,124 chat_api.rag_service   1. Sin título - Score: 91.369
+INFO 2025-10-26 17:10:35,124 chat_api.rag_service   2. Sin título - Score: 55.965
+INFO 2025-10-26 17:10:35,125 chat_api.rag_service   3. Sin título - Score: 49.457
+INFO 2025-10-26 17:10:35,125 chat_api.rag_service   4. Sin título - Score: 45.769
+INFO 2025-10-26 17:10:35,125 chat_api.rag_service   5. Sin título - Score: 33.785
+INFO 2025-10-26 17:10:35,125 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:10:35,125 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:10:35,125 chat_api.rag_service El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].
+
+Para las modalidades Ordinario, CEPRUNSA o Traslados Internos, el costo por curso convalidado de **otra Escuela de la UNSA** es de S/ 35.00 [11].
+
+Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula**...
+INFO 2025-10-26 17:10:35,125 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:10:35,134 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 17:10:35,134 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-26 17:10:40,907 chat_api.rag_service ⏱️ Tiempo de generación: 5.77s
+INFO 2025-10-26 17:10:40,908 chat_api.rag_service ✅ Respuesta generada: 298 caracteres
+INFO 2025-10-26 17:15:40,834 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:15:46,981 chat_api.rag_service 🔍 Nueva consulta: Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 17:15:47,183 chat_api.rag_service 📊 Query type - Fechas: True, Lugares: True
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service 📊 Recuperados 5 documentos para: Dónde y en qué fechas debo presentar mi expediente...
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   1. Score: 91.37 (Sem: 0.42, KW: 152.00)
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   2. Score: 55.96 (Sem: 0.41, KW: 93.00)
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   3. Score: 49.46 (Sem: 0.64, KW: 82.00)
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   4. Score: 45.77 (Sem: 0.42, KW: 76.00)
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   5. Score: 33.78 (Sem: 0.46, KW: 56.00)
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   1. Sin título - Score: 91.369
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   2. Sin título - Score: 55.965
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   3. Sin título - Score: 49.457
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   4. Sin título - Score: 45.769
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service   5. Sin título - Score: 33.785
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].
+
+Para las modalidades Ordinario, CEPRUNSA o Traslados Internos, el costo por curso convalidado de **otra Escuela de la UNSA** es de S/ 35.00 [11].
+
+Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula**...
+INFO 2025-10-26 17:15:47,184 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:15:47,193 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 17:15:47,193 chat_api.rag_service 🤖 Generando respuesta con Ollama...
+INFO 2025-10-26 17:15:55,823 chat_api.rag_service ⏱️ Tiempo de generación: 8.63s
+INFO 2025-10-26 17:15:55,824 chat_api.rag_service ✅ Respuesta generada: 333 caracteres
+INFO 2025-10-26 17:23:38,881 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:23:55,322 chat_api.rag_service 🔍 Nueva consulta: Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 17:23:55,531 chat_api.rag_service 📊 Query type - Fechas: True, Lugares: True
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service 📊 Recuperados 5 documentos para: Dónde y en qué fechas debo presentar mi expediente...
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   1. Score: 91.37 (Sem: 0.42, KW: 152.00)
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   2. Score: 55.96 (Sem: 0.41, KW: 93.00)
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   3. Score: 49.46 (Sem: 0.64, KW: 82.00)
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   4. Score: 45.77 (Sem: 0.42, KW: 76.00)
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   5. Score: 33.78 (Sem: 0.46, KW: 56.00)
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   1. Sin título - Score: 91.369
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   2. Sin título - Score: 55.965
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   3. Sin título - Score: 49.457
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   4. Sin título - Score: 45.769
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service   5. Sin título - Score: 33.785
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].
+
+Para las modalidades Ordinario, CEPRUNSA o Traslados Internos, el costo por curso convalidado de **otra Escuela de la UNSA** es de S/ 35.00 [11].
+
+Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula**...
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service ================================================================================
+ERROR 2025-10-26 17:23:55,532 chat_api.rag_service Error en generación: 'RAGService' object has no attribute '_generate_with_ollama'
+INFO 2025-10-26 17:23:55,532 chat_api.rag_service ✅ Respuesta generada: 87 caracteres
+INFO 2025-10-26 17:23:58,624 chat_api.rag_service 🔍 Nueva consulta: asdf
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service 📊 Query type - Fechas: False, Lugares: False
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service 📊 Recuperados 4 documentos para: asdf...
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service   1. Score: 0.18 (Sem: 0.25, KW: 0.00)
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service   2. Score: 0.16 (Sem: 0.23, KW: 0.00)
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service   3. Score: 0.15 (Sem: 0.22, KW: 0.00)
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service   4. Score: 0.14 (Sem: 0.20, KW: 0.00)
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service   1. Sin título - Score: 0.178
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service   2. Sin título - Score: 0.160
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service   3. Sin título - Score: 0.153
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service   4. Sin título - Score: 0.141
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:23:58,643 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:23:58,644 chat_api.rag_service Las convalidaciones se realizan presentando asignaturas de otra escuela de la UNSA, o de otra universidad [1]. El estudiante debe tener **matrícula vigente (2025 A)** en la escuela donde presenta el expediente [1].
+
+No se convalidan cursos aprobados en institutos [4]. Es obligatorio respetar las asignaturas prerrequisitos [4].
+
+Las asignaturas a convalidar deberán tener **igual o mayor creditaje** y una similitud de por lo menos el **80% de sus contenidos** [2]. Se puede presentar más de una asi...
+INFO 2025-10-26 17:23:58,644 chat_api.rag_service ================================================================================
+ERROR 2025-10-26 17:23:58,644 chat_api.rag_service Error en generación: 'RAGService' object has no attribute '_generate_with_ollama'
+INFO 2025-10-26 17:23:58,644 chat_api.rag_service ✅ Respuesta generada: 87 caracteres
+INFO 2025-10-26 17:31:49,928 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:32:04,909 chat_api.rag_service 🔍 Nueva consulta: hOLA
+INFO 2025-10-26 17:32:05,141 chat_api.rag_service 📊 Query type - Fechas: False, Lugares: False
+INFO 2025-10-26 17:32:05,141 chat_api.rag_service 📊 Recuperados 1 documentos para: hOLA...
+INFO 2025-10-26 17:32:05,141 chat_api.rag_service   1. Score: 0.15 (Sem: 0.21, KW: 0.00)
+INFO 2025-10-26 17:32:05,142 chat_api.rag_service   1. Sin título - Score: 0.146
+INFO 2025-10-26 17:32:05,142 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:32:05,142 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:32:05,142 chat_api.rag_service Se deben enumerar todas las hojas en la parte superior (foliado), iniciando con la Solicitud (1), Certificado (2), Copia Matrícula (3), y cada hoja de sílabo subsiguiente [10]. Se debe indicar el número total de hojas (fojas) en la segunda hoja de la solicitud [10]. Los sílabos deben estar en el orden en que se llenan las asignaturas que trae [8, 9].
+INFO 2025-10-26 17:32:05,142 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:32:05,152 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 17:32:05,152 chat_api.rag_service 🤖 Generando respuesta con Ollama (intento 1/2)...
+INFO 2025-10-26 17:32:19,468 chat_api.rag_service ⏱️ Tiempo de generación: 14.32s
+INFO 2025-10-26 17:32:19,480 chat_api.rag_service ✅ Respuesta generada: 624 caracteres
+INFO 2025-10-26 17:33:11,006 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:33:16,273 chat_api.rag_service 🔍 Nueva consulta: Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service 📊 Query type - Fechas: True, Lugares: True
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service 📊 Recuperados 5 documentos para: Dónde y en qué fechas debo presentar mi expediente...
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   1. Score: 91.37 (Sem: 0.42, KW: 152.00)
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   2. Score: 55.96 (Sem: 0.41, KW: 93.00)
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   3. Score: 49.46 (Sem: 0.64, KW: 82.00)
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   4. Score: 45.77 (Sem: 0.42, KW: 76.00)
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   5. Score: 33.78 (Sem: 0.46, KW: 56.00)
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   1. Sin título - Score: 91.369
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   2. Sin título - Score: 55.965
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   3. Sin título - Score: 49.457
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   4. Sin título - Score: 45.769
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service   5. Sin título - Score: 33.785
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].
+
+Para las modalidades Ordinario, CEPRUNSA o Traslados Internos, el costo por curso convalidado de **otra Escuela de la UNSA** es de S/ 35.00 [11].
+
+Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula**...
+INFO 2025-10-26 17:33:16,486 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:33:16,495 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 17:33:16,495 chat_api.rag_service 🤖 Generando respuesta con Ollama (intento 1/2)...
+INFO 2025-10-26 17:33:26,247 chat_api.rag_service ⏱️ Tiempo de generación: 9.75s
+INFO 2025-10-26 17:33:26,248 chat_api.rag_service ✅ Respuesta generada: 514 caracteres
+INFO 2025-10-26 17:41:12,867 chat_api.rag_service ✅ RAG Service iniciado con estrategia: local
+INFO 2025-10-26 17:41:15,374 chat_api.rag_service 🔍 Nueva consulta: Dónde y en qué fechas debo presentar mi expediente de convalidaciones?
+INFO 2025-10-26 17:41:15,608 chat_api.rag_service 📊 Query type - Fechas: True, Lugares: True
+INFO 2025-10-26 17:41:15,608 chat_api.rag_service 📊 Recuperados 5 documentos para: Dónde y en qué fechas debo presentar mi expediente...
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service   1. Score: 91.37 (Sem: 0.42, KW: 152.00)
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service   2. Score: 55.96 (Sem: 0.41, KW: 93.00)
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service   3. Score: 49.46 (Sem: 0.64, KW: 82.00)
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service   4. Score: 45.77 (Sem: 0.42, KW: 76.00)
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service   5. Score: 33.78 (Sem: 0.46, KW: 56.00)
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service   1. Convalidaciones (Presentación de expedientes) [CONV-002-PROC]
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service       Score: 91.369 (Sem: 0.42, KW: 152.00)
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service   2. Convalidaciones (Pago por curso) [CONV-014-PAGO-UNSA]
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service       Score: 55.965 (Sem: 0.41, KW: 93.00)
+INFO 2025-10-26 17:41:15,609 chat_api.rag_service   3. Convalidaciones (Modificación de Matrícula) [CONV-008-MATMOD]
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service       Score: 49.457 (Sem: 0.64, KW: 82.00)
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service   4. Convalidaciones (Matrícula inicial) [CONV-007-MAT]
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service       Score: 45.769 (Sem: 0.42, KW: 76.00)
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service   5. Convalidaciones (Requisitos Académicos) [CONV-003-ACAD]
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service       Score: 33.785 (Sem: 0.46, KW: 56.00)
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service 📄 CONTEXTO ENVIADO AL LLM:
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].
+
+Para las modalidades Ordinario, CEPRUNSA o Traslados Internos, el costo por curso convalidado de **otra Escuela de la UNSA** es de S/ 35.00 [11].
+
+Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula**...
+INFO 2025-10-26 17:41:15,610 chat_api.rag_service ================================================================================
+INFO 2025-10-26 17:41:15,622 chat_api.rag_service ✅ Ollama está corriendo
+INFO 2025-10-26 17:41:15,622 chat_api.rag_service 🤖 Generando respuesta con Ollama (intento 1/2)...
+INFO 2025-10-26 17:41:26,496 chat_api.rag_service ⏱️ Tiempo de generación: 10.87s
+INFO 2025-10-26 17:41:26,497 chat_api.rag_service ✅ Respuesta generada: 493 caracteres
