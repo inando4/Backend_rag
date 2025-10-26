@@ -268,6 +268,36 @@ class RAGService:
 
         Respuesta:"""
         
+        
+    def _validate_dates_in_response(self, response, context):
+        """Validar que las fechas mencionadas existan en el contexto"""
+        import re
+        
+        # Extraer fechas de la respuesta (formato "DD de mes")
+        date_patterns = [
+            r'\d{1,2}\s+de\s+\w+',  # "17 de marzo"
+            r'del\s+\d{1,2}\s+al\s+\d{1,2}',  # "del 17 al 28"
+        ]
+        
+        response_dates = []
+        for pattern in date_patterns:
+            response_dates.extend(re.findall(pattern, response.lower()))
+        
+        # Verificar que cada fecha esté en el contexto
+        context_lower = context.lower()
+        hallucinated_dates = []
+        
+        for date in response_dates:
+            if date not in context_lower:
+                hallucinated_dates.append(date)
+                logger.warning(f"⚠️ FECHA ALUCINADA DETECTADA: '{date}' no está en el contexto")
+        
+        if hallucinated_dates:
+            logger.error(f"❌ El LLM inventó fechas: {hallucinated_dates}")
+            logger.info("🔄 Regenerando respuesta con instrucciones más estrictas...")
+            return False
+        
+        return True
         # Verificar que Ollama esté corriendo
         if not self._ensure_ollama_running():
             raise Exception("Ollama no está disponible. Ejecuta: ollama serve")
@@ -408,27 +438,71 @@ class RAGService:
     def generate_response(self, query, context_docs):
         """Generar respuesta con estrategia configurable"""
         try:
-            # Construir contexto
-            context = "\n\n".join([doc['documento']['content'] for doc in context_docs])
+            # ✅ Construir contexto ENRIQUECIDO con separadores más claros
+            context_parts = []
             
-            # ✅ DEBUG: Ver qué contexto se envía
+            for idx, doc_wrapper in enumerate(context_docs, 1):
+                doc = doc_wrapper['documento']
+                
+                # Construir bloque de información del documento
+                doc_lines = []
+                
+                # ✅ Agregar ENCABEZADO del documento
+                header = f"DOCUMENTO {idx}"
+                if doc.get('id_chunk'):
+                    header += f" [{doc['id_chunk']}]"
+                if doc.get('categoria_principal'):
+                    header += f" - {doc['categoria_principal']}"
+                if doc.get('sub_categoria'):
+                    header += f" > {doc['sub_categoria']}"
+                
+                doc_lines.append(header)
+                doc_lines.append("-" * 50)
+                
+                # ✅ Agregar METADATA estructurada ANTES del contenido
+                if doc.get('actividad_cronograma'):
+                    doc_lines.append(f"📌 Actividad: {doc['actividad_cronograma']}")
+                
+                if doc.get('fecha_relevante'):
+                    doc_lines.append(f"📅 FECHAS: {doc['fecha_relevante']}")
+                
+                if doc.get('lugar_pago'):
+                    doc_lines.append(f"📍 Lugar de pago: {doc['lugar_pago']}")
+                
+                if doc.get('tasa_soles'):
+                    doc_lines.append(f"💰 Costo: S/ {doc['tasa_soles']}")
+                
+                # ✅ Agregar línea divisoria
+                if any([doc.get('actividad_cronograma'), doc.get('fecha_relevante'), 
+                       doc.get('lugar_pago'), doc.get('tasa_soles')]):
+                    doc_lines.append("")
+                
+                # ✅ Agregar CONTENIDO
+                doc_lines.append(f"📄 Información: {doc['content']}")
+                
+                context_parts.append("\n".join(doc_lines))
+            
+            # Unir todos los documentos
+            context = "\n\n" + "="*70 + "\n\n".join([""] + context_parts) + "\n\n" + "="*70
+            
+            # DEBUG: Ver qué contexto se envía
             logger.info("=" * 80)
-            logger.info("📄 CONTEXTO ENVIADO AL LLM:")
-            logger.info(context[:500] + "..." if len(context) > 500 else context)
+            logger.info("📄 CONTEXTO ENRIQUECIDO ENVIADO AL LLM:")
+            logger.info(context[:1000] + "..." if len(context) > 1000 else context)
             logger.info("=" * 80)
             
             prompt = self._build_prompt(query, context)
             
             # Seleccionar estrategia
             if self.llm_strategy == 'local':
-                return self._generate_with_ollama(prompt)
+                return self._generate_with_ollama(prompt, context=context)
             
             elif self.llm_strategy == 'api':
                 return self._generate_with_groq(prompt)
             
             else:  # hybrid
                 try:
-                    return self._generate_with_ollama(prompt)
+                    return self._generate_with_ollama(prompt, context=context)
                 except Exception as e:
                     logger.warning(f"⚠️ Ollama falló ({e}), usando Groq API...")
                     return self._generate_with_groq(prompt)
@@ -436,7 +510,7 @@ class RAGService:
         except Exception as e:
             logger.error(f"Error en generación: {e}")
             return "Lo siento, no puedo procesar tu consulta en este momento. Por favor, intenta más tarde."
-    
+        
     def get_answer(self, question):
         """Método principal para obtener respuesta"""
         logger.info(f"🔍 Nueva consulta: {question}")
