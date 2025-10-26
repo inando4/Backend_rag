@@ -253,20 +253,40 @@ class RAGService:
         """Construir prompt optimizado con extracción forzada de fechas"""
         return f"""Eres un asistente especializado en normativas académicas de la Universidad Nacional de San Agustín (UNSA).
 
-        CONTEXTO RELEVANTE:
+        CONTEXTO (múltiples documentos relacionados):
         {context}
 
-        Pregunta: {query}
+        PREGUNTA DEL ESTUDIANTE: {query}
 
-        IMPORTANTE:
-        - Si el contexto menciona fechas, cópialas EXACTAMENTE como aparecen
-        - Si el contexto menciona lugares, nómbralos específicamente
-        - Si el contexto menciona costos, inclúyelos
-        - NO inventes información
-        - NO uses plantillas como "[día] de [mes]"
-        - Sé directo y claro
+        INSTRUCCIONES CRÍTICAS:
 
-        Respuesta:"""
+        1. **LEE CUIDADOSAMENTE** cada documento del contexto - están numerados (DOCUMENTO 1, DOCUMENTO 2, etc.)
+
+        2. **EXTRAE INFORMACIÓN ESPECÍFICA** según la pregunta:
+        - Si preguntan "DÓNDE": Busca en "📍 Lugar" o en el contenido principal
+        - Si preguntan "CUÁNDO/FECHAS": Busca en "📅 FECHAS" 
+        - Si preguntan "CUÁNTO/COSTO": Busca en "💰 Costo"
+
+        3. **NO MEZCLES INFORMACIÓN** de diferentes documentos:
+        - Un documento sobre "Presentación de expedientes" NO es lo mismo que "Pago"
+        - Un documento sobre "Lugar de pago" NO es el lugar de presentación del expediente
+
+        4. **PRIORIZA** el documento más relevante (generalmente el DOCUMENTO 1)
+
+        5. **FORMATO DE RESPUESTA**:
+        - Responde de forma directa y estructurada
+        - Si hay fechas, escríbelas como: "Del **17 de marzo** al **28 de marzo**"
+        - Si hay lugares, especifica claramente: "en [lugar exacto]"
+        - Si hay costos, menciónalos: "S/ [monto]"
+
+        6. **PROHIBIDO**:
+        - Inventar información que no esté en el contexto
+        - Mezclar información de documentos diferentes
+        - Usar plantillas como "[día] de [mes]"
+
+        7. Si NO encuentras información específica en el contexto, di: "No encontré información sobre [tema específico]"
+
+        RESPUESTA:"""
         
         
     def _validate_dates_in_response(self, response, context):
@@ -338,7 +358,7 @@ class RAGService:
         except Exception as e:
             logger.error(f"Error en Ollama: {e}")
             raise
-        
+    
     
     
     def _generate_with_groq(self, prompt):
