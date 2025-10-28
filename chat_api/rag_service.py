@@ -96,11 +96,17 @@ class RAGService:
             'convalidacion': ['convalidacion', 'validacion', 'reconocimiento'],
             'excepcion': ['excepcion', 'especial', 'extraordinaria'],
             'requisitos': ['requisitos', 'documentos', 'expediente'],
-            'cronograma': ['cronograma', 'fecha', 'fechas', 'calendario', 'plazo', 'cuando', 'cuanto'],  # ✅ Ampliado
+            'cronograma': ['cronograma', 'fecha', 'fechas', 'calendario', 'plazo', 'cuando', 'cuanto'],
             'reserva': ['reserva', 'suspension', 'pausa'],
             'reactualizacion': ['reactualizacion', 'reactivacion', 'renovacion'],
-            'presentar': ['presentar', 'entregar', 'donde', 'lugar'],  # ✅ Nuevo
-            'expediente': ['expediente', 'tramite', 'solicitud', 'documento']  # ✅ Nuevo
+            'presentar': ['presentar', 'entregar', 'donde', 'lugar'],
+            'expediente': ['expediente', 'tramite', 'solicitud', 'documento'],
+            # ✅ NUEVO: Sinónimos para criterios académicos
+            'criterios': ['criterios', 'requisitos', 'condiciones', 'exigencias'],  
+            'academicos': ['academicos', 'academicas', 'educativos', 'curriculares'],
+            'creditaje': ['creditaje', 'creditos', 'credito', 'unidades'],
+            'contenidos': ['contenidos', 'contenido', 'temas', 'silabo', 'programa'],
+            'similitud': ['similitud', 'equivalencia', 'parecido', 'semejanza']
         }
         
         # Expandir query con sinónimos
@@ -110,9 +116,10 @@ class RAGService:
                 if word in syn_list:
                     expanded_words.update(syn_list)
         
-        # ✅ DETECTAR PREGUNTAS SOBRE FECHAS/LUGARES
+        # ✅ DETECTAR PREGUNTAS SOBRE FECHAS/LUGARES/CRITERIOS
         date_question = any(w in query_normalized for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         place_question = any(w in query_normalized for w in ['donde', 'lugar', 'presentar', 'entregar'])
+        academic_question = any(w in query_normalized for w in ['criterios', 'requisitos', 'academico', 'creditaje', 'contenido', 'similitud'])  # ✅ NUEVO
         
         keyword_scores = defaultdict(float)
         
@@ -124,27 +131,36 @@ class RAGService:
             for word in expanded_words:
                 if word in content_normalized:
                     count = content_normalized.count(word)
-                    score += count * 2  # ✅ Aumentado de 1.5 a 2
+                    score += count * 2
             
             # Buscar frases completas (mayor peso)
             if query_normalized in content_normalized:
-                score += 30  # ✅ Aumentado de 20 a 30
+                score += 30
+            
+            # ✅ BONUS para preguntas sobre criterios académicos
+            if academic_question:
+                academic_keywords = ['creditaje', 'creditos', 'similitud', '80%', 'contenido', 'igual', 'mayor']
+                for kw in academic_keywords:
+                    if kw in content_normalized:
+                        score += 40  # ✅ BONUS GRANDE para documentos con criterios académicos
+                
+                # Bonus por subcategoría específica
+                if 'sub_categoria' in doc and 'academico' in normalize(doc.get('sub_categoria', '')):
+                    score += 50  # ✅ BONUS ENORME si es "Requisitos Académicos"
             
             # ✅ BONUS EXTRA para documentos con fechas si se pregunta por fechas
             if date_question:
-                # Detectar patrones de fechas en el contenido
                 date_patterns = [
-                    r'\d{1,2}\s+de\s+\w+',  # "17 de marzo"
-                    r'del\s+\d{1,2}\s+al\s+\d{1,2}',  # "del 17 al 28"
-                    r'\d{1,2}\s*[-/]\s*\d{1,2}',  # "17-28" o "17/28"
+                    r'\d{1,2}\s+de\s+\w+',
+                    r'del\s+\d{1,2}\s+al\s+\d{1,2}',
+                    r'\d{1,2}\s*[-/]\s*\d{1,2}',
                 ]
                 
                 for pattern in date_patterns:
                     if re.search(pattern, content_normalized):
-                        score += 50  # ✅ BONUS MASIVO para documentos con fechas
+                        score += 50
                         break
                 
-                # Bonus por campos estructurados
                 if 'fecha_relevante' in doc and doc['fecha_relevante']:
                     score += 40
                 
@@ -165,7 +181,7 @@ class RAGService:
             if 'keywords' in doc:
                 for kw in doc.get('keywords', []):
                     if normalize(kw) in query_normalized:
-                        score += 10  # ✅ Aumentado de 5 a 10
+                        score += 10
             
             # ✅ Bonus por categoría relevante
             if 'categoria_principal' in doc:
@@ -266,23 +282,25 @@ class RAGService:
         - Si preguntan "DÓNDE": Busca en "📍 Lugar" o en el contenido principal
         - Si preguntan "CUÁNDO/FECHAS": Busca en "📅 FECHAS" 
         - Si preguntan "CUÁNTO/COSTO": Busca en "💰 Costo"
-
+        
         3. **NO MEZCLES INFORMACIÓN** de diferentes documentos:
         - Un documento sobre "Presentación de expedientes" NO es lo mismo que "Pago"
         - Un documento sobre "Lugar de pago" NO es el lugar de presentación del expediente
 
-        4. **PRIORIZA** el documento más relevante (generalmente el DOCUMENTO 1)
+        4. **PRIORIZA** el documento más relevante (generalmente el DOCUMENTO 1) 
 
         5. **FORMATO DE RESPUESTA**:
         - Responde de forma directa y estructurada
         - Si hay fechas, escríbelas como: "Del **17 de marzo** al **28 de marzo**"
         - Si hay lugares, especifica claramente: "en [lugar exacto]"
         - Si hay costos, menciónalos: "S/ [monto]"
+        - Brinda la información sin mencionar de dónde la extraiste. 
 
         6. **PROHIBIDO**:
         - Inventar información que no esté en el contexto
         - Mezclar información de documentos diferentes
         - Usar plantillas como "[día] de [mes]"
+
 
         7. Si NO encuentras información específica en el contexto, di: "No encontré información sobre [tema específico]"
 
@@ -358,7 +376,30 @@ class RAGService:
         except Exception as e:
             logger.error(f"Error en Ollama: {e}")
             raise
-    
+        
+    def _clean_response(self, response):
+        """Limpiar respuesta de referencias a documentos internos"""
+        import re
+        
+        # Eliminar referencias a "DOCUMENTO X"
+        response = re.sub(r'Según el DOCUMENTO \d+[^,.:]*,?\s*', '', response, flags=re.IGNORECASE)
+        response = re.sub(r'En el DOCUMENTO \d+[^,.:]*,?\s*', '', response, flags=re.IGNORECASE)
+        response = re.sub(r'El DOCUMENTO \d+[^,.:]*\s+(indica|dice|menciona|establece)\s+que\s*', '', response, flags=re.IGNORECASE)
+        
+        # Eliminar códigos entre corchetes [CONV-XXX-XXX]
+        response = re.sub(r'\[CONV-[A-Z0-9-]+\]', '', response)
+        response = re.sub(r'\[MAT-[A-Z0-9-]+\]', '', response)
+        response = re.sub(r'\[RES-[A-Z0-9-]+\]', '', response)
+        
+        # Eliminar frases como "según el contexto proporcionado"
+        response = re.sub(r'Según el contexto proporcionado,?\s*', '', response, flags=re.IGNORECASE)
+        response = re.sub(r'Basándome en la información proporcionada,?\s*', '', response, flags=re.IGNORECASE)
+        response = re.sub(r'De acuerdo (al|con el) contexto,?\s*', '', response, flags=re.IGNORECASE)
+        
+        # Limpiar espacios múltiples
+        response = re.sub(r'\s+', ' ', response)
+        
+        return response.strip()
     
     
     def _generate_with_groq(self, prompt):
@@ -427,6 +468,8 @@ class RAGService:
                     answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
                     answer = re.sub(r'<[^>]+>', '', answer)
                     answer = answer.strip()
+                    
+                    answer = self._clean_response(answer)
                     
                     # ✅ Validar fechas si tenemos contexto
                     if context and self._validate_dates_in_response(answer, context):
