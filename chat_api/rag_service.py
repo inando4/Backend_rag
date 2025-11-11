@@ -1,7 +1,6 @@
 import json
 import os
 import faiss
-import numpy as np
 import re
 import unicodedata
 import socket
@@ -10,9 +9,7 @@ import logging
 import requests
 from sentence_transformers import SentenceTransformer
 from collections import defaultdict
-from groq import Groq
 from django.conf import settings
-from django.utils import timezone
 
 logger = logging.getLogger(__name__)
 
@@ -26,19 +23,16 @@ class RAGService:
         # Inicializar modelo de embeddings
         self.model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
         
-        # Configuración LLM (local o API)
-        self.llm_strategy = os.getenv('LLM_STRATEGY', 'local')  # 'local', 'api', 'hybrid'
+        # ✅ Configuración LLM (SOLO LOCAL)
+        self.ollama_model = os.getenv('OLLAMA_MODEL', 'qwen2.5:14b-instruct')
         self.ollama_url = "http://localhost:11434/api/generate"
-        
-        # Inicializar Groq (solo si se usa API)
-        if self.llm_strategy in ['api', 'hybrid']:
-            self.groq_client = Groq(api_key=os.getenv('GROQ_API_KEY'))
         
         # Cargar datos y crear índice
         self.documents = self.load_documents()
         self.index = self.load_or_create_index()
         
-        logger.info(f"✅ RAG Service iniciado con estrategia: {self.llm_strategy}")
+        logger.info(f"✅ RAG Service iniciado")
+        logger.info(f"   Modelo Ollama: {self.ollama_model}")
     
     def load_documents(self):
         """Cargar documentos desde JSON"""
@@ -106,7 +100,6 @@ class RAGService:
             'creditaje': ['creditaje', 'creditos', 'credito', 'unidades'],
             'contenidos': ['contenidos', 'contenido', 'temas', 'silabo', 'programa'],
             'similitud': ['similitud', 'equivalencia', 'parecido', 'semejanza'],
-            # ✅ NUEVO: Sinónimos para restricciones y negaciones
             'institutos': ['institutos', 'instituto', 'cetpro', 'senati', 'sencico'],
             'restricciones': ['restricciones', 'limitaciones', 'prohibiciones', 'no se puede', 'no se permite'],
             'pueden': ['pueden', 'puede', 'se puede', 'es posible', 'permiten']
@@ -119,11 +112,11 @@ class RAGService:
                 if word in syn_list:
                     expanded_words.update(syn_list)
         
-        # ✅ DETECTAR PREGUNTAS SOBRE RESTRICCIONES/NEGACIONES
+        # Detectar tipo de pregunta
         date_question = any(w in query_normalized for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         place_question = any(w in query_normalized for w in ['donde', 'lugar', 'presentar', 'entregar'])
         academic_question = any(w in query_normalized for w in ['criterios', 'requisitos', 'academico', 'creditaje', 'contenido', 'similitud'])
-        restriction_question = any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])  # ✅ NUEVO
+        restriction_question = any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])
         
         keyword_scores = defaultdict(float)
         
@@ -141,20 +134,18 @@ class RAGService:
             if query_normalized in content_normalized:
                 score += 30
             
-            # ✅ BONUS para preguntas sobre RESTRICCIONES
+            # BONUS para preguntas sobre RESTRICCIONES
             if restriction_question:
                 restriction_keywords = ['no se convalidan', 'restriccion', 'prohibido', 'no se permite', 'instituto', 'institutos', 'obligatorio']
                 for kw in restriction_keywords:
                     if kw in content_normalized:
-                        score += 60  # ✅ BONUS ENORME para documentos con restricciones
+                        score += 60
                 
-                # Bonus por subcategoría específica
                 if 'sub_categoria' in doc:
                     sub_cat = normalize(doc.get('sub_categoria', ''))
                     if 'restriccion' in sub_cat or 'limitacion' in sub_cat:
-                        score += 70  # ✅ BONUS MASIVO si es subcategoría "Restricciones"
+                        score += 70
                 
-                # Detectar frases de negación en el contenido
                 negation_patterns = [
                     r'no se convalidan',
                     r'no se puede',
@@ -167,7 +158,7 @@ class RAGService:
                     if re.search(pattern, content_normalized):
                         score += 50
             
-            # ✅ BONUS para preguntas sobre criterios académicos
+            # BONUS para preguntas sobre criterios académicos
             if academic_question:
                 academic_keywords = ['creditaje', 'creditos', 'similitud', '80%', 'contenido', 'igual', 'mayor']
                 for kw in academic_keywords:
@@ -177,7 +168,7 @@ class RAGService:
                 if 'sub_categoria' in doc and 'academico' in normalize(doc.get('sub_categoria', '')):
                     score += 50
             
-            # ✅ BONUS EXTRA para documentos con fechas si se pregunta por fechas
+            # BONUS EXTRA para documentos con fechas
             if date_question:
                 date_patterns = [
                     r'\d{1,2}\s+de\s+\w+',
@@ -196,7 +187,7 @@ class RAGService:
                 if 'actividad_cronograma' in doc and doc['actividad_cronograma']:
                     score += 30
             
-            # ✅ BONUS EXTRA para documentos con lugares si se pregunta por lugares
+            # BONUS EXTRA para documentos con lugares
             if place_question:
                 place_keywords = ['escuela', 'oficina', 'caja', 'lugar', 'presentar', 'entregar']
                 for kw in place_keywords:
@@ -212,7 +203,7 @@ class RAGService:
                     if normalize(kw) in query_normalized:
                         score += 10
             
-            # ✅ Bonus por categoría relevante
+            # Bonus por categoría relevante
             if 'categoria_principal' in doc:
                 categoria = normalize(doc['categoria_principal'])
                 if any(w in categoria for w in expanded_words):
@@ -235,11 +226,11 @@ class RAGService:
         # Búsqueda por palabras clave
         keyword_scores = self.keyword_search(query, self.documents)
         
-        # ✅ Detectar tipo de pregunta
+        # Detectar tipo de pregunta
         query_lower = query.lower()
         is_date_query = any(w in query_lower for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         is_place_query = any(w in query_lower for w in ['donde', 'lugar', 'presentar', 'entregar'])
-        is_restriction_query = any(w in query_lower for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido'])  # ✅ NUEVO
+        is_restriction_query = any(w in query_lower for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido'])
         
         # Combinar puntuaciones
         combined_results = []
@@ -249,9 +240,8 @@ class RAGService:
                 semantic_score = float(score)
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
-                # ✅ Ajustar pesos dinámicamente según el tipo de pregunta
+                # Ajustar pesos dinámicamente según el tipo de pregunta
                 if is_restriction_query:
-                    # Para restricciones, dar MÁS peso a keywords (contienen "no se...")
                     combined_score = (semantic_score * 0.3) + (keyword_score * 0.7)
                 elif is_date_query or is_place_query:
                     combined_score = (semantic_score * 0.4) + (keyword_score * 0.6)
@@ -268,7 +258,7 @@ class RAGService:
         # Ordenar por puntuación combinada
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
-        # ✅ Logging mejorado
+        # Logging mejorado
         logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}")
         logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
         
@@ -297,55 +287,51 @@ class RAGService:
             return False
     
     def _build_prompt(self, query, context):
-        """Construir prompt optimizado con extracción forzada de fechas"""
+        """Construir prompt optimizado"""
         return f"""Eres un asistente especializado en normativas académicas de la Universidad Nacional de San Agustín (UNSA).
 
-        CONTEXTO (múltiples documentos relacionados):
-        {context}
+CONTEXTO (múltiples documentos relacionados):
+{context}
 
-        PREGUNTA DEL ESTUDIANTE: {query}
+PREGUNTA DEL ESTUDIANTE: {query}
 
-        INSTRUCCIONES CRÍTICAS:
+INSTRUCCIONES CRÍTICAS:
 
-        1. **LEE CUIDADOSAMENTE** cada documento del contexto - están numerados (DOCUMENTO 1, DOCUMENTO 2, etc.)
+1. **LEE CUIDADOSAMENTE** cada documento del contexto - están numerados (DOCUMENTO 1, DOCUMENTO 2, etc.)
 
-        2. **EXTRAE INFORMACIÓN ESPECÍFICA** según la pregunta:
-        - Si preguntan "DÓNDE": Busca en "📍 Lugar" o en el contenido principal
-        - Si preguntan "CUÁNDO/FECHAS": Busca en "📅 FECHAS" 
-        - Si preguntan "CUÁNTO/COSTO": Busca en "💰 Costo"
-        
-        3. **NO MEZCLES INFORMACIÓN** de diferentes documentos:
-        - Un documento sobre "Presentación de expedientes" NO es lo mismo que "Pago"
-        - Un documento sobre "Lugar de pago" NO es el lugar de presentación del expediente
+2. **EXTRAE INFORMACIÓN ESPECÍFICA** según la pregunta:
+   - Si preguntan "DÓNDE": Busca en "📍 Lugar" o en el contenido principal
+   - Si preguntan "CUÁNDO/FECHAS": Busca en "📅 FECHAS" 
+   - Si preguntan "CUÁNTO/COSTO": Busca en "💰 Costo"
 
-        4. **PRIORIZA** el documento más relevante (generalmente el DOCUMENTO 1) 
+3. **NO MEZCLES INFORMACIÓN** de diferentes documentos:
+   - Un documento sobre "Presentación de expedientes" NO es lo mismo que "Pago"
+   - Un documento sobre "Lugar de pago" NO es el lugar de presentación del expediente
 
-        5. **FORMATO DE RESPUESTA**:
-        - Responde de forma directa y estructurada
-        - Si hay fechas, escríbelas como: "Del **17 de marzo** al **28 de marzo**"
-        - Si hay lugares, especifica claramente: "en [lugar exacto]"
-        - Si hay costos, menciónalos: "S/ [monto]"
-        - Brinda la información sin mencionar los documentos de donde la extraiste.
+4. **PRIORIZA** el documento más relevante (generalmente el DOCUMENTO 1) 
 
-        6. **PROHIBIDO**:
-        - Inventar información que no esté en el contexto
-        - Mezclar información de documentos diferentes
-        - Usar plantillas como "[día] de [mes]"
+5. **FORMATO DE RESPUESTA**:
+   - Responde de forma directa y estructurada
+   - Si hay fechas, escríbelas como: "Del **17 de marzo** al **28 de marzo**"
+   - Si hay lugares, especifica claramente: "en [lugar exacto]"
+   - Si hay costos, menciónalos: "S/ [monto]"
+   - Brinda la información sin mencionar los documentos de donde la extraiste.
 
+6. **PROHIBIDO**:
+   - Inventar información que no esté en el contexto
+   - Mezclar información de documentos diferentes
+   - Usar plantillas como "[día] de [mes]"
 
-        7. Si NO encuentras información específica en el contexto, di: "No encontré información sobre [tema específico]"
+7. Si NO encuentras información específica en el contexto, di: "No encontré información sobre [tema específico]"
 
-        RESPUESTA:"""
-        
-        
+RESPUESTA:"""
+    
     def _validate_dates_in_response(self, response, context):
         """Validar que las fechas mencionadas existan en el contexto"""
-        import re
-        
-        # Extraer fechas de la respuesta (formato "DD de mes")
+        # Extraer fechas de la respuesta
         date_patterns = [
-            r'\d{1,2}\s+de\s+\w+',  # "17 de marzo"
-            r'del\s+\d{1,2}\s+al\s+\d{1,2}',  # "del 17 al 28"
+            r'\d{1,2}\s+de\s+\w+',
+            r'del\s+\d{1,2}\s+al\s+\d{1,2}',
         ]
         
         response_dates = []
@@ -363,61 +349,18 @@ class RAGService:
         
         if hallucinated_dates:
             logger.error(f"❌ El LLM inventó fechas: {hallucinated_dates}")
-            logger.info("🔄 Regenerando respuesta con instrucciones más estrictas...")
             return False
         
         return True
-        # Verificar que Ollama esté corriendo
-        if not self._ensure_ollama_running():
-            raise Exception("Ollama no está disponible. Ejecuta: ollama serve")
-        
-        try:
-            logger.info("🤖 Generando respuesta con Ollama...")
-            start_time = time.time()
-            
-            response = requests.post(
-                self.ollama_url,
-                json={
-                    "model": "qwen2.5:14b-instruct",
-                    "prompt": prompt,
-                    "stream": False,
-                    "options": {
-                        "temperature": 0.2,
-                        "num_predict": 1500,
-                        "top_p": 0.8
-                    }
-                },
-                timeout=120
-            )
-            
-            elapsed = time.time() - start_time
-            logger.info(f"⏱️ Tiempo de generación: {elapsed:.2f}s")
-            
-            if response.status_code == 200:
-                answer = response.json()['response'].strip()
-                
-                # Limpiar respuesta
-                answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
-                answer = re.sub(r'<[^>]+>', '', answer)
-                
-                return answer.strip()
-            else:
-                raise Exception(f"Ollama error: {response.status_code}")
-                
-        except Exception as e:
-            logger.error(f"Error en Ollama: {e}")
-            raise
-        
+    
     def _clean_response(self, response):
         """Limpiar respuesta de referencias a documentos internos"""
-        import re
-        
         # Eliminar referencias a "DOCUMENTO X"
         response = re.sub(r'Según el DOCUMENTO \d+[^,.:]*,?\s*', '', response, flags=re.IGNORECASE)
         response = re.sub(r'En el DOCUMENTO \d+[^,.:]*,?\s*', '', response, flags=re.IGNORECASE)
         response = re.sub(r'El DOCUMENTO \d+[^,.:]*\s+(indica|dice|menciona|establece)\s+que\s*', '', response, flags=re.IGNORECASE)
         
-        # Eliminar códigos entre corchetes [CONV-XXX-XXX]
+        # Eliminar códigos entre corchetes
         response = re.sub(r'\[CONV-[A-Z0-9-]+\]', '', response)
         response = re.sub(r'\[MAT-[A-Z0-9-]+\]', '', response)
         response = re.sub(r'\[RES-[A-Z0-9-]+\]', '', response)
@@ -432,65 +375,34 @@ class RAGService:
         
         return response.strip()
     
-    
-    def _generate_with_groq(self, prompt):
-        """Generar respuesta con Groq API"""
-        try:
-            logger.info("☁️ Generando respuesta con Groq API...")
-            start_time = time.time()
-            
-            response = self.groq_client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=1500,
-                temperature=0.1,
-                top_p=0.9
-            )
-            
-            elapsed = time.time() - start_time
-            logger.info(f"⏱️ Tiempo de generación: {elapsed:.2f}s")
-            
-            answer = response.choices[0].message.content.strip()
-            
-            # Limpiar respuesta
-            answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
-            answer = re.sub(r'<[^>]+>', '', answer)
-            
-            return answer.strip()
-            
-        except Exception as e:
-            logger.error(f"Error en Groq: {e}")
-            raise
-    
     def _generate_with_ollama(self, prompt, context=None, max_retries=2):
-        """Generar respuesta con Ollama (local) con validación"""
+        """Generar respuesta con Ollama local"""
         
-        # Verificar que Ollama esté corriendo
         if not self._ensure_ollama_running():
             raise Exception("Ollama no está disponible. Ejecuta: ollama serve")
         
         for attempt in range(max_retries):
             try:
-                logger.info(f"🤖 Generando respuesta con Ollama (intento {attempt + 1}/{max_retries})...")
+                logger.info(f"🤖 Generando con {self.ollama_model} (intento {attempt + 1}/{max_retries})...")
                 start_time = time.time()
                 
                 response = requests.post(
                     self.ollama_url,
                     json={
-                        "model": "qwen2.5:14b-instruct",
+                        "model": self.ollama_model,
                         "prompt": prompt,
                         "stream": False,
                         "options": {
-                            "temperature": 0.0 if attempt > 0 else 0.1,  # ✅ Más determinístico en reintentos
+                            "temperature": 0.0 if attempt > 0 else 0.1,
                             "num_predict": 1500,
-                            "top_p": 0.8  # ✅ Reducir creatividad
+                            "top_p": 0.8
                         }
                     },
                     timeout=180
                 )
                 
                 elapsed = time.time() - start_time
-                logger.info(f"⏱️ Tiempo de generación: {elapsed:.2f}s")
+                logger.info(f"⏱️ Tiempo: {elapsed:.2f}s")
                 
                 if response.status_code == 200:
                     answer = response.json()['response'].strip()
@@ -498,26 +410,23 @@ class RAGService:
                     # Limpiar respuesta
                     answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
                     answer = re.sub(r'<[^>]+>', '', answer)
-                    answer = answer.strip()
-                    
                     answer = self._clean_response(answer)
                     
-                    # ✅ Validar fechas si tenemos contexto
+                    # Validar fechas si tenemos contexto
                     if context and self._validate_dates_in_response(answer, context):
                         return answer
                     elif not context:
                         return answer
                     else:
-                        # Si la validación falla, intentar de nuevo con prompt más estricto
                         if attempt < max_retries - 1:
                             logger.warning("⚠️ Reintentando con instrucciones más estrictas...")
                             prompt = prompt.replace(
-                                "INSTRUCCIONES CRÍTICAS",
-                                "⚠️ ADVERTENCIA: Tu respuesta anterior contenía fechas incorrectas. INSTRUCCIONES CRÍTICAS"
+                                "INSTRUCCIONES CRÍTICAS:",
+                                "⚠️ ADVERTENCIA: Tu respuesta anterior contenía fechas incorrectas. INSTRUCCIONES CRÍTICAS:"
                             )
                             continue
                         else:
-                            logger.error("❌ Máximo de reintentos alcanzado. Devolviendo respuesta sin validar.")
+                            logger.error("❌ Máximo de reintentos alcanzado.")
                             return answer
                 else:
                     raise Exception(f"Ollama error: {response.status_code}")
@@ -530,18 +439,17 @@ class RAGService:
         return answer
     
     def generate_response(self, query, context_docs):
-        """Generar respuesta con estrategia configurable"""
+        """Generar respuesta usando Ollama local"""
         try:
-            # ✅ Construir contexto ENRIQUECIDO con separadores más claros
+            # Construir contexto ENRIQUECIDO
             context_parts = []
             
             for idx, doc_wrapper in enumerate(context_docs, 1):
                 doc = doc_wrapper['documento']
                 
-                # Construir bloque de información del documento
                 doc_lines = []
                 
-                # ✅ Agregar ENCABEZADO del documento
+                # Agregar ENCABEZADO del documento
                 header = f"DOCUMENTO {idx}"
                 if doc.get('id_chunk'):
                     header += f" [{doc['id_chunk']}]"
@@ -553,7 +461,7 @@ class RAGService:
                 doc_lines.append(header)
                 doc_lines.append("-" * 50)
                 
-                # ✅ Agregar METADATA estructurada ANTES del contenido
+                # Agregar METADATA estructurada
                 if doc.get('actividad_cronograma'):
                     doc_lines.append(f"📌 Actividad: {doc['actividad_cronograma']}")
                 
@@ -566,12 +474,11 @@ class RAGService:
                 if doc.get('tasa_soles'):
                     doc_lines.append(f"💰 Costo: S/ {doc['tasa_soles']}")
                 
-                # ✅ Agregar línea divisoria
                 if any([doc.get('actividad_cronograma'), doc.get('fecha_relevante'), 
                        doc.get('lugar_pago'), doc.get('tasa_soles')]):
                     doc_lines.append("")
                 
-                # ✅ Agregar CONTENIDO
+                # Agregar CONTENIDO
                 doc_lines.append(f"📄 Información: {doc['content']}")
                 
                 context_parts.append("\n".join(doc_lines))
@@ -581,30 +488,19 @@ class RAGService:
             
             # DEBUG: Ver qué contexto se envía
             logger.info("=" * 80)
-            logger.info("📄 CONTEXTO ENRIQUECIDO ENVIADO AL LLM:")
+            logger.info("📄 CONTEXTO ENVIADO AL LLM:")
             logger.info(context[:1000] + "..." if len(context) > 1000 else context)
             logger.info("=" * 80)
             
             prompt = self._build_prompt(query, context)
             
-            # Seleccionar estrategia
-            if self.llm_strategy == 'local':
-                return self._generate_with_ollama(prompt, context=context)
-            
-            elif self.llm_strategy == 'api':
-                return self._generate_with_groq(prompt)
-            
-            else:  # hybrid
-                try:
-                    return self._generate_with_ollama(prompt, context=context)
-                except Exception as e:
-                    logger.warning(f"⚠️ Ollama falló ({e}), usando Groq API...")
-                    return self._generate_with_groq(prompt)
+            # Generar respuesta con Ollama
+            return self._generate_with_ollama(prompt, context=context)
         
         except Exception as e:
             logger.error(f"Error en generación: {e}")
             return "Lo siento, no puedo procesar tu consulta en este momento. Por favor, intenta más tarde."
-        
+    
     def get_answer(self, question):
         """Método principal para obtener respuesta"""
         logger.info(f"🔍 Nueva consulta: {question}")
@@ -613,13 +509,12 @@ class RAGService:
         relevant_docs = self.search_documents(question)
         
         if not relevant_docs:
-            return "No encontré información relevante para tu consulta. Por favor, reformula tu pregunta o consulta sobre temas como matrículas, convalidaciones, reservas, o reactualización."
+            return "No encontré información relevante para tu consulta. Por favor, reformula tu pregunta."
         
-        # Log documentos recuperados con título generado
+        # Log documentos recuperados
         for i, doc in enumerate(relevant_docs, 1):
             doc_data = doc['documento']
             
-            # ✅ Construir título descriptivo multicampo
             title_parts = []
             
             if doc_data.get('categoria_principal'):
