@@ -101,12 +101,15 @@ class RAGService:
             'reactualizacion': ['reactualizacion', 'reactivacion', 'renovacion'],
             'presentar': ['presentar', 'entregar', 'donde', 'lugar'],
             'expediente': ['expediente', 'tramite', 'solicitud', 'documento'],
-            # ✅ NUEVO: Sinónimos para criterios académicos
-            'criterios': ['criterios', 'requisitos', 'condiciones', 'exigencias'],  
+            'criterios': ['criterios', 'requisitos', 'condiciones', 'exigencias'],
             'academicos': ['academicos', 'academicas', 'educativos', 'curriculares'],
             'creditaje': ['creditaje', 'creditos', 'credito', 'unidades'],
             'contenidos': ['contenidos', 'contenido', 'temas', 'silabo', 'programa'],
-            'similitud': ['similitud', 'equivalencia', 'parecido', 'semejanza']
+            'similitud': ['similitud', 'equivalencia', 'parecido', 'semejanza'],
+            # ✅ NUEVO: Sinónimos para restricciones y negaciones
+            'institutos': ['institutos', 'instituto', 'cetpro', 'senati', 'sencico'],
+            'restricciones': ['restricciones', 'limitaciones', 'prohibiciones', 'no se puede', 'no se permite'],
+            'pueden': ['pueden', 'puede', 'se puede', 'es posible', 'permiten']
         }
         
         # Expandir query con sinónimos
@@ -116,10 +119,11 @@ class RAGService:
                 if word in syn_list:
                     expanded_words.update(syn_list)
         
-        # ✅ DETECTAR PREGUNTAS SOBRE FECHAS/LUGARES/CRITERIOS
+        # ✅ DETECTAR PREGUNTAS SOBRE RESTRICCIONES/NEGACIONES
         date_question = any(w in query_normalized for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         place_question = any(w in query_normalized for w in ['donde', 'lugar', 'presentar', 'entregar'])
-        academic_question = any(w in query_normalized for w in ['criterios', 'requisitos', 'academico', 'creditaje', 'contenido', 'similitud'])  # ✅ NUEVO
+        academic_question = any(w in query_normalized for w in ['criterios', 'requisitos', 'academico', 'creditaje', 'contenido', 'similitud'])
+        restriction_question = any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])  # ✅ NUEVO
         
         keyword_scores = defaultdict(float)
         
@@ -137,16 +141,41 @@ class RAGService:
             if query_normalized in content_normalized:
                 score += 30
             
+            # ✅ BONUS para preguntas sobre RESTRICCIONES
+            if restriction_question:
+                restriction_keywords = ['no se convalidan', 'restriccion', 'prohibido', 'no se permite', 'instituto', 'institutos', 'obligatorio']
+                for kw in restriction_keywords:
+                    if kw in content_normalized:
+                        score += 60  # ✅ BONUS ENORME para documentos con restricciones
+                
+                # Bonus por subcategoría específica
+                if 'sub_categoria' in doc:
+                    sub_cat = normalize(doc.get('sub_categoria', ''))
+                    if 'restriccion' in sub_cat or 'limitacion' in sub_cat:
+                        score += 70  # ✅ BONUS MASIVO si es subcategoría "Restricciones"
+                
+                # Detectar frases de negación en el contenido
+                negation_patterns = [
+                    r'no se convalidan',
+                    r'no se puede',
+                    r'no se permite',
+                    r'prohibido',
+                    r'es obligatorio'
+                ]
+                
+                for pattern in negation_patterns:
+                    if re.search(pattern, content_normalized):
+                        score += 50
+            
             # ✅ BONUS para preguntas sobre criterios académicos
             if academic_question:
                 academic_keywords = ['creditaje', 'creditos', 'similitud', '80%', 'contenido', 'igual', 'mayor']
                 for kw in academic_keywords:
                     if kw in content_normalized:
-                        score += 40  # ✅ BONUS GRANDE para documentos con criterios académicos
+                        score += 40
                 
-                # Bonus por subcategoría específica
                 if 'sub_categoria' in doc and 'academico' in normalize(doc.get('sub_categoria', '')):
-                    score += 50  # ✅ BONUS ENORME si es "Requisitos Académicos"
+                    score += 50
             
             # ✅ BONUS EXTRA para documentos con fechas si se pregunta por fechas
             if date_question:
@@ -206,25 +235,27 @@ class RAGService:
         # Búsqueda por palabras clave
         keyword_scores = self.keyword_search(query, self.documents)
         
-        # ✅ Detectar si es una pregunta sobre fechas/lugares
+        # ✅ Detectar tipo de pregunta
         query_lower = query.lower()
         is_date_query = any(w in query_lower for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         is_place_query = any(w in query_lower for w in ['donde', 'lugar', 'presentar', 'entregar'])
+        is_restriction_query = any(w in query_lower for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido'])  # ✅ NUEVO
         
         # Combinar puntuaciones
         combined_results = []
         for i, score in enumerate(scores[0]):
-            if score > 0.2:  # ✅ Umbral reducido de 0.3 a 0.2
+            if score > 0.2:
                 doc_idx = indices[0][i]
                 semantic_score = float(score)
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
                 # ✅ Ajustar pesos dinámicamente según el tipo de pregunta
-                if is_date_query or is_place_query:
-                    # Dar más peso a keywords cuando se pregunta por fechas/lugares
+                if is_restriction_query:
+                    # Para restricciones, dar MÁS peso a keywords (contienen "no se...")
+                    combined_score = (semantic_score * 0.3) + (keyword_score * 0.7)
+                elif is_date_query or is_place_query:
                     combined_score = (semantic_score * 0.4) + (keyword_score * 0.6)
                 else:
-                    # Peso normal
                     combined_score = (semantic_score * 0.7) + (keyword_score * 0.3)
                 
                 combined_results.append({
@@ -238,7 +269,7 @@ class RAGService:
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
         # ✅ Logging mejorado
-        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}")
+        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}")
         logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
         
         for i, doc in enumerate(combined_results[:top_k], 1):
@@ -294,7 +325,7 @@ class RAGService:
         - Si hay fechas, escríbelas como: "Del **17 de marzo** al **28 de marzo**"
         - Si hay lugares, especifica claramente: "en [lugar exacto]"
         - Si hay costos, menciónalos: "S/ [monto]"
-        - Brinda la información sin mencionar de dónde la extraiste. 
+        - Brinda la información sin mencionar los documentos de donde la extraiste.
 
         6. **PROHIBIDO**:
         - Inventar información que no esté en el contexto
@@ -347,7 +378,7 @@ class RAGService:
             response = requests.post(
                 self.ollama_url,
                 json={
-                    "model": "llama3.2:3b",
+                    "model": "qwen2.5:14b-instruct",
                     "prompt": prompt,
                     "stream": False,
                     "options": {
@@ -446,7 +477,7 @@ class RAGService:
                 response = requests.post(
                     self.ollama_url,
                     json={
-                        "model": "llama3.2:3b",
+                        "model": "qwen2.5:14b-instruct",
                         "prompt": prompt,
                         "stream": False,
                         "options": {
@@ -455,7 +486,7 @@ class RAGService:
                             "top_p": 0.8  # ✅ Reducir creatividad
                         }
                     },
-                    timeout=120
+                    timeout=180
                 )
                 
                 elapsed = time.time() - start_time

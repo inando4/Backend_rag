@@ -320,5 +320,80 @@
     "lugar_pago": null,
     "content": "Las convalidaciones solamente se presentan al inicio del año académico, en el **Primer Semestre 2025 A** [6].",
     "referencia_pagina": "[6]"
+  }, 
+  {
+    "id_chunk": "LEVRES-001-TEMP",
+    "documento_fuente": "levantamiento_reserva_de_matricula_2025.pdf",
+    "categoria_principal": "Levantamiento de Reserva de Matrícula",
+    "sub_categoria": "Temporalidad y Aplicación",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": null,
+    "fecha_relevante": "Primer Semestre del año académico",
+    "tasa_soles": null,
+    "modalidad_pago_relacionada": null,
+    "lugar_pago": null,
+    "content": "El Levantamiento de Reserva se realiza **solamente el Primer Semestre del año académico**, al retornar de cumplir el o los años solicitados de reserva de matrícula [9]."
+    ,
+    "referencia_pagina": "[9]"
+  },
+  {
+    "id_chunk": "LEVRES-002-REQ",
+    "documento_fuente": "levantamiento_reserva_de_matricula_2025.pdf",
+    "categoria_principal": "Levantamiento de Reserva de Matrícula",
+    "sub_categoria": "Requisitos Documentarios",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": null,
+    "fecha_relevante": null,
+    "tasa_soles": null,
+    "modalidad_pago_relacionada": null,
+    "lugar_pago": null,
+    "content": "Los requisitos deben enviarse en un archivo PDF [9]. Estos incluyen: Solicitud dirigida a dsa@unsa.edu.pe pidiendo el levantamiento de reserva [9], Recibo de pago por trámite (S/ 6.00) [9], Solicitud enviada al pedir la reserva de matrícula [9], y Copia simple del DNI [9]."
+    ,
+    "referencia_pagina": "[9]"
+  },
+  {
+    "id_chunk": "LEVRES-003-PAGO",
+    "documento_fuente": "levantamiento_reserva_de_matricula_2025.pdf",
+    "categoria_principal": "Levantamiento de Reserva de Matrícula",
+    "sub_categoria": "Tasa y Pago",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": "Pago por Trámite",
+    "fecha_relevante": null,
+    "tasa_soles": 6.00,
+    "modalidad_pago_relacionada": "Trámite de Levantamiento de Reserva",
+    "lugar_pago": "Cajas UNSA",
+    "content": "El recibo de pago por el trámite tiene un costo de **S/ 6.00** [9], y el pago se realiza en Cajas UNSA [9]."
+    ,
+    "referencia_pagina": "[9]"
+  },
+  {
+    "id_chunk": "LEVRES-004-CRON",
+    "documento_fuente": "levantamiento_reserva_de_matricula_2025.pdf",
+    "categoria_principal": "Levantamiento de Reserva de Matrícula",
+    "sub_categoria": "Cronograma de Envío",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": "Envío de expediente",
+    "fecha_relevante": "20 al 24 de enero de 2025",
+    "tasa_soles": null,
+    "modalidad_pago_relacionada": null,
+    "lugar_pago": null,
+    "content": "El envío del expediente debe hacerse a **dsa@unsa.edu.pe** [10], en las fechas según cronograma: **del 20 al 24 de enero de 2025** [10]."
+    ,
+    "referencia_pagina": "[10]"
+  },
+  {
+    "id_chunk": "LEVRES-005-MAT",
+    "documento_fuente": "levantamiento_reserva_de_matricula_2025.pdf",
+    "categoria_principal": "Levantamiento de Reserva de Matrícula",
+    "sub_categoria": "Matrícula Post-Levantamiento",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": "Registro de Matrícula",
+    "fecha_relevante": "Fecha del Grupo 3 de matrículas",
+    "tasa_soles": null,
+    "modalidad_pago_relacionada": null,
+    "lugar_pago": null,
+    "content": "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10]."
+    ,
+    "referencia_pagina": "[10]"
   }
 ]
