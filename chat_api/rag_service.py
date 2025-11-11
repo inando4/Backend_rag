@@ -102,7 +102,9 @@ class RAGService:
             'similitud': ['similitud', 'equivalencia', 'parecido', 'semejanza'],
             'institutos': ['institutos', 'instituto', 'cetpro', 'senati', 'sencico'],
             'restricciones': ['restricciones', 'limitaciones', 'prohibiciones', 'no se puede', 'no se permite'],
-            'pueden': ['pueden', 'puede', 'se puede', 'es posible', 'permiten']
+            'pueden': ['pueden', 'puede', 'se puede', 'es posible', 'permiten'],
+            'costo': ['costo', 'precio', 'pago', 'tasa', 'tarifa', 'cuanto cuesta', 'cuanto es', 'valor', 'monto'],
+            'modalidad': ['modalidad', 'tipo', 'categoria', 'ordinario', 'profesional', 'ceprunsa', 'traslado']
         }
         
         # Expandir query con sinónimos
@@ -117,6 +119,7 @@ class RAGService:
         place_question = any(w in query_normalized for w in ['donde', 'lugar', 'presentar', 'entregar'])
         academic_question = any(w in query_normalized for w in ['criterios', 'requisitos', 'academico', 'creditaje', 'contenido', 'similitud'])
         restriction_question = any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])
+        cost_question = any(w in query_normalized for w in ['cuanto', 'cuesta', 'costo', 'precio', 'pago', 'tasa', 'tarifa', 'valor', 'monto', 's/'])
         
         keyword_scores = defaultdict(float)
         
@@ -134,6 +137,50 @@ class RAGService:
             if query_normalized in content_normalized:
                 score += 30
             
+            # BONUS para preguntas sobre COSTOS
+            if cost_question:
+                cost_keywords = ['s/', 'soles', 'costo', 'pago', 'tasa', 'tarifa', 'precio', '35.00', '55.00', '105.00', '176.00']
+                for kw in cost_keywords:
+                    if kw in content_normalized:
+                        score += 60
+                
+                # BONUS ENORME si tiene el campo tasa_soles
+                if 'tasa_soles' in doc and doc['tasa_soles']:
+                    score += 80
+                
+                # Bonus por subcategoría "Tasas y Pagos"
+                if 'sub_categoria' in doc:
+                    sub_cat_value = doc.get('sub_categoria', '')
+                    if sub_cat_value:  # ✅ Verificar que no sea None
+                        sub_cat = normalize(sub_cat_value)
+                        if 'tasa' in sub_cat or 'pago' in sub_cat:
+                            score += 70
+                
+                # Bonus si menciona la modalidad específica
+                modalidades_en_query = []
+                if 'ordinario' in query_normalized:
+                    modalidades_en_query.append('ordinario')
+                if 'profesional' in query_normalized:
+                    modalidades_en_query.append('profesional')
+                if 'ceprunsa' in query_normalized:
+                    modalidades_en_query.append('ceprunsa')
+                if 'traslado' in query_normalized:
+                    modalidades_en_query.append('traslado')
+                
+                # ✅ FIX: Verificar que modalidad_pago_relacionada no sea None
+                if modalidades_en_query:
+                    doc_modalidad_value = doc.get('modalidad_pago_relacionada', '')
+                    if doc_modalidad_value:  # ✅ Solo normalizar si no es None
+                        doc_modalidad = normalize(doc_modalidad_value)
+                        for modalidad in modalidades_en_query:
+                            if modalidad in doc_modalidad or modalidad in content_normalized:
+                                score += 50
+                
+                # Bonus si menciona "otra escuela UNSA"
+                if 'otra escuela' in query_normalized or 'escuela unsa' in query_normalized:
+                    if 'otra escuela' in content_normalized or 'escuela de la unsa' in content_normalized:
+                        score += 50
+            
             # BONUS para preguntas sobre RESTRICCIONES
             if restriction_question:
                 restriction_keywords = ['no se convalidan', 'restriccion', 'prohibido', 'no se permite', 'instituto', 'institutos', 'obligatorio']
@@ -142,9 +189,11 @@ class RAGService:
                         score += 60
                 
                 if 'sub_categoria' in doc:
-                    sub_cat = normalize(doc.get('sub_categoria', ''))
-                    if 'restriccion' in sub_cat or 'limitacion' in sub_cat:
-                        score += 70
+                    sub_cat_value = doc.get('sub_categoria', '')
+                    if sub_cat_value:  # ✅ Verificar que no sea None
+                        sub_cat = normalize(sub_cat_value)
+                        if 'restriccion' in sub_cat or 'limitacion' in sub_cat:
+                            score += 70
                 
                 negation_patterns = [
                     r'no se convalidan',
@@ -165,8 +214,10 @@ class RAGService:
                     if kw in content_normalized:
                         score += 40
                 
-                if 'sub_categoria' in doc and 'academico' in normalize(doc.get('sub_categoria', '')):
-                    score += 50
+                if 'sub_categoria' in doc:
+                    sub_cat_value = doc.get('sub_categoria', '')
+                    if sub_cat_value and 'academico' in normalize(sub_cat_value):  # ✅ Verificar None
+                        score += 50
             
             # BONUS EXTRA para documentos con fechas
             if date_question:
@@ -205,9 +256,11 @@ class RAGService:
             
             # Bonus por categoría relevante
             if 'categoria_principal' in doc:
-                categoria = normalize(doc['categoria_principal'])
-                if any(w in categoria for w in expanded_words):
-                    score += 15
+                categoria_value = doc.get('categoria_principal', '')
+                if categoria_value:  # ✅ Verificar que no sea None
+                    categoria = normalize(categoria_value)
+                    if any(w in categoria for w in expanded_words):
+                        score += 15
             
             keyword_scores[i] = score
             
@@ -226,11 +279,12 @@ class RAGService:
         # Búsqueda por palabras clave
         keyword_scores = self.keyword_search(query, self.documents)
         
-        # Detectar tipo de pregunta
+        # ✅ Detectar tipo de pregunta (AGREGAR COSTOS)
         query_lower = query.lower()
         is_date_query = any(w in query_lower for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         is_place_query = any(w in query_lower for w in ['donde', 'lugar', 'presentar', 'entregar'])
         is_restriction_query = any(w in query_lower for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido'])
+        is_cost_query = any(w in query_lower for w in ['cuanto', 'cuesta', 'costo', 'precio', 'pago', 'tasa', 'tarifa', 'valor', 'monto', 's/'])  # ✅ NUEVO
         
         # Combinar puntuaciones
         combined_results = []
@@ -240,8 +294,10 @@ class RAGService:
                 semantic_score = float(score)
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
-                # Ajustar pesos dinámicamente según el tipo de pregunta
-                if is_restriction_query:
+                # ✅ Ajustar pesos dinámicamente según el tipo de pregunta
+                if is_cost_query:  # ✅ NUEVO: Para preguntas de costos, priorizar keywords
+                    combined_score = (semantic_score * 0.2) + (keyword_score * 0.8)
+                elif is_restriction_query:
                     combined_score = (semantic_score * 0.3) + (keyword_score * 0.7)
                 elif is_date_query or is_place_query:
                     combined_score = (semantic_score * 0.4) + (keyword_score * 0.6)
@@ -258,8 +314,8 @@ class RAGService:
         # Ordenar por puntuación combinada
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
-        # Logging mejorado
-        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}")
+        # ✅ Logging mejorado (agregar Costos)
+        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}")
         logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
         
         for i, doc in enumerate(combined_results[:top_k], 1):
