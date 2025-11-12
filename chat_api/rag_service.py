@@ -127,6 +127,81 @@ class RAGService:
             content_normalized = normalize(doc['content'])
             score = 0
             
+            # ✅ LÓGICA ESPECIAL PARA PREGUNTAS DE COSTOS
+            if cost_question:
+                # Si el documento NO tiene tasa_soles, darle score 0 directamente
+                if 'tasa_soles' not in doc or not doc.get('tasa_soles'):
+                    keyword_scores[i] = 0
+                    continue  # Saltar este documento completamente
+                
+                # ✅ BASE ALTA para documentos con tasa
+                score = 1000
+                
+                # Extraer modalidad y procedencia de la query
+                modalidades_en_query = []
+                if 'ordinario' in query_normalized:
+                    modalidades_en_query.append('ordinario')
+                if 'profesional' in query_normalized or 'profesionales' in query_normalized:
+                    modalidades_en_query.append('profesionales')
+                if 'ceprunsa' in query_normalized:
+                    modalidades_en_query.append('ceprunsa')
+                if 'traslado' in query_normalized:
+                    modalidades_en_query.append('traslado')
+                
+                procedencias_en_query = []
+                if 'otra escuela' in query_normalized or 'escuela unsa' in query_normalized:
+                    procedencias_en_query.append('otra_escuela_unsa')
+                if 'universidad nacional' in query_normalized and 'otra' in query_normalized:
+                    procedencias_en_query.append('universidad_nacional_otra')
+                if 'universidad particular' in query_normalized or 'universidad privada' in query_normalized:
+                    procedencias_en_query.append('universidad_particular')
+                
+                # Verificar modalidad_pago_relacionada
+                doc_modalidad_value = doc.get('modalidad_pago_relacionada', '')
+                if doc_modalidad_value:
+                    doc_modalidad_norm = normalize(doc_modalidad_value)
+                    
+                    modalidad_match = False
+                    procedencia_match = False
+                    
+                    # Verificar modalidad
+                    for modalidad in modalidades_en_query:
+                        if modalidad in doc_modalidad_norm:
+                            modalidad_match = True
+                            score += 500  # ✅ BONUS GIGANTE
+                            logger.info(f"    ✅ Modalidad '{modalidad}' encontrada en {doc.get('id_chunk')}")
+                            break
+                    
+                    # Verificar procedencia
+                    if 'universidad_particular' in procedencias_en_query:
+                        if 'universidad particular' in doc_modalidad_norm:
+                            procedencia_match = True
+                            score += 800  # ✅ BONUS MASIVO
+                            logger.info(f"    ✅ Procedencia 'universidad particular' encontrada en {doc.get('id_chunk')}")
+                    elif 'universidad_nacional_otra' in procedencias_en_query:
+                        if 'universidad nacional' in doc_modalidad_norm and 'otra' in doc_modalidad_norm:
+                            procedencia_match = True
+                            score += 800
+                            logger.info(f"    ✅ Procedencia 'universidad nacional (otra)' encontrada en {doc.get('id_chunk')}")
+                    elif 'otra_escuela_unsa' in procedencias_en_query:
+                        if 'otra escuela de la unsa' in doc_modalidad_norm or 'escuela de la unsa' in doc_modalidad_norm:
+                            procedencia_match = True
+                            score += 800
+                            logger.info(f"    ✅ Procedencia 'otra escuela UNSA' encontrada en {doc.get('id_chunk')}")
+                    
+                    # ✅ PENALIZACIÓN si NO coincide
+                    if modalidades_en_query and not modalidad_match:
+                        score = 10  # Score mínimo
+                        logger.info(f"    ❌ Modalidad NO coincide en {doc.get('id_chunk')}: '{doc_modalidad_value}'")
+                    
+                    if procedencias_en_query and not procedencia_match:
+                        score = score * 0.05  # Reducir 95%
+                        logger.info(f"    ❌ Procedencia NO coincide en {doc.get('id_chunk')}: '{doc_modalidad_value}'")
+                
+                keyword_scores[i] = score
+                continue  # Terminar evaluación para este documento
+            
+            # Para preguntas NO de costos, usar lógica normal
             # Buscar palabras expandidas
             for word in expanded_words:
                 if word in content_normalized:
@@ -137,50 +212,6 @@ class RAGService:
             if query_normalized in content_normalized:
                 score += 30
             
-            # BONUS para preguntas sobre COSTOS
-            if cost_question:
-                cost_keywords = ['s/', 'soles', 'costo', 'pago', 'tasa', 'tarifa', 'precio', '35.00', '55.00', '105.00', '176.00']
-                for kw in cost_keywords:
-                    if kw in content_normalized:
-                        score += 60
-                
-                # BONUS ENORME si tiene el campo tasa_soles
-                if 'tasa_soles' in doc and doc['tasa_soles']:
-                    score += 80
-                
-                # Bonus por subcategoría "Tasas y Pagos"
-                if 'sub_categoria' in doc:
-                    sub_cat_value = doc.get('sub_categoria', '')
-                    if sub_cat_value:  # ✅ Verificar que no sea None
-                        sub_cat = normalize(sub_cat_value)
-                        if 'tasa' in sub_cat or 'pago' in sub_cat:
-                            score += 70
-                
-                # Bonus si menciona la modalidad específica
-                modalidades_en_query = []
-                if 'ordinario' in query_normalized:
-                    modalidades_en_query.append('ordinario')
-                if 'profesional' in query_normalized:
-                    modalidades_en_query.append('profesional')
-                if 'ceprunsa' in query_normalized:
-                    modalidades_en_query.append('ceprunsa')
-                if 'traslado' in query_normalized:
-                    modalidades_en_query.append('traslado')
-                
-                # ✅ FIX: Verificar que modalidad_pago_relacionada no sea None
-                if modalidades_en_query:
-                    doc_modalidad_value = doc.get('modalidad_pago_relacionada', '')
-                    if doc_modalidad_value:  # ✅ Solo normalizar si no es None
-                        doc_modalidad = normalize(doc_modalidad_value)
-                        for modalidad in modalidades_en_query:
-                            if modalidad in doc_modalidad or modalidad in content_normalized:
-                                score += 50
-                
-                # Bonus si menciona "otra escuela UNSA"
-                if 'otra escuela' in query_normalized or 'escuela unsa' in query_normalized:
-                    if 'otra escuela' in content_normalized or 'escuela de la unsa' in content_normalized:
-                        score += 50
-            
             # BONUS para preguntas sobre RESTRICCIONES
             if restriction_question:
                 restriction_keywords = ['no se convalidan', 'restriccion', 'prohibido', 'no se permite', 'instituto', 'institutos', 'obligatorio']
@@ -190,7 +221,7 @@ class RAGService:
                 
                 if 'sub_categoria' in doc:
                     sub_cat_value = doc.get('sub_categoria', '')
-                    if sub_cat_value:  # ✅ Verificar que no sea None
+                    if sub_cat_value:
                         sub_cat = normalize(sub_cat_value)
                         if 'restriccion' in sub_cat or 'limitacion' in sub_cat:
                             score += 70
@@ -216,7 +247,7 @@ class RAGService:
                 
                 if 'sub_categoria' in doc:
                     sub_cat_value = doc.get('sub_categoria', '')
-                    if sub_cat_value and 'academico' in normalize(sub_cat_value):  # ✅ Verificar None
+                    if sub_cat_value and 'academico' in normalize(sub_cat_value):
                         score += 50
             
             # BONUS EXTRA para documentos con fechas
@@ -257,7 +288,7 @@ class RAGService:
             # Bonus por categoría relevante
             if 'categoria_principal' in doc:
                 categoria_value = doc.get('categoria_principal', '')
-                if categoria_value:  # ✅ Verificar que no sea None
+                if categoria_value:
                     categoria = normalize(categoria_value)
                     if any(w in categoria for w in expanded_words):
                         score += 15
@@ -364,7 +395,9 @@ INSTRUCCIONES CRÍTICAS:
    - Un documento sobre "Presentación de expedientes" NO es lo mismo que "Pago"
    - Un documento sobre "Lugar de pago" NO es el lugar de presentación del expediente
 
-4. **PRIORIZA** el documento más relevante (generalmente el DOCUMENTO 1) 
+4. **PRIORIZA** el documento más relevante,el DOCUMENTO 1 es el MÁS RELEVANTE para esta pregunta.
+   - Si el DOCUMENTO 1 contiene la respuesta completa, ÚSALO y NO mezcles con otros documentos.
+   - Solo usa otros documentos si el DOCUMENTO 1 no tiene información suficiente.
 
 5. **FORMATO DE RESPUESTA**:
    - Responde de forma directa y estructurada
