@@ -121,6 +121,19 @@ class RAGService:
         restriction_question = any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])
         cost_question = any(w in query_normalized for w in ['cuanto', 'cuesta', 'costo', 'precio', 'pago', 'tasa', 'tarifa', 'valor', 'monto', 's/'])
         
+        # ✅ NUEVO: Detectar preguntas sobre FORMA/PROCEDIMIENTO de pago
+        payment_procedure_question = any(w in query_normalized for w in [
+            'varios recibos', 'un solo recibo', 'un recibo', 'varios pagos', 
+            'puedo pagar', 'como pago', 'forma de pago', 'procedimiento de pago',
+            'en cuotas', 'en partes', 'fraccionado'
+        ])
+        
+        # ✅ NUEVO: Detectar preguntas específicas sobre MONTOS
+        amount_question = any(w in query_normalized for w in [
+            'cuanto cuesta', 'cuanto es', 'cual es el costo', 'cual es el precio',
+            'monto', 'valor', 's/', 'soles'
+        ])
+        
         keyword_scores = defaultdict(float)
         
         for i, doc in enumerate(documents):
@@ -129,86 +142,109 @@ class RAGService:
             
             # ✅ LÓGICA ESPECIAL PARA PREGUNTAS DE COSTOS
             if cost_question:
-                # Si el documento NO tiene tasa_soles, darle score 0 directamente
-                if 'tasa_soles' not in doc or not doc.get('tasa_soles'):
-                    keyword_scores[i] = 0
-                    continue  # Saltar este documento completamente
-                
-                # ✅ BASE ALTA para documentos con tasa
-                score = 1000
-                
-                # Extraer modalidad y procedencia de la query
-                modalidades_en_query = []
-                if 'ordinario' in query_normalized:
-                    modalidades_en_query.append('ordinario')
-                if 'profesional' in query_normalized or 'profesionales' in query_normalized:
-                    modalidades_en_query.append('profesionales')
-                if 'ceprunsa' in query_normalized:
-                    modalidades_en_query.append('ceprunsa')
-                if 'traslado' in query_normalized:
-                    modalidades_en_query.append('traslado')
-                
-                procedencias_en_query = []
-                if 'otra escuela' in query_normalized or 'escuela unsa' in query_normalized:
-                    procedencias_en_query.append('otra_escuela_unsa')
-                if 'universidad nacional' in query_normalized and 'otra' in query_normalized:
-                    procedencias_en_query.append('universidad_nacional_otra')
-                if 'universidad particular' in query_normalized or 'universidad privada' in query_normalized:
-                    procedencias_en_query.append('universidad_particular')
-                
-                # Verificar modalidad_pago_relacionada
-                doc_modalidad_value = doc.get('modalidad_pago_relacionada', '')
-                if doc_modalidad_value:
-                    doc_modalidad_norm = normalize(doc_modalidad_value)
+                # ✅ CASO 1: Preguntas sobre PROCEDIMIENTO de pago (varios recibos, forma de pago)
+                if payment_procedure_question:
+                    # Buscar documentos que mencionen "recibo", "pago", "un solo", "todas las asignaturas"
+                    payment_keywords = ['recibo', 'recibos', 'un solo', 'todas las asignaturas', 'monto total', 'pago']
+                    keyword_count = sum(1 for kw in payment_keywords if kw in content_normalized)
                     
-                    modalidad_match = False
-                    procedencia_match = False
+                    if keyword_count > 0:
+                        score = 2000 + (keyword_count * 100)  # ✅ SCORE ALTO para documentos sobre procedimiento
+                        logger.info(f"    ✅ Procedimiento de pago encontrado en {doc.get('id_chunk')}: {keyword_count} keywords")
+                    else:
+                        score = 5  # Score bajo si no menciona procedimiento de pago
                     
-                    # Verificar modalidad
-                    for modalidad in modalidades_en_query:
-                        if modalidad in doc_modalidad_norm:
-                            modalidad_match = True
-                            score += 500  # ✅ BONUS GIGANTE
-                            logger.info(f"    ✅ Modalidad '{modalidad}' encontrada en {doc.get('id_chunk')}")
-                            break
-                    
-                    # Verificar procedencia
-                    if 'universidad_particular' in procedencias_en_query:
-                        if 'universidad particular' in doc_modalidad_norm:
-                            procedencia_match = True
-                            score += 800  # ✅ BONUS MASIVO
-                            logger.info(f"    ✅ Procedencia 'universidad particular' encontrada en {doc.get('id_chunk')}")
-                    elif 'universidad_nacional_otra' in procedencias_en_query:
-                        if 'universidad nacional' in doc_modalidad_norm and 'otra' in doc_modalidad_norm:
-                            procedencia_match = True
-                            score += 800
-                            logger.info(f"    ✅ Procedencia 'universidad nacional (otra)' encontrada en {doc.get('id_chunk')}")
-                    elif 'otra_escuela_unsa' in procedencias_en_query:
-                        if 'otra escuela de la unsa' in doc_modalidad_norm or 'escuela de la unsa' in doc_modalidad_norm:
-                            procedencia_match = True
-                            score += 800
-                            logger.info(f"    ✅ Procedencia 'otra escuela UNSA' encontrada en {doc.get('id_chunk')}")
-                    
-                    # ✅ PENALIZACIÓN si NO coincide
-                    if modalidades_en_query and not modalidad_match:
-                        score = 10  # Score mínimo
-                        logger.info(f"    ❌ Modalidad NO coincide en {doc.get('id_chunk')}: '{doc_modalidad_value}'")
-                    
-                    if procedencias_en_query and not procedencia_match:
-                        score = score * 0.05  # Reducir 95%
-                        logger.info(f"    ❌ Procedencia NO coincide en {doc.get('id_chunk')}: '{doc_modalidad_value}'")
+                    keyword_scores[i] = score
+                    continue
                 
-                keyword_scores[i] = score
-                continue  # Terminar evaluación para este documento
+                # ✅ CASO 2: Preguntas sobre MONTOS específicos (cuánto cuesta)
+                elif amount_question:
+                    # Solo documentos con tasa_soles
+                    if 'tasa_soles' not in doc or not doc.get('tasa_soles'):
+                        keyword_scores[i] = 0
+                        continue
+                    
+                    # Lógica anterior para montos
+                    score = 1000
+                    
+                    modalidades_en_query = []
+                    if 'ordinario' in query_normalized:
+                        modalidades_en_query.append('ordinario')
+                    if 'profesional' in query_normalized or 'profesionales' in query_normalized:
+                        modalidades_en_query.append('profesionales')
+                    if 'ceprunsa' in query_normalized:
+                        modalidades_en_query.append('ceprunsa')
+                    if 'traslado' in query_normalized:
+                        modalidades_en_query.append('traslado')
+                    
+                    procedencias_en_query = []
+                    if 'otra escuela' in query_normalized or 'escuela unsa' in query_normalized:
+                        procedencias_en_query.append('otra_escuela_unsa')
+                    if 'universidad nacional' in query_normalized and 'otra' in query_normalized:
+                        procedencias_en_query.append('universidad_nacional_otra')
+                    if 'universidad particular' in query_normalized or 'universidad privada' in query_normalized:
+                        procedencias_en_query.append('universidad_particular')
+                    
+                    doc_modalidad_value = doc.get('modalidad_pago_relacionada', '')
+                    if doc_modalidad_value:
+                        doc_modalidad_norm = normalize(doc_modalidad_value)
+                        
+                        modalidad_match = False
+                        procedencia_match = False
+                        
+                        for modalidad in modalidades_en_query:
+                            if modalidad in doc_modalidad_norm:
+                                modalidad_match = True
+                                score += 500
+                                logger.info(f"    ✅ Modalidad '{modalidad}' encontrada en {doc.get('id_chunk')}")
+                                break
+                        
+                        if 'universidad_particular' in procedencias_en_query:
+                            if 'universidad particular' in doc_modalidad_norm:
+                                procedencia_match = True
+                                score += 800
+                                logger.info(f"    ✅ Procedencia 'universidad particular' encontrada en {doc.get('id_chunk')}")
+                        elif 'universidad_nacional_otra' in procedencias_en_query:
+                            if 'universidad nacional' in doc_modalidad_norm and 'otra' in doc_modalidad_norm:
+                                procedencia_match = True
+                                score += 800
+                                logger.info(f"    ✅ Procedencia 'universidad nacional (otra)' encontrada en {doc.get('id_chunk')}")
+                        elif 'otra_escuela_unsa' in procedencias_en_query:
+                            if 'otra escuela de la unsa' in doc_modalidad_norm or 'escuela de la unsa' in doc_modalidad_norm:
+                                procedencia_match = True
+                                score += 800
+                                logger.info(f"    ✅ Procedencia 'otra escuela UNSA' encontrada en {doc.get('id_chunk')}")
+                        
+                        if modalidades_en_query and not modalidad_match:
+                            score = 10
+                            logger.info(f"    ❌ Modalidad NO coincide en {doc.get('id_chunk')}: '{doc_modalidad_value}'")
+                        
+                        if procedencias_en_query and not procedencia_match:
+                            score = score * 0.05
+                            logger.info(f"    ❌ Procedencia NO coincide en {doc.get('id_chunk')}: '{doc_modalidad_value}'")
+                    
+                    keyword_scores[i] = score
+                    continue
+                
+                # ✅ CASO 3: Pregunta general sobre costos (sin especificar procedimiento ni monto exacto)
+                else:
+                    # Buscar en documentos con tasa O documentos sobre procedimiento de pago
+                    if 'tasa_soles' in doc and doc.get('tasa_soles'):
+                        score = 1000
+                    elif any(kw in content_normalized for kw in ['recibo', 'pago', 'un solo', 'todas las asignaturas']):
+                        score = 1500  # Priorizar documentos sobre procedimiento
+                    else:
+                        score = 0
+                    
+                    keyword_scores[i] = score
+                    continue
             
             # Para preguntas NO de costos, usar lógica normal
-            # Buscar palabras expandidas
             for word in expanded_words:
                 if word in content_normalized:
                     count = content_normalized.count(word)
                     score += count * 2
             
-            # Buscar frases completas (mayor peso)
             if query_normalized in content_normalized:
                 score += 30
             
