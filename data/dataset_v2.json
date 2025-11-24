@@ -745,5 +745,61 @@
     "lugar_pago": null,
     "content": "Al retornar, cuando se cumpla el año o los años de reserva, el estudiante deberá tramitar el **Levantamiento de Reserva** [3]. Este trámite de levantamiento de reserva solamente se realiza en el Primer Semestre [3].",
     "referencia_pagina": "[3]"
+  }, 
+  {
+    "id_chunk": "REACT-001-PAGO",
+    "documento_fuente": "reactualizacion_2025a.pdf",
+    "categoria_principal": "Reactualización de Matrícula",
+    "sub_categoria": "Tasa y Lugar de Pago",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": "Pago de derechos",
+    "fecha_relevante": null,
+    "tasa_soles": 150.00,
+    "modalidad_pago_relacionada": "Derechos de Reactualización",
+    "lugar_pago": "Caja UNSA (Calle Moral 316- Cercado) o Cajas de las Áreas",
+    "content": "Los derechos de reactualización de matrícula tienen un costo de **S/ 150.00** [1]. El pago debe realizarse directamente en **Caja UNSA (Calle Moral 316- Cercado)** o en las Cajas de las Áreas [1].",
+    "referencia_pagina": "[1]"
+  },
+  {
+    "id_chunk": "REACT-002-PROC",
+    "documento_fuente": "reactualizacion_2025a.pdf",
+    "categoria_principal": "Reactualización de Matrícula",
+    "sub_categoria": "Procedimiento de Habilitación",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": "Envío de Boleta y Habilitación",
+    "fecha_relevante": null,
+    "tasa_soles": null,
+    "modalidad_pago_relacionada": null,
+    "lugar_pago": null,
+    "content": "Después de pagar, se debe **enviar al correo dsa@unsa.edu.pe la Boleta Electrónica**, indicando que se hizo el pago por Reactualización de matrícula para que la DSA habilite al estudiante en el sistema [1]. La reactualización de matrícula se registra en el sistema cuando su escuela esté habilitada para Matrículas 2025 A [1].",
+    "referencia_pagina": "[1]"
+  },
+  {
+    "id_chunk": "REACT-003-MAT",
+    "documento_fuente": "reactualizacion_2025a.pdf",
+    "categoria_principal": "Reactualización de Matrícula",
+    "sub_categoria": "Matrícula Post-Reactualización",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": "Registro de Matrícula",
+    "fecha_relevante": "Grupo 3 de matrículas",
+    "tasa_soles": null,
+    "modalidad_pago_relacionada": null,
+    "lugar_pago": null,
+    "content": "La DSA enviará un correo institucional indicando que el estudiante puede descargar el talón de pago, cancelar y registrar matrícula virtualmente [1]. Al estudiante le corresponde el **Grupo 3 de matrículas** de su escuela, dado que no registró notas el año anterior [1].",
+    "referencia_pagina": "[1]"
+  },
+  {
+    "id_chunk": "REACT-004-APLIC",
+    "documento_fuente": "reactualizacion_2025a.pdf",
+    "categoria_principal": "Reactualización de Matrícula",
+    "sub_categoria": "Restricciones y Plazos",
+    "vigencia_anio": "2025",
+    "actividad_cronograma": "Plazo para trámite",
+    "fecha_relevante": "Del 20 de enero al 24 de enero de 2025",
+    "tasa_soles": null,
+    "modalidad_pago_relacionada": null,
+    "lugar_pago": null,
+    "content": "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2].",
+    "referencia_pagina": "[2]"
   }
 ]
