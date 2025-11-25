@@ -105,12 +105,17 @@ class RAGService:
             'pueden': ['pueden', 'puede', 'se puede', 'es posible', 'permiten'],
             'costo': ['costo', 'precio', 'pago', 'tasa', 'tarifa', 'cuanto cuesta', 'cuanto es', 'valor', 'monto'],
             'modalidad': ['modalidad', 'tipo', 'categoria', 'ordinario', 'profesional', 'ceprunsa', 'traslado'],
-            # ✅ NUEVOS SINÓNIMOS
             'validar': ['validar', 'validacion', 'confirmar', 'confirmacion'],
             'obligatorio': ['obligatorio', 'obligatoriamente', 'debe', 'requerido', 'necesario'],
             'finalizar': ['finalizar', 'terminar', 'culminar', 'concluir', 'completar'],
             'constancia': ['constancia', 'documento', 'comprobante', 'certificado'],
-            'imprimir': ['imprimir', 'descargar', 'obtener']
+            'imprimir': ['imprimir', 'descargar', 'obtener'],
+            # ✅ NUEVOS SINÓNIMOS PARA PREGUNTAS CONCEPTUALES
+            'acto': ['acto', 'accion', 'procedimiento', 'proceso', 'tramite'],
+            'formal': ['formal', 'oficial', 'administrativo'],
+            'acredita': ['acredita', 'certifica', 'avala', 'valida', 'reconoce'],
+            'condicion': ['condicion', 'estado', 'situacion', 'calidad'],
+            'definicion': ['que es', 'cual es', 'define', 'definicion', 'concepto', 'significa']
         }
         
         # Expandir query con sinónimos
@@ -127,11 +132,17 @@ class RAGService:
         restriction_question = any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])
         cost_question = any(w in query_normalized for w in ['cuanto', 'cuesta', 'costo', 'precio', 'pago', 'tasa', 'tarifa', 'valor', 'monto', 's/'])
         
-        # ✅ NUEVO: Detectar preguntas sobre VALIDACIÓN/FINALIZACIÓN
         validation_question = any(w in query_normalized for w in [
             'validar', 'validacion', 'finalizar', 'terminar', 'culminar', 
             'obligatorio', 'obligatoriamente', 'debe', 'despues de registrar',
             'al finalizar', 'al terminar', 'constancia'
+        ])
+        
+        # ✅ NUEVO: Detectar preguntas CONCEPTUALES/DEFINICIONES
+        definition_question = any(phrase in query_normalized for phrase in [
+            'que es', 'cual es', 'que significa', 'define', 'definicion',
+            'concepto', 'se considera', 'se entiende por',
+            'acto formal', 'acto voluntario', 'acredita la condicion'
         ])
         
         # Detectar preguntas sobre FORMA/PROCEDIMIENTO de pago
@@ -153,30 +164,56 @@ class RAGService:
             content_normalized = normalize(doc['content'])
             score = 0
             
-            # ✅ LÓGICA ESPECIAL PARA PREGUNTAS DE VALIDACIÓN
+            # ✅ LÓGICA ESPECIAL PARA PREGUNTAS CONCEPTUALES
+            if definition_question:
+                # Palabras clave para definiciones
+                definition_keywords = [
+                    'es el acto', 'se considera', 'se define', 'definicion',
+                    'acto formal', 'acto voluntario', 'acredita', 'condicion de estudiante',
+                    'articulo 3', 'articulo 4', 'articulo'
+                ]
+                
+                # Si la pregunta menciona "acto formal" + "acredita" + "condición"
+                if 'acto formal' in query_normalized and 'acredita' in query_normalized:
+                    # Buscar documentos que tengan EXACTAMENTE esa combinación
+                    if 'acto formal' in content_normalized and 'acredita' in content_normalized and 'condicion de estudiante' in content_normalized:
+                        score = 3000  # Score MUY ALTO para match exacto
+                        logger.info(f"    🎯 Definición EXACTA encontrada en {doc.get('id_chunk')}")
+                    else:
+                        score = 50  # Score bajo si no tiene la definición exacta
+                else:
+                    # Para otras preguntas conceptuales, buscar keywords generales
+                    matches = sum(1 for kw in definition_keywords if kw in content_normalized)
+                    if matches > 0:
+                        score = 2000 + (matches * 200)
+                        logger.info(f"    ✅ Definición encontrada en {doc.get('id_chunk')}: {matches} keywords")
+                    else:
+                        score = 20
+                
+                keyword_scores[i] = score
+                continue
+            
+            # LÓGICA ESPECIAL PARA PREGUNTAS DE VALIDACIÓN
             if validation_question:
-                # Palabras clave críticas para validación
                 validation_keywords = [
                     'validar', 'validacion', 'validar su matricula',
                     'obligatorio', 'obligado', 'debe',
                     'constancia', 'imprimir', 'finalizar', 'finalmente'
                 ]
                 
-                # Contar coincidencias
                 matches = sum(1 for kw in validation_keywords if kw in content_normalized)
                 
                 if matches > 0:
-                    score = 2000 + (matches * 200)  # Base alta + bonus por cada match
+                    score = 2000 + (matches * 200)
                     logger.info(f"    ✅ Validación encontrada en {doc.get('id_chunk')}: {matches} keywords")
                 else:
-                    score = 10  # Score bajo si no menciona validación
+                    score = 10
                 
                 keyword_scores[i] = score
                 continue
             
             # LÓGICA ESPECIAL PARA PREGUNTAS DE COSTOS
             if cost_question:
-                # CASO 1: Preguntas sobre PROCEDIMIENTO de pago
                 if payment_procedure_question:
                     payment_keywords = ['recibo', 'recibos', 'un solo', 'todas las asignaturas', 'monto total', 'pago']
                     keyword_count = sum(1 for kw in payment_keywords if kw in content_normalized)
@@ -190,7 +227,6 @@ class RAGService:
                     keyword_scores[i] = score
                     continue
                 
-                # CASO 2: Preguntas sobre MONTOS específicos
                 elif amount_question:
                     if 'tasa_soles' not in doc or not doc.get('tasa_soles'):
                         keyword_scores[i] = 0
@@ -257,7 +293,6 @@ class RAGService:
                     keyword_scores[i] = score
                     continue
                 
-                # CASO 3: Pregunta general sobre costos
                 else:
                     if 'tasa_soles' in doc and doc.get('tasa_soles'):
                         score = 1000
@@ -382,8 +417,9 @@ class RAGService:
         is_place_query = any(w in query_lower for w in ['donde', 'lugar', 'presentar', 'entregar'])
         is_restriction_query = any(w in query_lower for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido'])
         is_cost_query = any(w in query_lower for w in ['cuanto', 'cuesta', 'costo', 'precio', 'pago', 'tasa', 'tarifa', 'valor', 'monto', 's/'])
-        # ✅ NUEVO
         is_validation_query = any(w in query_lower for w in ['validar', 'validacion', 'finalizar', 'terminar', 'obligatorio', 'obligatoriamente', 'constancia', 'al finalizar'])
+        # ✅ NUEVO
+        is_definition_query = any(phrase in query_lower for phrase in ['que es', 'cual es', 'que significa', 'define', 'definicion', 'concepto', 'acto formal', 'acredita la condicion'])
         
         # Combinar puntuaciones
         combined_results = []
@@ -394,8 +430,10 @@ class RAGService:
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
                 # Ajustar pesos dinámicamente
-                if is_validation_query:  # ✅ NUEVO
-                    combined_score = (semantic_score * 0.1) + (keyword_score * 0.9)  # 90% keywords
+                if is_definition_query:  # ✅ NUEVO - Keywords dominan totalmente
+                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)  # 95% keywords
+                elif is_validation_query:
+                    combined_score = (semantic_score * 0.1) + (keyword_score * 0.9)
                 elif is_cost_query:
                     combined_score = (semantic_score * 0.2) + (keyword_score * 0.8)
                 elif is_restriction_query:
@@ -416,7 +454,7 @@ class RAGService:
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
         # Logging mejorado
-        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}")
+        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}")
         logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
         
         for i, doc in enumerate(combined_results[:top_k], 1):
