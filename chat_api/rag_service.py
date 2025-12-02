@@ -122,11 +122,14 @@ class RAGService:
             'adicionales': ['adicionales', 'extras', 'extra', 'mas', 'de mas'],
             'otorga': ['otorga', 'da', 'concede', 'permite', 'autoriza'],
             'pendiente': ['pendiente', 'sin aprobar', 'reprobado', 'desaprobado'],
-            # ✅ NUEVOS SINÓNIMOS PARA CONTACTO/TALLERES
             'contactar': ['contactar', 'comunicarse', 'escribir', 'enviar mensaje'],
             'correo': ['correo', 'email', 'correo electronico', 'direccion electronica'],
             'talleres': ['talleres', 'taller', 'extracurriculares', 'extracurricular', 'actividades complementarias'],
-            'inscribirse': ['inscribirse', 'inscripcion', 'registrarse', 'registro', 'matricularse']
+            'inscribirse': ['inscribirse', 'inscripcion', 'registrarse', 'registro', 'matricularse'],
+            # ✅ NUEVOS SINÓNIMOS PARA MATRÍCULA POR EXCEPCIÓN
+            'egresar': ['egresar', 'culminar', 'terminar', 'finalizar carrera'],
+            'paralelo': ['paralelo', 'simultaneo', 'al mismo tiempo', 'juntas', 'juntos'],
+            'faltan': ['faltan', 'me faltan', 'solo me faltan', 'quedan']
         }
         
         # Expandir query con sinónimos
@@ -140,7 +143,14 @@ class RAGService:
         date_question = any(w in query_normalized for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         place_question = any(w in query_normalized for w in ['donde', 'lugar', 'presentar', 'entregar'])
         academic_question = any(w in query_normalized for w in ['criterios', 'requisitos', 'academico', 'creditaje', 'contenido', 'similitud'])
-        restriction_question = any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])
+        
+        # ✅ MODIFICADO: NO activar restriction_question si hay "matrícula por excepción"
+        restriction_question = (
+            any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])
+            and 'matricula por excepcion' not in query_normalized
+            and 'excepcion' not in query_normalized
+        )
+        
         cost_question = any(w in query_normalized for w in ['cuanto', 'cuesta', 'costo', 'precio', 'pago', 'tasa', 'tarifa', 'valor', 'monto', 's/'])
         
         validation_question = any(w in query_normalized for w in [
@@ -181,12 +191,24 @@ class RAGService:
             'ningun curso pendiente', 'sin ningún curso pendiente'
         ])
         
-        # ✅ NUEVO: Detectar preguntas sobre TALLERES EXTRACURRICULARES / CONTACTO
         contact_question = any(phrase in query_normalized for phrase in [
             'que correo', 'cual es el correo', 'correo electronico',
             'a que correo', 'donde contactar', 'como contactar',
             'talleres extracurriculares', 'talleres', 'inscribirme en talleres',
             'oficina de', 'upacdr'
+        ])
+        
+        # ✅ NUEVO: Detectar preguntas sobre MATRÍCULA POR EXCEPCIÓN
+        exception_enrollment_question = any(phrase in query_normalized for phrase in [
+            'matricula por excepcion',
+            'por excepcion',
+            'excepcionalmente',
+            'faltan dos asignaturas',
+            'dos asignaturas para egresar',
+            'una es prerrequisito',
+            'llevarlas juntas',
+            'llevar en paralelo',
+            'llevar las dos'
         ])
         
         keyword_scores = defaultdict(float)
@@ -195,7 +217,50 @@ class RAGService:
             content_normalized = normalize(doc['content'])
             score = 0
             
-            # ✅ LÓGICA ESPECIAL PARA PREGUNTAS DE CONTACTO/TALLERES
+            # ✅ LÓGICA ESPECIAL PARA MATRÍCULA POR EXCEPCIÓN (tiene MÁXIMA PRIORIDAD)
+            if exception_enrollment_question:
+                # Palabras clave críticas
+                exception_keywords = [
+                    'matricula por excepcion',
+                    'excepcion',
+                    'dos (2) asignaturas',
+                    'dos asignaturas',
+                    'para egresar',
+                    'egresar',
+                    'prerrequisito',
+                    'en paralelo',
+                    'llevar las dos',
+                    'simultaneamente'
+                ]
+                
+                # Buscar coincidencias
+                matches = sum(1 for kw in exception_keywords if kw in content_normalized)
+                
+                # Bonus especial si es el documento MEX-003-EGR2 o similar
+                has_two_courses = any(phrase in content_normalized for phrase in ['dos (2) asignaturas', 'dos asignaturas', 'falte solo dos'])
+                has_prerequisite = 'prerrequisito' in content_normalized
+                has_parallel = any(phrase in content_normalized for phrase in ['en paralelo', 'llevar las dos', 'llevar los dos'])
+                has_exception = 'excepcion' in content_normalized
+                
+                if has_two_courses and has_prerequisite and has_parallel:
+                    score = 4000  # Score ALTÍSIMO para match perfecto
+                    logger.info(f"    🎯 MATCH PERFECTO de matrícula por excepción (2 cursos + prerreq) en {doc.get('id_chunk')}")
+                elif matches >= 3:
+                    score = 3500
+                    logger.info(f"    ✅ Matrícula por excepción encontrada en {doc.get('id_chunk')}: {matches} keywords")
+                elif matches >= 2:
+                    score = 2500 + (matches * 200)
+                    logger.info(f"    ✅ Parcial matrícula por excepción en {doc.get('id_chunk')}: {matches} keywords")
+                elif matches == 1:
+                    score = 1000
+                    logger.info(f"    ⚠️ Débil coincidencia en {doc.get('id_chunk')}: {matches} keyword")
+                else:
+                    score = 20
+                
+                keyword_scores[i] = score
+                continue
+            
+            # LÓGICA ESPECIAL PARA PREGUNTAS DE CONTACTO/TALLERES
             if contact_question:
                 # Palabras clave críticas
                 contact_keywords = [
@@ -545,14 +610,19 @@ class RAGService:
         query_lower = query.lower()
         is_date_query = any(w in query_lower for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         is_place_query = any(w in query_lower for w in ['donde', 'lugar', 'presentar', 'entregar'])
-        is_restriction_query = any(w in query_lower for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido'])
+        is_restriction_query = (
+            any(w in query_lower for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido'])
+            and 'matricula por excepcion' not in query_lower
+            and 'excepcion' not in query_lower
+        )
         is_cost_query = any(w in query_lower for w in ['cuanto', 'cuesta', 'costo', 'precio', 'pago', 'tasa', 'tarifa', 'valor', 'monto', 's/'])
         is_validation_query = any(w in query_lower for w in ['validar', 'validacion', 'finalizar', 'terminar', 'obligatorio', 'obligatoriamente', 'constancia', 'al finalizar'])
         is_definition_query = any(phrase in query_lower for phrase in ['que es', 'cual es', 'que significa', 'define', 'definicion', 'concepto', 'acto formal', 'acredita la condicion'])
         is_consequence_query = any(phrase in query_lower for phrase in ['que ocurre', 'que pasa', 'que sucede', 'dejan de matricularse', 'mas de tres', 'pierden'])
         is_credits_query = any(phrase in query_lower for phrase in ['creditos adicionales', 'creditos extra', 'cuantos creditos', 'sin cursos pendientes', 'ningun curso pendiente'])
-        # ✅ NUEVO
         is_contact_query = any(phrase in query_lower for phrase in ['que correo', 'cual es el correo', 'correo electronico', 'talleres extracurriculares', 'talleres', 'contactar', 'inscribirme'])
+        # ✅ NUEVO
+        is_exception_enrollment_query = any(phrase in query_lower for phrase in ['matricula por excepcion', 'por excepcion', 'faltan dos asignaturas', 'llevarlas juntas', 'llevar en paralelo'])
         
         # Combinar puntuaciones
         combined_results = []
@@ -563,8 +633,10 @@ class RAGService:
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
                 # Ajustar pesos dinámicamente
-                if is_contact_query:  # ✅ NUEVO - Keywords dominan totalmente
+                if is_exception_enrollment_query:  # ✅ NUEVO - Keywords dominan totalmente
                     combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)  # 95% keywords
+                elif is_contact_query:
+                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_credits_query:
                     combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_consequence_query:
@@ -593,7 +665,7 @@ class RAGService:
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
         # Logging mejorado
-        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}, Consecuencias: {is_consequence_query}, Créditos: {is_credits_query}, Contacto: {is_contact_query}")
+        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}, Consecuencias: {is_consequence_query}, Créditos: {is_credits_query}, Contacto: {is_contact_query}, Matrícula Excepción: {is_exception_enrollment_query}")
         logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
         
         for i, doc in enumerate(combined_results[:top_k], 1):
