@@ -115,15 +115,18 @@ class RAGService:
             'acredita': ['acredita', 'certifica', 'avala', 'valida', 'reconoce'],
             'condicion': ['condicion', 'estado', 'situacion', 'calidad'],
             'definicion': ['que es', 'cual es', 'define', 'definicion', 'concepto', 'significa'],
-            # ✅ NUEVOS SINÓNIMOS PARA CONSECUENCIAS
             'ocurre': ['ocurre', 'pasa', 'sucede', 'acontece', 'resulta'],
             'dejan': ['dejan', 'abandonan', 'no se matriculan', 'no matricularse', 'dejar de'],
             'pierden': ['pierden', 'perder', 'perdida', 'perderse'],
             'postular': ['postular', 'volver a postular', 'postulacion', 'admision'],
-            # ✅ NUEVOS SINÓNIMOS PARA CRÉDITOS
             'adicionales': ['adicionales', 'extras', 'extra', 'mas', 'de mas'],
             'otorga': ['otorga', 'da', 'concede', 'permite', 'autoriza'],
-            'pendiente': ['pendiente', 'sin aprobar', 'reprobado', 'desaprobado']
+            'pendiente': ['pendiente', 'sin aprobar', 'reprobado', 'desaprobado'],
+            # ✅ NUEVOS SINÓNIMOS PARA CONTACTO/TALLERES
+            'contactar': ['contactar', 'comunicarse', 'escribir', 'enviar mensaje'],
+            'correo': ['correo', 'email', 'correo electronico', 'direccion electronica'],
+            'talleres': ['talleres', 'taller', 'extracurriculares', 'extracurricular', 'actividades complementarias'],
+            'inscribirse': ['inscribirse', 'inscripcion', 'registrarse', 'registro', 'matricularse']
         }
         
         # Expandir query con sinónimos
@@ -163,7 +166,6 @@ class RAGService:
             'monto', 'valor', 's/', 'soles'
         ])
         
-        # ✅ NUEVO: Detectar preguntas sobre CONSECUENCIAS de NO matricularse
         consequence_question = any(phrase in query_normalized for phrase in [
             'que ocurre', 'que pasa', 'que sucede',
             'dejan de matricularse', 'no se matriculan', 'no matricularse',
@@ -171,7 +173,6 @@ class RAGService:
             'pierden', 'perder la condicion', 'volver a postular'
         ])
         
-        # ✅ NUEVO: Detectar preguntas sobre CRÉDITOS ADICIONALES
         credits_question = any(phrase in query_normalized for phrase in [
             'creditos adicionales', 'creditos extra', 'creditos de mas',
             'cuantos creditos adicionales', 'cuantos creditos extras',
@@ -180,15 +181,63 @@ class RAGService:
             'ningun curso pendiente', 'sin ningún curso pendiente'
         ])
         
+        # ✅ NUEVO: Detectar preguntas sobre TALLERES EXTRACURRICULARES / CONTACTO
+        contact_question = any(phrase in query_normalized for phrase in [
+            'que correo', 'cual es el correo', 'correo electronico',
+            'a que correo', 'donde contactar', 'como contactar',
+            'talleres extracurriculares', 'talleres', 'inscribirme en talleres',
+            'oficina de', 'upacdr'
+        ])
+        
         keyword_scores = defaultdict(float)
         
         for i, doc in enumerate(documents):
             content_normalized = normalize(doc['content'])
             score = 0
             
-            # ✅ LÓGICA ESPECIAL PARA PREGUNTAS SOBRE CRÉDITOS ADICIONALES
-            if credits_question:
+            # ✅ LÓGICA ESPECIAL PARA PREGUNTAS DE CONTACTO/TALLERES
+            if contact_question:
                 # Palabras clave críticas
+                contact_keywords = [
+                    'talleres extracurriculares',
+                    'taller',
+                    'correo',
+                    'upacdr',
+                    'oficina de promocion',
+                    'arte, cultura, deporte',
+                    'contactar',
+                    'inscripcion',
+                    '@unsa.edu.pe'
+                ]
+                
+                # Buscar coincidencias
+                matches = sum(1 for kw in contact_keywords if kw in content_normalized)
+                
+                # Bonus especial si es el documento de talleres extracurriculares
+                has_talleres = 'talleres extracurriculares' in content_normalized
+                has_email = '@unsa.edu.pe' in content_normalized or 'upacdr' in content_normalized
+                has_office = 'oficina' in content_normalized
+                
+                if has_talleres and has_email:
+                    score = 3500  # Score ALTÍSIMO para match perfecto
+                    logger.info(f"    🎯 MATCH PERFECTO de talleres + correo en {doc.get('id_chunk')}")
+                elif has_talleres or (has_email and has_office):
+                    score = 3000
+                    logger.info(f"    ✅ Talleres/contacto encontrado en {doc.get('id_chunk')}: {matches} keywords")
+                elif matches >= 2:
+                    score = 2500 + (matches * 200)
+                    logger.info(f"    ✅ Contacto/talleres encontrado en {doc.get('id_chunk')}: {matches} keywords")
+                elif matches == 1:
+                    score = 1000
+                    logger.info(f"    ⚠️ Parcialmente relevante en {doc.get('id_chunk')}: {matches} keyword")
+                else:
+                    score = 20
+                
+                keyword_scores[i] = score
+                continue
+            
+            # LÓGICA ESPECIAL PARA PREGUNTAS SOBRE CRÉDITOS ADICIONALES
+            if credits_question:
                 credit_keywords = [
                     'seis (6) creditos adicionales',
                     'seis (06) creditos adicionales',
@@ -201,16 +250,14 @@ class RAGService:
                     'sistema considera automaticamente'
                 ]
                 
-                # Buscar coincidencias
                 matches = sum(1 for kw in credit_keywords if kw in content_normalized)
                 
-                # Bonus especial si menciona "6" o "seis" junto con "créditos adicionales"
                 has_six = any(num in content_normalized for num in ['seis (6)', 'seis (06)', '6 creditos', '06 creditos'])
                 has_additional = 'creditos adicionales' in content_normalized
                 has_no_pending = any(phrase in content_normalized for phrase in ['sin cursos pendientes', 'ningun curso pendiente', 'no tengan ningun curso'])
                 
                 if has_six and has_additional and has_no_pending:
-                    score = 3500  # Score ALTÍSIMO para match perfecto
+                    score = 3500
                     logger.info(f"    🎯 MATCH PERFECTO de créditos adicionales en {doc.get('id_chunk')}")
                 elif has_six and has_additional:
                     score = 3000
@@ -503,8 +550,9 @@ class RAGService:
         is_validation_query = any(w in query_lower for w in ['validar', 'validacion', 'finalizar', 'terminar', 'obligatorio', 'obligatoriamente', 'constancia', 'al finalizar'])
         is_definition_query = any(phrase in query_lower for phrase in ['que es', 'cual es', 'que significa', 'define', 'definicion', 'concepto', 'acto formal', 'acredita la condicion'])
         is_consequence_query = any(phrase in query_lower for phrase in ['que ocurre', 'que pasa', 'que sucede', 'dejan de matricularse', 'mas de tres', 'pierden'])
-        # ✅ NUEVO
         is_credits_query = any(phrase in query_lower for phrase in ['creditos adicionales', 'creditos extra', 'cuantos creditos', 'sin cursos pendientes', 'ningun curso pendiente'])
+        # ✅ NUEVO
+        is_contact_query = any(phrase in query_lower for phrase in ['que correo', 'cual es el correo', 'correo electronico', 'talleres extracurriculares', 'talleres', 'contactar', 'inscribirme'])
         
         # Combinar puntuaciones
         combined_results = []
@@ -515,8 +563,10 @@ class RAGService:
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
                 # Ajustar pesos dinámicamente
-                if is_credits_query:  # ✅ NUEVO - Keywords dominan totalmente
+                if is_contact_query:  # ✅ NUEVO - Keywords dominan totalmente
                     combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)  # 95% keywords
+                elif is_credits_query:
+                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_consequence_query:
                     combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_definition_query:
@@ -543,7 +593,7 @@ class RAGService:
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
         # Logging mejorado
-        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}, Consecuencias: {is_consequence_query}, Créditos: {is_credits_query}")
+        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}, Consecuencias: {is_consequence_query}, Créditos: {is_credits_query}, Contacto: {is_contact_query}")
         logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
         
         for i, doc in enumerate(combined_results[:top_k], 1):
