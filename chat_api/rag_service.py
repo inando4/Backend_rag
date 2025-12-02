@@ -144,7 +144,6 @@ class RAGService:
         place_question = any(w in query_normalized for w in ['donde', 'lugar', 'presentar', 'entregar'])
         academic_question = any(w in query_normalized for w in ['criterios', 'requisitos', 'academico', 'creditaje', 'contenido', 'similitud'])
         
-        # ✅ MODIFICADO: NO activar restriction_question si hay "matrícula por excepción"
         restriction_question = (
             any(w in query_normalized for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido', 'no se'])
             and 'matricula por excepcion' not in query_normalized
@@ -198,7 +197,6 @@ class RAGService:
             'oficina de', 'upacdr'
         ])
         
-        # ✅ NUEVO: Detectar preguntas sobre MATRÍCULA POR EXCEPCIÓN
         exception_enrollment_question = any(phrase in query_normalized for phrase in [
             'matricula por excepcion',
             'por excepcion',
@@ -211,13 +209,114 @@ class RAGService:
             'llevar las dos'
         ])
         
+        # ✅ NUEVO: Detectar preguntas sobre AUTORIDADES/RESPONSABLES
+        authority_question = any(phrase in query_normalized for phrase in [
+            'quien establece',
+            'quien programa',
+            'quien define',
+            'quien aprueba',
+            'quien determina',
+            'que entidad',
+            'que organo',
+            'consejo universitario',
+            'decano',
+            'director',
+            'vicerrectorado'
+        ])
+        
+        # ✅ NUEVO: Detectar preguntas sobre EQUIVALENCIA DE ABANDONO
+        equivalence_question = any(phrase in query_normalized for phrase in [
+            'equivalente',
+            'equivale',
+            'es equivalente a',
+            'abandono es equivalente',
+            'condicion de abandono',
+            'conteo de matriculas',
+            'matriculas ejecutadas'
+        ])
+        
         keyword_scores = defaultdict(float)
         
         for i, doc in enumerate(documents):
             content_normalized = normalize(doc['content'])
             score = 0
             
-            # ✅ LÓGICA ESPECIAL PARA MATRÍCULA POR EXCEPCIÓN (tiene MÁXIMA PRIORIDAD)
+            # ✅ LÓGICA ESPECIAL PARA PREGUNTAS SOBRE AUTORIDADES (DEBE IR PRIMERO)
+            if authority_question:
+                authority_keywords = [
+                    'consejo universitario',
+                    'establecera',
+                    'establece',
+                    'calendario academico',
+                    'programa las fechas',
+                    'programara',
+                    'articulo 11',
+                    'anualmente'
+                ]
+                
+                matches = sum(1 for kw in authority_keywords if kw in content_normalized)
+                
+                has_council = 'consejo universitario' in content_normalized
+                has_calendar = 'calendario academico' in content_normalized
+                has_establish = any(word in content_normalized for word in ['establecera', 'establece', 'programa'])
+                
+                if has_council and has_calendar and has_establish:
+                    score = 4000
+                    logger.info(f"    🎯 MATCH PERFECTO de autoridad (Consejo + calendario) en {doc.get('id_chunk')}")
+                elif matches >= 3:
+                    score = 3500
+                    logger.info(f"    ✅ Autoridad encontrada en {doc.get('id_chunk')}: {matches} keywords")
+                elif matches >= 2:
+                    score = 2500 + (matches * 200)
+                    logger.info(f"    ✅ Parcial autoridad en {doc.get('id_chunk')}: {matches} keywords")
+                elif matches == 1:
+                    score = 1000
+                    logger.info(f"    ⚠️ Débil coincidencia en {doc.get('id_chunk')}: {matches} keyword")
+                else:
+                    score = 20
+                
+                keyword_scores[i] = score
+                continue
+            
+            # ✅ LÓGICA ESPECIAL PARA PREGUNTAS SOBRE EQUIVALENCIA DE ABANDONO
+            if equivalence_question:
+                equivalence_keywords = [
+                    'abandono',
+                    'equivalente',
+                    'desaprobacion',
+                    'conteo de matriculas',
+                    'matriculas ejecutadas',
+                    'calificacion final',
+                    'disposicion final',
+                    'primera'
+                ]
+                
+                matches = sum(1 for kw in equivalence_keywords if kw in content_normalized)
+                
+                has_abandonment = 'abandono' in content_normalized
+                has_equivalent = any(word in content_normalized for word in ['equivalente', 'equivale'])
+                has_disapproval = 'desaprobacion' in content_normalized
+                has_counting = any(phrase in content_normalized for phrase in ['conteo de matriculas', 'matriculas ejecutadas'])
+                
+                if has_abandonment and has_equivalent and (has_disapproval or has_counting):
+                    score = 4000
+                    logger.info(f"    🎯 MATCH PERFECTO de equivalencia de abandono en {doc.get('id_chunk')}")
+                elif matches >= 3:
+                    score = 3500
+                    logger.info(f"    ✅ Equivalencia encontrada en {doc.get('id_chunk')}: {matches} keywords")
+                elif matches >= 2:
+                    score = 2500 + (matches * 200)
+                    logger.info(f"    ✅ Parcial equivalencia en {doc.get('id_chunk')}: {matches} keywords")
+                elif matches == 1:
+                    score = 1000
+                    logger.info(f"    ⚠️ Débil coincidencia en {doc.get('id_chunk')}: {matches} keyword")
+                else:
+                    score = 20
+                
+                keyword_scores[i] = score
+                continue
+            
+            # ✅ LÓGICA ESPECIAL PARA MATRÍCULA POR EXCEPCIÓN
             if exception_enrollment_question:
                 # Palabras clave críticas
                 exception_keywords = [
@@ -623,6 +722,10 @@ class RAGService:
         is_contact_query = any(phrase in query_lower for phrase in ['que correo', 'cual es el correo', 'correo electronico', 'talleres extracurriculares', 'talleres', 'contactar', 'inscribirme'])
         # ✅ NUEVO
         is_exception_enrollment_query = any(phrase in query_lower for phrase in ['matricula por excepcion', 'por excepcion', 'faltan dos asignaturas', 'llevarlas juntas', 'llevar en paralelo'])
+        # ✅ NUEVO
+        is_authority_query = any(phrase in query_lower for phrase in ['quien establece', 'quien programa', 'quien define', 'consejo universitario', 'que entidad', 'que organo'])
+        # ✅ NUEVO
+        is_equivalence_query = any(phrase in query_lower for phrase in ['equivalente', 'equivale', 'es equivalente a', 'abandono es equivalente', 'conteo de matriculas'])
         
         # Combinar puntuaciones
         combined_results = []
@@ -633,8 +736,12 @@ class RAGService:
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
                 # Ajustar pesos dinámicamente
-                if is_exception_enrollment_query:  # ✅ NUEVO - Keywords dominan totalmente
+                if is_equivalence_query:  # ✅ NUEVO - Keywords dominan totalmente
                     combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)  # 95% keywords
+                elif is_authority_query:
+                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
+                elif is_exception_enrollment_query:
+                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_contact_query:
                     combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_credits_query:
@@ -665,7 +772,7 @@ class RAGService:
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
         # Logging mejorado
-        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}, Consecuencias: {is_consequence_query}, Créditos: {is_credits_query}, Contacto: {is_contact_query}, Matrícula Excepción: {is_exception_enrollment_query}")
+        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}, Consecuencias: {is_consequence_query}, Créditos: {is_credits_query}, Contacto: {is_contact_query}, Matrícula Excepción: {is_exception_enrollment_query}, Autoridad: {is_authority_query}, Equivalencia: {is_equivalence_query}")
         logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
         
         for i, doc in enumerate(combined_results[:top_k], 1):
