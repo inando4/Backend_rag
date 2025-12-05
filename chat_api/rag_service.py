@@ -235,6 +235,30 @@ class RAGService:
             'matriculas ejecutadas'
         ])
         
+        # ✅ NUEVO: Detectar TODOS los tipos de preguntas sobre lugares de pago
+        lugar_pago_matricula_question = (
+            'matricula' in query_normalized and 
+            place_question and 
+            any(w in query_normalized for w in ['pagar', 'pago', 'derechos', 'tasa'])
+        )
+        
+        lugar_pago_convalidacion_question = (
+            'convalidacion' in query_normalized and 
+            place_question and 
+            any(w in query_normalized for w in ['pagar', 'pago', 'derechos', 'tasa'])
+        )
+        
+        lugar_pago_modificacion_question = (
+            'modificacion' in query_normalized and 
+            place_question and 
+            any(w in query_normalized for w in ['pagar', 'pago', 'derechos', 'tasa'])
+        )
+        
+        lugar_presentacion_expediente_question = (
+            place_question and 
+            any(w in query_normalized for w in ['presentar', 'entregar', 'expediente', 'solicitud', 'tramite'])
+        )
+        
         keyword_scores = defaultdict(float)
         
         for i, doc in enumerate(documents):
@@ -693,7 +717,7 @@ class RAGService:
         return keyword_scores
     
     def search_documents(self, query, top_k=5):
-        """Búsqueda híbrida: semántica + palabras clave"""
+        """Búsqueda híbrida: semántica + palabras clave con Query Expansion"""
         if not self.index or not self.documents:
             return []
         
@@ -727,6 +751,17 @@ class RAGService:
         # ✅ NUEVO
         is_equivalence_query = any(phrase in query_lower for phrase in ['equivalente', 'equivale', 'es equivalente a', 'abandono es equivalente', 'conteo de matriculas'])
         
+        # Detección específica de lugares
+        is_lugar_pago_question = (
+            is_place_query and 
+            any(w in query_lower for w in ['pagar', 'pago', 'caja', 'derechos', 'tasa'])
+        )
+        
+        is_lugar_presentacion_question = (
+            is_place_query and 
+            any(w in query_lower for w in ['presentar', 'entregar', 'expediente', 'tramite'])
+        )
+        
         # Combinar puntuaciones
         combined_results = []
         for i, score in enumerate(scores[0]):
@@ -736,8 +771,11 @@ class RAGService:
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
                 # Ajustar pesos dinámicamente
-                if is_equivalence_query:  # ✅ NUEVO - Keywords dominan totalmente
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)  # 95% keywords
+                if is_lugar_pago_question or is_lugar_presentacion_question:
+                    # ✅ PRIORIZAR keywords para TODAS las preguntas de lugares
+                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
+                elif is_equivalence_query:
+                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_authority_query:
                     combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_exception_enrollment_query:
