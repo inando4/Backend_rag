@@ -7,7 +7,7 @@ import socket
 import time
 import logging
 import requests
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, CrossEncoder
 from collections import defaultdict
 from django.conf import settings
 
@@ -22,6 +22,14 @@ class RAGService:
         
         # Inicializar modelo de embeddings
         self.model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
+        
+        # ✅ MODIFICAR: Forzar re-ranker a CPU
+        logger.info("🔄 Cargando modelo de re-ranking en CPU...")
+        self.reranker = CrossEncoder(
+            'cross-encoder/mmarco-mMiniLMv2-L12-H384-v1',
+            device='cpu'  # ← FORZAR A CPU
+        )
+        logger.info("✅ Re-ranker cargado en CPU")
         
         # ✅ Configuración LLM (SOLO LOCAL)
         self.ollama_model = os.getenv('OLLAMA_MODEL', 'qwen2.5:14b-instruct')
@@ -693,14 +701,14 @@ class RAGService:
         return keyword_scores
     
     def search_documents(self, query, top_k=5):
-        """Búsqueda híbrida: semántica + palabras clave"""
+        """Búsqueda híbrida: semántica + palabras clave + re-ranking"""
         if not self.index or not self.documents:
             return []
         
-        # Búsqueda semántica
+        # Búsqueda semántica (obtener más candidatos para re-ranking)
         query_embedding = self.model.encode([query])
         faiss.normalize_L2(query_embedding)
-        scores, indices = self.index.search(query_embedding, top_k * 3)
+        scores, indices = self.index.search(query_embedding, top_k * 3)  # 15 candidatos
         
         # Búsqueda por palabras clave
         keyword_scores = self.keyword_search(query, self.documents)
@@ -720,11 +728,8 @@ class RAGService:
         is_consequence_query = any(phrase in query_lower for phrase in ['que ocurre', 'que pasa', 'que sucede', 'dejan de matricularse', 'mas de tres', 'pierden'])
         is_credits_query = any(phrase in query_lower for phrase in ['creditos adicionales', 'creditos extra', 'cuantos creditos', 'sin cursos pendientes', 'ningun curso pendiente'])
         is_contact_query = any(phrase in query_lower for phrase in ['que correo', 'cual es el correo', 'correo electronico', 'talleres extracurriculares', 'talleres', 'contactar', 'inscribirme'])
-        # ✅ NUEVO
         is_exception_enrollment_query = any(phrase in query_lower for phrase in ['matricula por excepcion', 'por excepcion', 'faltan dos asignaturas', 'llevarlas juntas', 'llevar en paralelo'])
-        # ✅ NUEVO
         is_authority_query = any(phrase in query_lower for phrase in ['quien establece', 'quien programa', 'quien define', 'consejo universitario', 'que entidad', 'que organo'])
-        # ✅ NUEVO
         is_equivalence_query = any(phrase in query_lower for phrase in ['equivalente', 'equivale', 'es equivalente a', 'abandono es equivalente', 'conteo de matriculas'])
         
         # Combinar puntuaciones
@@ -736,8 +741,8 @@ class RAGService:
                 keyword_score = keyword_scores.get(doc_idx, 0)
                 
                 # Ajustar pesos dinámicamente
-                if is_equivalence_query:  # ✅ NUEVO - Keywords dominan totalmente
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)  # 95% keywords
+                if is_equivalence_query:
+                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_authority_query:
                     combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
                 elif is_exception_enrollment_query:
@@ -771,14 +776,79 @@ class RAGService:
         # Ordenar por puntuación combinada
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
-        # Logging mejorado
+        # Logging ANTES de re-ranking
         logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}, Consecuencias: {is_consequence_query}, Créditos: {is_credits_query}, Contacto: {is_contact_query}, Matrícula Excepción: {is_exception_enrollment_query}, Autoridad: {is_authority_query}, Equivalencia: {is_equivalence_query}")
-        logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
+        logger.info(f"📊 Recuperados {len(combined_results)} candidatos para: {query[:50]}...")
         
+        logger.info("📊 Top 5 ANTES de re-ranking:")
         for i, doc in enumerate(combined_results[:top_k], 1):
-            logger.info(f"  {i}. Score: {doc['score']:.2f} (Sem: {doc['semantic_score']:.2f}, KW: {doc['keyword_score']:.2f})")
+            id_chunk = doc['documento'].get('id_chunk', 'N/A')
+            logger.info(f"  {i}. [{id_chunk}] Score: {doc['score']:.2f} (Sem: {doc['semantic_score']:.2f}, KW: {doc['keyword_score']:.2f})")
+        
+        # ✅ APLICAR RE-RANKING (obtener top 15 candidatos para re-rankear)
+        top_candidates = combined_results[:15]
+        
+        if len(top_candidates) > top_k:
+            reranked_docs = self.rerank_documents(query, top_candidates, top_k)
+            return reranked_docs
         
         return combined_results[:top_k]
+    
+    def rerank_documents(self, query, documents, top_k=5):
+        """Re-ranking de documentos usando Cross-Encoder"""
+        if len(documents) <= top_k:
+            logger.info(f"📊 Documentos ({len(documents)}) <= top_k ({top_k}), no se aplica re-ranking")
+            return documents
+        
+        logger.info(f"🔄 Aplicando re-ranking sobre {len(documents)} documentos...")
+        
+        # Preparar pares (query, documento)
+        pairs = []
+        for doc in documents:
+            # Combinar metadata + contenido para mejor contexto
+            doc_text = ""
+            
+            # Agregar categoría si existe
+            if doc['documento'].get('categoria_principal'):
+                doc_text += f"{doc['documento']['categoria_principal']}. "
+            
+            # Agregar actividad/sub-categoría si existe
+            if doc['documento'].get('actividad_cronograma'):
+                doc_text += f"{doc['documento']['actividad_cronograma']}. "
+            elif doc['documento'].get('sub_categoria'):
+                doc_text += f"{doc['documento']['sub_categoria']}. "
+            
+            # Agregar contenido principal (limitado a 512 caracteres)
+            doc_text += doc['documento']['content'][:512]
+            
+            pairs.append([query, doc_text])
+        
+        # Calcular scores de relevancia con Cross-Encoder
+        rerank_scores = self.reranker.predict(pairs)
+        
+        # Combinar con scores previos (70% rerank, 30% original)
+        for i, doc in enumerate(documents):
+            original_score = doc['score']
+            rerank_score = float(rerank_scores[i])
+            
+            # Combinación ponderada
+            doc['final_score'] = (rerank_score * 0.7) + (original_score * 0.3)
+            doc['rerank_score'] = rerank_score
+        
+        # Re-ordenar por final_score
+        documents.sort(key=lambda x: x['final_score'], reverse=True)
+        
+        # Logging detallado
+        logger.info("📊 Top 5 después de re-ranking:")
+        for i, doc in enumerate(documents[:top_k], 1):
+            id_chunk = doc['documento'].get('id_chunk', 'N/A')
+            logger.info(
+                f"  {i}. [{id_chunk}] - "
+                f"Final: {doc['final_score']:.3f} "
+                f"(Rerank: {doc['rerank_score']:.3f}, Original: {doc['score']:.3f})"
+            )
+        
+        return documents[:top_k]
     
     def _ensure_ollama_running(self):
         """Verificar que Ollama esté corriendo"""
