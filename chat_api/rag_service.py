@@ -31,8 +31,308 @@ class RAGService:
         self.documents = self.load_documents()
         self.index = self.load_or_create_index()
         
+        # ✅ NUEVO: Configuración para HyDE
+        self.use_hyde = False  # Desactivar HyDE
+        
+        # ✅ NUEVO: Diccionario de expansión mejorado
+        self.query_expansion_dict = self._build_expansion_dictionary()
+        
         logger.info(f"✅ RAG Service iniciado")
         logger.info(f"   Modelo Ollama: {self.ollama_model}")
+        logger.info(f"   Query Expansion Avanzada activada: {len(self.query_expansion_dict)} reglas")
+    
+    def _build_expansion_dictionary(self):
+        """Construir diccionario de expansión MEJORADO y ESPECÍFICO"""
+        return {
+            # =====================================
+            # 1. PROCESOS ACADÉMICOS (MÁS ESPECÍFICOS)
+            # =====================================
+            
+            # Matrícula Regular (NO confundir con reactualización o reserva)
+            'matricula regular': ['matricula ordinaria', 'matricula normal', 'proceso de matricula', 'registro de matricula'],
+            'matricula ordinaria': ['matricula regular', 'matricula normal', 'primer ingreso'],
+            
+            # Matrícula por Excepción (SEPARADA de las demás)
+            'matricula por excepcion': ['matricula excepcional', 'excepcion de matricula', 'caso especial matricula'],
+            'por egresar': ['falta una asignatura', 'falta un curso', 'para culminar', 'dos asignaturas para egresar'],
+            
+            # Convalidación (NO confundir con equivalencia o similitud)
+            'convalidacion': ['reconocimiento de creditos', 'homologacion de asignaturas', 'validacion de cursos'],
+            'convalidar': ['validar cursos', 'reconocer creditos', 'homologar asignaturas'],
+            
+            # Reserva de Matrícula (SEPARADA de reactualización)
+            'reserva de matricula': ['suspension temporal de estudios', 'pausa voluntaria', 'diferir matricula'],
+            'reserva': ['suspension temporal', 'pausa de estudios', 'diferir', 'postergar'],
+            
+            # ✅ CORREGIDO: Reactualización (SOLO proceso, NO incluir "recuperar condicion" que confunde)
+            'reactualizacion de matricula': ['reactivacion de matricula', 'renovacion de matricula', 'derecho de reactualizacion'],
+            'reactualizacion': ['reactivacion', 'renovacion matricula', 'derecho reactualizacion'],
+            
+            # Levantamiento de Reserva (SEPARADO de reactualización)
+            'levantamiento de reserva': ['retorno de reserva', 'volver despues de reserva', 'reactivar despues de reserva'],
+            'levantamiento': ['retorno', 'volver de reserva', 'culminar reserva'],
+            
+            # =====================================
+            # 2. LUGARES DE PAGO (MÁS ESPECÍFICOS)
+            # =====================================
+            
+            # Caja UNSA (para reactualización, convalidación, reserva)
+            'caja unsa': ['caja de la universidad', 'tesoreria unsa', 'moral 316', 'cajas de las areas', 'cercado'],
+            'moral 316': ['calle moral 316', 'cercado arequipa', 'caja central', 'caja unsa'],
+            'cajas de las areas': ['cajas areas', 'caja area', 'tesoreria area'],
+            
+            # BCP (para matrícula ordinaria y modificación)
+            'banco de credito': ['bcp', 'banco credito peru', 'agencia bcp', 'banca movil bcp'],
+            'bcp': ['banco de credito', 'banco credito peru', 'agentes bcp'],
+            
+            # UNSAPAY (para modificación de matrícula)
+            'unsapay': ['portal unsapay', 'ouis unsapay', 'cuenta unsa virtual'],
+            
+            # =====================================
+            # 3. TIPOS DE PAGO (DIFERENCIADOS Y ESPECÍFICOS)
+            # =====================================
+            
+            # ✅ NUEVO: Pago de Reactualización (MUY ESPECÍFICO - incluye LUGAR)
+            'pagar reactualizacion': [
+                'derecho de reactualizacion', 'tasa reactualizacion', '150 soles', 
+                'caja unsa reactualizacion', 'moral 316', 'cajas de las areas',
+                'lugar pago reactualizacion', 'donde pagar reactualizacion'
+            ],
+            'derecho de reactualizacion': ['tasa de reactualizacion', 'pago por reactualizacion', 's/ 150', 'caja unsa'],
+            
+            # ✅ NUEVO: Contexto de LUGAR + REACTUALIZACION
+            'lugares reactualizacion': ['caja unsa', 'moral 316', 'cajas areas', 'lugar pago'],
+            'donde pago reactualizacion': ['caja unsa', 'moral 316', 'cajas areas', 'lugar especifico'],
+            
+            # Pago de Matrícula Regular (ESPECÍFICO)
+            'pagar matricula regular': ['talon de pago bcp', 'pago en banco', 'matricula virtual'],
+            'talon de pago': ['recibo de pago', 'voucher matricula', 'comprobante bcp'],
+            
+            # Pago de Convalidación (ESPECÍFICO)
+            'pagar convalidacion': ['tasa de convalidacion', 'derecho por curso', 'recibo convalidacion', 'caja unsa'],
+            'tasa de convalidacion': ['costo por curso', 'pago por asignatura convalidada'],
+            
+            # Pago de Modificación (ESPECÍFICO)
+            'pagar modificacion': ['derecho de modificacion', 'rectificacion de matricula', 'unsapay modificacion'],
+            
+            # Pago de Reserva (ESPECÍFICO)
+            'pagar reserva': ['derecho de reserva', 'tasa reserva', '50 soles', 'caja unsa reserva'],
+            
+            # =====================================
+            # 4. LUGARES DE PRESENTACIÓN (DIFERENCIADOS)
+            # =====================================
+            
+            # Lugares físicos
+            'escuela profesional': ['escuela correspondiente', 'direccion de escuela', 'oficina de escuela'],
+            'dsa': ['direccion de servicios academicos', 'oficina dsa', 'dsa@unsa.edu.pe'],
+            
+            # Correos específicos
+            'dsa@unsa.edu.pe': ['correo dsa', 'email dsa', 'direccion servicios academicos'],
+            'upacdr_talleres@unsa.edu.pe': ['correo talleres', 'oficina talleres', 'upacdr'],
+            
+            # =====================================
+            # 5. MODALIDADES DE INGRESO (DIFERENCIADAS)
+            # =====================================
+            
+            # Modalidad Ordinario (con tasas específicas)
+            'modalidad ordinario': ['ingreso ordinario', 'admision ordinaria', 'examen ordinario'],
+            
+            # Modalidad Profesionales (con tasas diferentes)
+            'modalidad profesionales': ['adulto trabajador', 'profesional trabajador', 'segunda profesion'],
+            
+            # CEPRUNSA
+            'ceprunsa': ['centro preuniversitario', 'preuniversitario unsa', 'cepru'],
+            
+            # Traslados
+            'traslado externo': ['traslado de otra universidad', 'cambio de universidad'],
+            'traslado interno': ['cambio de escuela unsa', 'traslado entre escuelas'],
+            
+            # =====================================
+            # 6. PROCEDENCIAS (para convalidaciones)
+            # =====================================
+            
+            'otra escuela unsa': ['escuela de la unsa', 'otra escuela de la universidad'],
+            'universidad nacional': ['universidad publica', 'universidad estatal'],
+            'universidad particular': ['universidad privada', 'universidad de pago'],
+            
+            # =====================================
+            # 7. REQUISITOS Y DOCUMENTOS (ESPECÍFICOS)
+            # =====================================
+            
+            # Documentos generales
+            'expediente': ['documentos tramite', 'papeles necesarios', 'documentacion completa'],
+            'requisitos': ['documentos necesarios', 'papeles requeridos', 'exigencias'],
+            
+            # Documentos específicos de convalidación
+            'certificado de estudios': ['record academico', 'notas certificadas', 'historial academico'],
+            'silabo': ['programa de asignatura', 'contenido del curso', 'plan de estudios'],
+            
+            # Documentos de pago
+            'recibo de pago': ['boleta de pago', 'voucher', 'comprobante de pago', 'boleta electronica'],
+            'constancia de matricula': ['comprobante de matricula', 'certificado de matricula'],
+            
+            # =====================================
+            # 8. CRITERIOS ACADÉMICOS (MÁS PRECISOS)
+            # =====================================
+            
+            'criterios academicos': ['requisitos academicos', 'condiciones academicas', 'exigencias academicas'],
+            'creditaje': ['creditos', 'unidades de credito', 'carga academica'],
+            'similitud de contenidos': ['equivalencia de contenidos', 'parecido de temas', '80 por ciento'],
+            '80%': ['ochenta por ciento', '80 por ciento de similitud', 'ochenta porciento'],
+            
+            # =====================================
+            # 9. RESTRICCIONES Y PROHIBICIONES
+            # =====================================
+            
+            'no se convalidan': ['no se permite convalidar', 'prohibido convalidar', 'restriccion de convalidacion'],
+            'institutos': ['cetpro', 'senati', 'sencico', 'instituto tecnico', 'instituto superior'],
+            'obligatorio': ['requerido', 'necesario', 'indispensable', 'mandatorio'],
+            
+            # =====================================
+            # 10. FECHAS Y CRONOGRAMA (DIFERENCIADOS)
+            # =====================================
+            
+            'cronograma': ['calendario academico', 'fechas programadas', 'agenda academica'],
+            'plazo': ['fecha limite', 'tiempo limite', 'vencimiento'],
+            'grupo 1': ['primer grupo', 'primer turno matricula'],
+            'grupo 2': ['segundo grupo', 'segundo turno matricula'],
+            'grupo 3': ['tercer grupo', 'tercer turno matricula'],
+            
+            # =====================================
+            # 11. VALIDACIÓN Y FINALIZACIÓN
+            # =====================================
+            
+            'validar matricula': ['confirmar matricula', 'finalizar matricula', 'culminar registro'],
+            'imprimir constancia': ['descargar constancia', 'obtener comprobante', 'guardar constancia'],
+            
+            # =====================================
+            # 12. CONSECUENCIAS Y SANCIONES (SIN confundir con reactualización)
+            # =====================================
+            
+            'perder condicion': ['perdida de condicion', 'cesacion de estudios', 'separacion definitiva'],
+            'volver a postular': ['postular nuevamente', 'nueva admision', 'reingreso por admision'],
+            'mas de tres años': ['tres años consecutivos', 'tres años alternos', 'mas de 3 años'],
+            
+            # =====================================
+            # 13. ABANDONO Y EQUIVALENCIA
+            # =====================================
+            
+            'abandono': ['no rendir evaluaciones', 'inasistencia total', 'no presentarse'],
+            'equivalente a desaprobacion': ['cuenta como desaprobado', 'equivale a reprobacion'],
+            'conteo de matriculas': ['matriculas ejecutadas', 'matriculas realizadas'],
+            
+            # =====================================
+            # 14. AUTORIDADES UNIVERSITARIAS
+            # =====================================
+            
+            'consejo universitario': ['organo de gobierno', 'autoridad universitaria', 'maximo organo'],
+            'decano': ['director de facultad', 'autoridad de facultad'],
+            'director de escuela': ['jefe de escuela', 'autoridad de escuela'],
+            
+            # =====================================
+            # 15. CRÉDITOS ADICIONALES
+            # =====================================
+            
+            'creditos adicionales': ['creditos extra', 'creditos de mas', 'creditos excedentes'],
+            'seis creditos': ['6 creditos', '06 creditos', 'seis (6) creditos'],
+            'sin cursos pendientes': ['ningun curso pendiente', 'no tiene cursos reprobados', 'sin deudas academicas'],
+            
+            # =====================================
+            # 16. CONTACTO Y OFICINAS
+            # =====================================
+            
+            'talleres extracurriculares': ['actividades extracurriculares', 'talleres complementarios', 'cursos libres'],
+            'upacdr': ['oficina de promocion arte cultura', 'oficina talleres'],
+            
+            # =====================================
+            # 17. FRASES COMPLETAS (CONTEXTUALES) - CRÍTICO
+            # =====================================
+            
+            # ✅ NUEVO: Frases de LUGAR + PAGO
+            'donde pago': ['lugar de pago', 'sitio para pagar', 'oficina de pagos', 'caja'],
+            'lugares pago': ['sitios de pago', 'oficinas pago', 'caja', 'banco'],
+            'lugar especifico': ['sitio exacto', 'direccion', 'ubicacion'],
+            
+            # Frases generales
+            'cuando puedo': ['fechas para', 'plazo para', 'cronograma de'],
+            'cuanto cuesta': ['cual es el costo', 'precio', 'tasa', 'monto'],
+            'que documentos': ['requisitos documentarios', 'papeles necesarios', 'expediente completo'],
+        }
+    
+    def expand_query(self, query):
+        """
+        ✅ Query Expansion MEJORADA sin LLM
+        """
+        query_lower = query.lower()
+        expanded_terms = set()
+        expanded_terms.add(query)
+        
+        def normalize(text):
+            text = unicodedata.normalize('NFD', text)
+            text = ''.join(c for c in text if unicodedata.category(c) != 'Mn')
+            return text.lower()
+        
+        query_normalized = normalize(query)
+        
+        # 🔍 PASO 1: Expansión por palabras clave
+        for key_term, expansions in self.query_expansion_dict.items():
+            if key_term in query_normalized:
+                expanded_terms.update(expansions)
+                logger.info(f"🔍 Expansión: '{key_term}' → {len(expansions)} términos")
+        
+        # 🔍 PASO 2: Expansión contextual por frases
+        expansion_rules = [
+            # Lugares de pago específicos
+            (r'donde.*pagar.*reactualizacion', ['caja unsa', 'moral 316', 'cercado', 'cajas areas', 'lugar pago', 'derecho reactualizacion', '150 soles']),
+            (r'donde.*pagar.*matricula', ['banco credito peru', 'bcp', 'portal matriculas', 'talon pago']),
+            (r'donde.*pagar.*convalidacion', ['caja unsa', 'moral 316', 'tasas', 'recibo']),
+            
+            # Lugares de presentación
+            (r'donde.*presentar.*expediente', ['escuela profesional', 'en fisico', 'completo']),
+            (r'donde.*entregar', ['escuela', 'oficina', 'mesa partes']),
+            
+            # Fechas
+            (r'cuando.*puedo.*matricular', ['cronograma', 'fechas matricula', 'calendario academico', 'grupo']),
+            (r'cuando.*presentar', ['cronograma', 'fechas presentacion', 'plazo', '17 marzo', '28 marzo']),
+            
+            # Costos
+            (r'cuanto.*cuesta.*reactualizacion', ['150 soles', 'derecho reactualizacion', 'tasa']),
+            (r'cuanto.*cuesta.*convalidacion', ['tasa', 'ordinario 35', 'profesional', 'universidad particular']),
+            
+            # Requisitos
+            (r'que.*necesito.*convalidar', ['expediente', 'certificado', 'silabo', 'recibo', 'dni']),
+            (r'que.*documentos', ['requisitos', 'expediente', 'solicitud', 'certificado']),
+            
+            # Excepciones
+            (r'dos.*asignaturas.*egresar', ['matricula por excepcion', 'llevar en paralelo', 'prerrequisito']),
+            (r'excepcion.*matricula', ['por egresar', 'dos cursos', 'curriculo rigido']),
+            
+            # Autoridades
+            (r'quien.*establece.*cronograma', ['consejo universitario', 'calendario academico', 'programa fechas']),
+        ]
+        
+        rules_applied = []
+        for pattern, terms in expansion_rules:
+            if re.search(pattern, query_normalized):
+                expanded_terms.update(terms)
+                rules_applied.append(f"'{pattern}' → {len(terms)} términos")
+        
+        if rules_applied:
+            logger.info(f"🔍 Reglas contextuales aplicadas:")
+            for rule in rules_applied:
+                logger.info(f"   - {rule}")
+        
+        # Crear query expandida
+        expanded_query = ' '.join(expanded_terms)
+        
+        logger.info("=" * 80)
+        logger.info(f"📝 QUERY EXPANSION:")
+        logger.info(f"   Original: {query}")
+        logger.info(f"   Expandida ({len(expanded_terms)} términos)")
+        logger.info(f"   Preview: {expanded_query[:150]}...")
+        logger.info("=" * 80)
+        
+        return expanded_query
     
     def load_documents(self):
         """Cargar documentos desde JSON"""
@@ -72,6 +372,77 @@ class RAGService:
         faiss.write_index(index, self.index_path)
         
         return index
+    
+    def _generate_hypothetical_document(self, query):
+        """
+        ✅ HyDE: Generar documento hipotético que respondería la pregunta
+        
+        El LLM genera una respuesta ideal basándose solo en la pregunta,
+        luego usamos esa respuesta para buscar documentos similares.
+        """
+        if not self._ensure_ollama_running():
+            logger.warning("⚠️ Ollama no disponible, HyDE desactivado para esta consulta")
+            return query  # Fallback a query original
+        
+        # Prompt especializado para HyDE
+        hyde_prompt = f"""Eres un experto en normativas académicas de la UNSA.
+
+TAREA: Genera una respuesta HIPOTÉTICA y DETALLADA a esta pregunta como si tuvieras toda la información:
+
+PREGUNTA: {query}
+
+INSTRUCCIONES:
+1. Escribe una respuesta completa y técnica
+2. Usa términos específicos del dominio académico
+3. Incluye detalles como fechas aproximadas, lugares típicos, procedimientos estándar
+4. NO inventes datos específicos, pero SÍ usa lenguaje técnico apropiado
+5. Escribe 2-3 párrafos descriptivos
+
+RESPUESTA HIPOTÉTICA:"""
+
+        try:
+            logger.info("🔮 Generando documento hipotético con HyDE...")
+            start_time = time.time()
+            
+            response = requests.post(
+                self.ollama_url,
+                json={
+                    "model": self.ollama_model,
+                    "prompt": hyde_prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": self.hyde_temperature,
+                        "num_predict": 300,  # Documento corto pero informativo
+                        "top_p": 0.9
+                    }
+                },
+                timeout=30  # Timeout corto para HyDE
+            )
+            
+            elapsed = time.time() - start_time
+            
+            if response.status_code == 200:
+                result = response.json()
+                hypothetical_doc = result.get('response', '').strip()
+                
+                if hypothetical_doc and len(hypothetical_doc) > 50:
+                    logger.info(f"✅ HyDE completado en {elapsed:.2f}s")
+                    logger.info(f"📄 Documento hipotético ({len(hypothetical_doc)} chars):")
+                    logger.info(f"   {hypothetical_doc[:200]}...")
+                    return hypothetical_doc
+                else:
+                    logger.warning("⚠️ HyDE generó respuesta muy corta, usando query original")
+                    return query
+            else:
+                logger.warning(f"⚠️ HyDE falló (status {response.status_code}), usando query original")
+                return query
+                
+        except requests.Timeout:
+            logger.warning("⚠️ HyDE timeout, usando query original")
+            return query
+        except Exception as e:
+            logger.error(f"❌ Error en HyDE: {e}, usando query original")
+            return query
     
     def keyword_search(self, query, documents):
         """Búsqueda por palabras clave mejorada con sinónimos"""
@@ -717,22 +1088,67 @@ class RAGService:
         return keyword_scores
     
     def search_documents(self, query, top_k=5):
-        """Búsqueda híbrida: semántica + palabras clave con Query Expansion"""
+        """
+        ✅ Búsqueda HÍBRIDA mejorada: HyDE + Query Expansion + Keywords
+        
+        Estrategia:
+        1. HyDE: Genera documento hipotético para búsqueda semántica
+        2. Query Expansion: Expande términos para búsqueda por keywords
+        3. Combina ambos scores
+        """
         if not self.index or not self.documents:
             return []
         
-        # Búsqueda semántica
-        query_embedding = self.model.encode([query])
-        faiss.normalize_L2(query_embedding)
-        scores, indices = self.index.search(query_embedding, top_k * 3)
+        # ==========================================
+        # FASE 1: BÚSQUEDA SEMÁNTICA CON HyDE
+        # ==========================================
+        if self.use_hyde:
+            # Generar documento hipotético
+            hypothetical_doc = self._generate_hypothetical_document(query)
+            
+            # Embeddings del documento hipotético
+            hyde_embedding = self.model.encode([hypothetical_doc])
+            faiss.normalize_L2(hyde_embedding)
+            hyde_scores, hyde_indices = self.index.search(hyde_embedding, top_k * 4)
+            
+            logger.info("=" * 80)
+            logger.info("🔮 BÚSQUEDA SEMÁNTICA CON HyDE:")
+            logger.info(f"   Top {top_k * 4} documentos recuperados")
+            logger.info("=" * 80)
+            
+            # Usar scores de HyDE
+            semantic_scores_dict = {hyde_indices[0][i]: hyde_scores[0][i] for i in range(len(hyde_indices[0]))}
+        else:
+            # Búsqueda semántica tradicional (sin HyDE)
+            query_embedding = self.model.encode([query])
+            faiss.normalize_L2(query_embedding)
+            scores, indices = self.index.search(query_embedding, top_k * 4)
+            
+            semantic_scores_dict = {indices[0][i]: scores[0][i] for i in range(len(indices[0]))}
         
-        # Búsqueda por palabras clave
-        keyword_scores = self.keyword_search(query, self.documents)
+        # ==========================================
+        # FASE 2: QUERY EXPANSION + BÚSQUEDA POR KEYWORDS
+        # ==========================================
+        expanded_query = self.expand_query(query)  # Tu función existente
+        keyword_scores = self.keyword_search(expanded_query, self.documents)
         
-        # Detectar tipo de pregunta
+        # ==========================================
+        # FASE 3: DETECCIÓN DE TIPO DE PREGUNTA
+        # ==========================================
         query_lower = query.lower()
         is_date_query = any(w in query_lower for w in ['cuando', 'fecha', 'fechas', 'plazo', 'cronograma'])
         is_place_query = any(w in query_lower for w in ['donde', 'lugar', 'presentar', 'entregar'])
+        
+        is_lugar_pago_question = (
+            is_place_query and 
+            any(w in query_lower for w in ['pagar', 'pago', 'caja', 'derechos', 'tasa'])
+        )
+        
+        is_lugar_presentacion_question = (
+            is_place_query and 
+            any(w in query_lower for w in ['presentar', 'entregar', 'expediente', 'tramite'])
+        )
+        
         is_restriction_query = (
             any(w in query_lower for w in ['se pueden', 'se puede', 'puedo', 'permiten', 'permite', 'instituto', 'restriccion', 'prohibido'])
             and 'matricula por excepcion' not in query_lower
@@ -744,77 +1160,80 @@ class RAGService:
         is_consequence_query = any(phrase in query_lower for phrase in ['que ocurre', 'que pasa', 'que sucede', 'dejan de matricularse', 'mas de tres', 'pierden'])
         is_credits_query = any(phrase in query_lower for phrase in ['creditos adicionales', 'creditos extra', 'cuantos creditos', 'sin cursos pendientes', 'ningun curso pendiente'])
         is_contact_query = any(phrase in query_lower for phrase in ['que correo', 'cual es el correo', 'correo electronico', 'talleres extracurriculares', 'talleres', 'contactar', 'inscribirme'])
-        # ✅ NUEVO
         is_exception_enrollment_query = any(phrase in query_lower for phrase in ['matricula por excepcion', 'por excepcion', 'faltan dos asignaturas', 'llevarlas juntas', 'llevar en paralelo'])
-        # ✅ NUEVO
         is_authority_query = any(phrase in query_lower for phrase in ['quien establece', 'quien programa', 'quien define', 'consejo universitario', 'que entidad', 'que organo'])
-        # ✅ NUEVO
         is_equivalence_query = any(phrase in query_lower for phrase in ['equivalente', 'equivale', 'es equivalente a', 'abandono es equivalente', 'conteo de matriculas'])
         
-        # Detección específica de lugares
-        is_lugar_pago_question = (
-            is_place_query and 
-            any(w in query_lower for w in ['pagar', 'pago', 'caja', 'derechos', 'tasa'])
-        )
-        
-        is_lugar_presentacion_question = (
-            is_place_query and 
-            any(w in query_lower for w in ['presentar', 'entregar', 'expediente', 'tramite'])
-        )
-        
-        # Combinar puntuaciones
+        # ==========================================
+        # FASE 4: COMBINAR SCORES (HyDE + Keywords)
+        # ==========================================
         combined_results = []
-        for i, score in enumerate(scores[0]):
-            if score > 0.2:
-                doc_idx = indices[0][i]
-                semantic_score = float(score)
-                keyword_score = keyword_scores.get(doc_idx, 0)
-                
-                # Ajustar pesos dinámicamente
-                if is_lugar_pago_question or is_lugar_presentacion_question:
-                    # ✅ PRIORIZAR keywords para TODAS las preguntas de lugares
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
-                elif is_equivalence_query:
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
-                elif is_authority_query:
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
-                elif is_exception_enrollment_query:
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
-                elif is_contact_query:
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
-                elif is_credits_query:
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
-                elif is_consequence_query:
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
-                elif is_definition_query:
-                    combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
-                elif is_validation_query:
-                    combined_score = (semantic_score * 0.1) + (keyword_score * 0.9)
-                elif is_cost_query:
-                    combined_score = (semantic_score * 0.2) + (keyword_score * 0.8)
-                elif is_restriction_query:
-                    combined_score = (semantic_score * 0.3) + (keyword_score * 0.7)
-                elif is_date_query or is_place_query:
-                    combined_score = (semantic_score * 0.4) + (keyword_score * 0.6)
-                else:
-                    combined_score = (semantic_score * 0.7) + (keyword_score * 0.3)
-                
+        
+        # Obtener todos los índices únicos de ambas búsquedas
+        all_indices = set(semantic_scores_dict.keys()) | set(keyword_scores.keys())
+        
+        for doc_idx in all_indices:
+            semantic_score = semantic_scores_dict.get(doc_idx, 0.0)
+            keyword_score = keyword_scores.get(doc_idx, 0)
+            
+            # ✅ AJUSTAR PESOS DINÁMICAMENTE según tipo de pregunta
+            if is_lugar_pago_question or is_lugar_presentacion_question:
+                # Lugares: Priorizar keywords (95%) sobre HyDE (5%)
+                combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
+            elif is_equivalence_query or is_authority_query or is_exception_enrollment_query:
+                # Preguntas conceptuales específicas: 95% keywords
+                combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
+            elif is_contact_query or is_credits_query or is_consequence_query or is_definition_query:
+                # Preguntas muy específicas: 95% keywords
+                combined_score = (semantic_score * 0.05) + (keyword_score * 0.95)
+            elif is_validation_query:
+                # Validación: 90% keywords
+                combined_score = (semantic_score * 0.1) + (keyword_score * 0.9)
+            elif is_cost_query:
+                # Costos: 80% keywords (necesitan match exacto)
+                combined_score = (semantic_score * 0.2) + (keyword_score * 0.8)
+            elif is_restriction_query:
+                # Restricciones: 70% keywords
+                combined_score = (semantic_score * 0.3) + (keyword_score * 0.7)
+            elif is_date_query or is_place_query:
+                # Fechas/Lugares generales: Balance 50-50 (HyDE ayuda aquí)
+                combined_score = (semantic_score * 0.5) + (keyword_score * 0.5)
+            else:
+                # Preguntas generales: HyDE es más útil (70%)
+                combined_score = (semantic_score * 0.7) + (keyword_score * 0.3)
+            
+            # Solo incluir si tiene score mínimo
+            if semantic_score > 0.2 or keyword_score > 50:
                 combined_results.append({
                     'documento': self.documents[doc_idx],
                     'score': combined_score,
-                    'semantic_score': semantic_score,
-                    'keyword_score': keyword_score
+                    'semantic_score': float(semantic_score),
+                    'keyword_score': keyword_score,
+                    'hyde_used': self.use_hyde
                 })
         
         # Ordenar por puntuación combinada
         combined_results.sort(key=lambda x: x['score'], reverse=True)
         
-        # Logging mejorado
-        logger.info(f"📊 Query type - Fechas: {is_date_query}, Lugares: {is_place_query}, Restricciones: {is_restriction_query}, Costos: {is_cost_query}, Validación: {is_validation_query}, Definición: {is_definition_query}, Consecuencias: {is_consequence_query}, Créditos: {is_credits_query}, Contacto: {is_contact_query}, Matrícula Excepción: {is_exception_enrollment_query}, Autoridad: {is_authority_query}, Equivalencia: {is_equivalence_query}")
-        logger.info(f"📊 Recuperados {len(combined_results[:top_k])} documentos para: {query[:50]}...")
+        # ==========================================
+        # LOGGING DETALLADO
+        # ==========================================
+        logger.info("=" * 80)
+        logger.info(f"📊 RESULTADOS FINALES (HyDE={'✅' if self.use_hyde else '❌'}):")
+        logger.info(f"   Query: {query[:60]}...")
+        logger.info(f"   Tipo: Lugares Pago={is_lugar_pago_question}, Costos={is_cost_query}, Definición={is_definition_query}")
+        logger.info(f"   Documentos recuperados: {len(combined_results[:top_k])}/{len(combined_results)}")
+        logger.info("=" * 80)
         
         for i, doc in enumerate(combined_results[:top_k], 1):
-            logger.info(f"  {i}. Score: {doc['score']:.2f} (Sem: {doc['semantic_score']:.2f}, KW: {doc['keyword_score']:.2f})")
+            doc_data = doc['documento']
+            chunk_id = doc_data.get('id_chunk', 'N/A')
+            categoria = doc_data.get('categoria_principal', 'N/A')
+            
+            logger.info(f"  {i}. [{chunk_id}] {categoria}")
+            logger.info(f"      Score Total: {doc['score']:.2f} | HyDE: {doc['semantic_score']:.3f} | KW: {doc['keyword_score']:.0f}")
+        
+        logger.info("=" * 80)
         
         return combined_results[:top_k]
     
