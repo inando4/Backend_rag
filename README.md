@@ -1,0 +1,1 @@
+Backend RAG UNSA Sistema de recuperación y generación para normativa universitaria. Implementación en Django + Qwen 2.5.

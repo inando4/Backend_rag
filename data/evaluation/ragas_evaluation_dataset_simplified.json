@@ -1,0 +1,602 @@
+[
+  {
+    "question": "¿Cuál es el rango de fechas exacto para la presentación de expedientes de convalidación a las escuelas en 2025?",
+    "answer": "Del **17 de marzo** al **28 de marzo**",
+    "ground_truth": "Del 17 de marzo al 28 de marzo.",
+    "contexts": [
+      "Artículo 28. Los estudiantes que, para culminar su carrera profesional, tengan pendiente de aprobación hasta **dos (2) asignaturas**, podrán matricularse en ellos a efecto que se les nombre jurado para la evaluación respectiva, conforme al Reglamento específico. Las Escuelas que tienen como prerrequisito a las prácticas profesionales la aprobación de todas las asignaturas, aplicarán lo dispuesto en el presente artículo antes del inicio de dichas actividades.",
+      "Artículo 11. El Consejo Universitario establecerá anualmente el calendario académico, en el cual se programará las fechas en las que se llevará a cabo la matrícula.",
+      "Artículo 29. El estudiante que haya rendido la evaluación por jurado, de acuerdo a Reglamento respectivo, tienen derecho a rectificar su matrícula antes del consolidado o cierre de matrícula programada en el Calendario Académico correspondiente.",
+      "El cronograma establece que la Presentación de expedientes de convalidación a las escuelas se realizará desde el **17 de marzo** hasta el **28 de marzo** [12].",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2]."
+    ]
+  },
+  {
+    "question": "¿Cuándo es la fecha de inicio de clases para el año académico 2025?",
+    "answer": "La fecha de inicio de clases para el año académico 2025 es el **31 de marzo**.",
+    "ground_truth": "31 DE MARZO.",
+    "contexts": [
+      "El estudiante debe descargar la ficha de matrícula de `http://matricula.unsa.edu.pe` [4] y enviarla, debidamente llenada y firmada, a la **Escuela Profesional** en las fechas del Cronograma Académico 2025 A (del **20 al 24 de enero**) [5].",
+      "El expediente debe enviarse a la dirección de correo electrónico **dsa@unsa.edu.pe** [2] dentro del plazo del **20 al 24 de enero de 2025** [2]. La reserva se registra cuando su escuela esté habilitada para 2025 A [3].",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2].",
+      "El cronograma establece que la Presentación de expedientes de convalidación a las escuelas se realizará desde el **17 de marzo** hasta el **28 de marzo** [12].",
+      "La fecha de **INICIO DE CLASES** está fijada para el **31 DE MARZO** [5]. Se recomienda contactar y apersonarse a las respectivas escuelas [5]. El correo de la Dirección de Servicios Académicos es `dsa@unsa.edu.pe` y el teléfono 054-222787 [5]."
+    ]
+  },
+  {
+    "question": "¿En qué fechas se debe enviar el correo para el Levantamiento de Reserva de Matrícula 2025?",
+    "answer": "El correo para el Levantamiento de Reserva de Matrícula debe enviarse del **20 al 24 de enero de 2025** a la dirección **dsa@unsa.edu.pe**.",
+    "ground_truth": "Del 20 al 24 de enero de 2025.",
+    "contexts": [
+      "El envío del expediente debe hacerse a **dsa@unsa.edu.pe** [10], en las fechas según cronograma: **del 20 al 24 de enero de 2025** [10].",
+      "El expediente debe enviarse a la dirección de correo electrónico **dsa@unsa.edu.pe** [2] dentro del plazo del **20 al 24 de enero de 2025** [2]. La reserva se registra cuando su escuela esté habilitada para 2025 A [3].",
+      "El cronograma establece que la Presentación de expedientes de convalidación a las escuelas se realizará desde el **17 de marzo** hasta el **28 de marzo** [12].",
+      "Las convalidaciones solamente se presentan al inicio del año académico, en el **Primer Semestre 2025 A** [6].",
+      "Al retornar, cuando se cumpla el año o los años de reserva, el estudiante deberá tramitar el **Levantamiento de Reserva** [3]. Este trámite de levantamiento de reserva solamente se realiza en el Primer Semestre [3]."
+    ]
+  },
+  {
+    "question": "¿Cuál es el plazo establecido para realizar el trámite de Reactualización de Matrícula 2025?",
+    "answer": "El plazo establecido para realizar el trámite de Reactualización de Matrícula 2025 es del **20 de enero** al **24 de enero de 2025**.",
+    "ground_truth": "Del 20 de enero al 24 de enero de 2025.",
+    "contexts": [
+      "Artículo 11. El Consejo Universitario establecerá anualmente el calendario académico, en el cual se programará las fechas en las que se llevará a cabo la matrícula.",
+      "Artículo 29. El estudiante que haya rendido la evaluación por jurado, de acuerdo a Reglamento respectivo, tienen derecho a rectificar su matrícula antes del consolidado o cierre de matrícula programada en el Calendario Académico correspondiente.",
+      "Se resuelve: 1. **APROBAR las modificatorias al Reglamento de Matrícula** de la Universidad Nacional de San Agustín de Arequipa, aprobado mediante Resolución Universitaria N° 435-2017, del 26 de junio de 2017, el mismo que consta de 08 Capítulos, 29 Artículos, 06 Disposiciones Transitorias y 03 Disposiciones Finales; y, que forma parte integrante de la presente resolución.",
+      "2.4 Reactualización de matrícula: Proceso que permite recuperar la condición de estudiante luego de haber dejado de matricularse por un periodo de tiempo. 2.5 Abandono de matrícula: Cuando el estudiante no rinde alguna o todas las evaluaciones programadas para el curso de acuerdo al sílabo correspondiente.",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2]."
+    ]
+  },
+  {
+    "question": "¿Cuál es el periodo para la expedición, registro de Resoluciones y envío a DSA en el proceso de convalidaciones 2025?",
+    "answer": "El periodo para la expedición, registro de Resoluciones y envío a DSA en el proceso de convalidaciones 2025 es del **24 de marzo** al **28 de marzo**.",
+    "ground_truth": "Del 24 de marzo al 28 de marzo.",
+    "contexts": [
+      "Se resuelve: 1. **APROBAR las modificatorias al Reglamento de Matrícula** de la Universidad Nacional de San Agustín de Arequipa, aprobado mediante Resolución Universitaria N° 435-2017, del 26 de junio de 2017, el mismo que consta de 08 Capítulos, 29 Artículos, 06 Disposiciones Transitorias y 03 Disposiciones Finales; y, que forma parte integrante de la presente resolución.",
+      "Artículo 28. Los estudiantes que, para culminar su carrera profesional, tengan pendiente de aprobación hasta **dos (2) asignaturas**, podrán matricularse en ellos a efecto que se les nombre jurado para la evaluación respectiva, conforme al Reglamento específico. Las Escuelas que tienen como prerrequisito a las prácticas profesionales la aprobación de todas las asignaturas, aplicarán lo dispuesto en el presente artículo antes del inicio de dichas actividades.",
+      "La Expedición, registro de Resoluciones y envío a DSA (Dirección de Servicios Académicos) se llevará a cabo desde el **24 de marzo** hasta el **28 de marzo** [12].",
+      "El envío del expediente debe hacerse a **dsa@unsa.edu.pe** [10], en las fechas según cronograma: **del 20 al 24 de enero de 2025** [10].",
+      "El cronograma establece que la Presentación de expedientes de convalidación a las escuelas se realizará desde el **17 de marzo** hasta el **28 de marzo** [12]."
+    ]
+  },
+  {
+    "question": "¿En qué fechas se realiza la modificación de matrículas y matrículas por excepción tras las convalidaciones?",
+    "answer": "La modificación de matrículas y matrículas por excepción tras las convalidaciones se realiza del **28 de marzo** al **02 de abril**.",
+    "ground_truth": "Del 28 de marzo al 02 de abril.",
+    "contexts": [
+      "La Modificación de Matrículas y Matrículas por excepción se realizará desde el **28 de marzo** hasta el **02 de abril** [6].",
+      "Para los casos no contemplados en los puntos anteriores (Casos Por Egresar y Currículo Rígido/Créditos), serán los **Decanos de Facultad** los que resuelvan lo pertinente conforme al marco normativo (Ley Universitaria 30220, Estatuto de la Universidad, Reglamento de matrícula) [3, 4].",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2].",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10].",
+      "Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula** para incluir las asignaturas que ha convalidado (las que no estuvo matriculado inicialmente) [5, 6]."
+    ]
+  },
+  {
+    "question": "¿Cuál es la duración mínima de un periodo anual bajo el régimen de estudios de pregrado?",
+    "answer": "La duración mínima de un periodo anual bajo el régimen de estudios de pregrado es de treintaicuatro (34) semanas.",
+    "ground_truth": "Una duración mínima de treintaicuatro (34) semanas.",
+    "contexts": [
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "Artículo 2. Definiciones: 2.1 Régimen de estudios de pregrado: Los estudios de pregrado se imparten bajo el sistema semestral, por créditos y con currículo flexible. El semestre académico tiene una duración de diecisiete (17) semanas, a excepción de los planes de estudio anuales vigentes en el que el periodo anual tiene una duración mínima de treintaicuatro (34) semanas.",
+      "Artículo 20. Se considera retiro de matrícula en un curso al apartamiento voluntario y autorizado del mismo por parte del estudiante, dentro del periodo de matrícula y hasta el consolidado o cierre de matrícula establecido en el cronograma académico aprobado. El estudiante podrá, sin expresión de causa, retirarse de una o más asignaturas en los que se hubiere matriculado, hasta quedar con un mínimo de 12 créditos por semestre. Esta facultad podrá usarse hasta por dos veces en una misma asignatura.",
+      "Artículo 6. Los estudiantes tienen la obligación de matricularse en un número mínimo de **12 créditos** por semestre para conservar su condición de estudiante regular, salvo que le falten menos créditos para culminar la carrera.",
+      "Artículo 23. Se considera anulación de matrícula, cuando el estudiante solicita el retiro de todos los cursos en los que se haya matriculado, por razones justificadas y en el plazo previsto en el cronograma académico para el consolidado o cierre de matrícula. El trámite correspondiente se realiza en su Facultad y anulación de la matrícula obliga al estudiante a la devolución del carné universitario en la Dirección Universitaria de Formación Académica (DUFA). Esta facultad podrá usarse hasta por dos veces."
+    ]
+  },
+  {
+    "question": "¿Por cuánto tiempo máximo consecutivo o alterno puede un estudiante solicitar reserva de matrícula?",
+    "answer": "Un estudiante puede solicitar reserva de matrícula por un máximo de tres (03) años consecutivos o alternos.",
+    "ground_truth": "Por un máximo de tres (03) años consecutivos o alternos.",
+    "contexts": [
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**.",
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10].",
+      "Los **ingresantes del año académico vigente (2025) NO pueden solicitar Reserva de Matrícula**, ya que no cumplen con el requisito de tener matrícula en el año inmediato anterior (2024) [1]. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos** [1]. Además, no deben haber registrado matrícula 2025 [1] y el trámite solamente se realiza en el **Primer Semestre** [1].",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2]."
+    ]
+  },
+  {
+    "question": "¿En qué fechas se debe enviar la ficha de matrícula por excepción a la Escuela Profesional en 2025?",
+    "answer": "La ficha de matrícula por excepción debe enviarse a la dirección de correo electrónico dsa@unsa.edu.pe dentro del plazo del **20 de enero** al **24 de enero de 2025**.",
+    "ground_truth": "Del 20 al 24 de enero.",
+    "contexts": [
+      "Los estudiantes que estén por egresar en el semestre académico 2025 A, podrán solicitar matrícula por excepción para llevar un **exceso de créditos** si les falta **una (1) asignatura** para egresar, correspondiendo solamente a este único curso [1, 2].",
+      "Artículo 28. Los estudiantes que, para culminar su carrera profesional, tengan pendiente de aprobación hasta **dos (2) asignaturas**, podrán matricularse en ellos a efecto que se les nombre jurado para la evaluación respectiva, conforme al Reglamento específico. Las Escuelas que tienen como prerrequisito a las prácticas profesionales la aprobación de todas las asignaturas, aplicarán lo dispuesto en el presente artículo antes del inicio de dichas actividades.",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2].",
+      "El expediente debe enviarse a la dirección de correo electrónico **dsa@unsa.edu.pe** [2] dentro del plazo del **20 al 24 de enero de 2025** [2]. La reserva se registra cuando su escuela esté habilitada para 2025 A [3].",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10]."
+    ]
+  },
+  {
+    "question": "¿A qué años aplica la reactualización de matrícula para estudiantes que no registraron matrícula?",
+    "answer": "La reactualización de matrícula permite a los estudiantes recuperar su condición de estudiante después de haber dejado de matricularse por un periodo de tiempo. Para los estudiantes que no registraron matrícula, deben solicitar el levantamiento de la condición de reserva de matrícula si la han realizado, dentro de las fechas programadas en el calendario académico de la Universidad, en la Dirección Universitaria de Formación Académica (DUFA), previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+    "ground_truth": "A estudiantes que no registraron matrícula hasta tres (3) años: el 2022, 2023 o 2024.",
+    "contexts": [
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**.",
+      "Los **ingresantes del año académico vigente (2025) NO pueden solicitar Reserva de Matrícula**, ya que no cumplen con el requisito de tener matrícula en el año inmediato anterior (2024) [1]. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos** [1]. Además, no deben haber registrado matrícula 2025 [1] y el trámite solamente se realiza en el **Primer Semestre** [1].",
+      "Artículo 23. Se considera anulación de matrícula, cuando el estudiante solicita el retiro de todos los cursos en los que se haya matriculado, por razones justificadas y en el plazo previsto en el cronograma académico para el consolidado o cierre de matrícula. El trámite correspondiente se realiza en su Facultad y anulación de la matrícula obliga al estudiante a la devolución del carné universitario en la Dirección Universitaria de Formación Académica (DUFA). Esta facultad podrá usarse hasta por dos veces.",
+      "2.4 Reactualización de matrícula: Proceso que permite recuperar la condición de estudiante luego de haber dejado de matricularse por un periodo de tiempo. 2.5 Abandono de matrícula: Cuando el estudiante no rinde alguna o todas las evaluaciones programadas para el curso de acuerdo al sílabo correspondiente."
+    ]
+  },
+  {
+    "question": "¿En qué momento del año académico se presentan las convalidaciones?",
+    "answer": "Las convalidaciones se presentan al inicio del año académico, específicamente durante el Primer Semestre 2025 A, del **17 de marzo** al **28 de marzo**.",
+    "ground_truth": "Solamente se presentan al inicio del año académico Primer Semestre 2025 A.",
+    "contexts": [
+      "Las convalidaciones se realizan presentando asignaturas de otra escuela de la UNSA, o de otra universidad [1]. El estudiante debe tener **matrícula vigente (2025 A)** en la escuela donde presenta el expediente [1].",
+      "Las convalidaciones solamente se presentan al inicio del año académico, en el **Primer Semestre 2025 A** [6].",
+      "El cronograma establece que la Presentación de expedientes de convalidación a las escuelas se realizará desde el **17 de marzo** hasta el **28 de marzo** [12].",
+      "Los **ingresantes del año académico vigente (2025) NO pueden solicitar Reserva de Matrícula**, ya que no cumplen con el requisito de tener matrícula en el año inmediato anterior (2024) [1]. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos** [1]. Además, no deben haber registrado matrícula 2025 [1] y el trámite solamente se realiza en el **Primer Semestre** [1].",
+      "El sílabo debe ser del **año académico que se aprobó la asignatura**, e indicar escuela, créditos, año, y nombre de la asignatura, coincidiendo con el certificado y la solicitud [7]."
+    ]
+  },
+  {
+    "question": "¿Cuál es la duración de un semestre académico según las definiciones del reglamento?",
+    "answer": "La duración de un semestre académico es de diecisiete (17) semanas, según el Artículo 2 del Reglamento de Matrícula en el Capítulo I: Definiciones.",
+    "ground_truth": "Diecisiete (17) semanas.",
+    "contexts": [
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "Artículo 2. Definiciones: 2.1 Régimen de estudios de pregrado: Los estudios de pregrado se imparten bajo el sistema semestral, por créditos y con currículo flexible. El semestre académico tiene una duración de diecisiete (17) semanas, a excepción de los planes de estudio anuales vigentes en el que el periodo anual tiene una duración mínima de treintaicuatro (34) semanas.",
+      "Artículo 20. Se considera retiro de matrícula en un curso al apartamiento voluntario y autorizado del mismo por parte del estudiante, dentro del periodo de matrícula y hasta el consolidado o cierre de matrícula establecido en el cronograma académico aprobado. El estudiante podrá, sin expresión de causa, retirarse de una o más asignaturas en los que se hubiere matriculado, hasta quedar con un mínimo de 12 créditos por semestre. Esta facultad podrá usarse hasta por dos veces en una misma asignatura.",
+      "Artículo 23. Se considera anulación de matrícula, cuando el estudiante solicita el retiro de todos los cursos en los que se haya matriculado, por razones justificadas y en el plazo previsto en el cronograma académico para el consolidado o cierre de matrícula. El trámite correspondiente se realiza en su Facultad y anulación de la matrícula obliga al estudiante a la devolución del carné universitario en la Dirección Universitaria de Formación Académica (DUFA). Esta facultad podrá usarse hasta por dos veces.",
+      "Artículo 6. Los estudiantes tienen la obligación de matricularse en un número mínimo de **12 créditos** por semestre para conservar su condición de estudiante regular, salvo que le falten menos créditos para culminar la carrera."
+    ]
+  },
+  {
+    "question": "Según el Reglamento de Matrícula, ¿a partir de qué año académico es obligatorio acreditar conocimientos de idioma extranjero?",
+    "answer": "A partir del año académico 2021, los estudiantes deberán acreditar conocimientos de un idioma extranjero para su matrícula en el séptimo y noveno semestre.",
+    "ground_truth": "A partir del año académico 2021.",
+    "contexts": [
+      "Artículo 15. Para matricularse en un determinado curso, el estudiante debe haber cumplido los prerrequisitos que el Plan de Estudios de su escuela considere de previo y obligatorio cumplimiento. Por ninguna razón se validará la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional y los prerrequisitos establecidos en el Plan de Estudios respectivo, bajo responsabilidad del Director de Escuela.",
+      "Las convalidaciones se realizan presentando asignaturas de otra escuela de la UNSA, o de otra universidad [1]. El estudiante debe tener **matrícula vigente (2025 A)** en la escuela donde presenta el expediente [1].",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5].",
+      "Tercera.- A partir del **año académico 2021**, los estudiantes deberán acreditar conocimientos de un **idioma extranjero**, de preferencia inglés o una **lengua nativa**, de preferencia quechua o aymara, de nivel básico para su matrícula en el **séptimo semestre** y de nivel intermedio para la matrícula en el **noveno semestre**.",
+      "Artículo 9. Los estudiantes extranjeros no requieren de visa para la matrícula; la misma debe regularizarse antes del inicio del semestre lectivo siguiente de acuerdo a Reglamento de la Universidad. Artículo 10. Los estudiantes provenientes de intercambio deberán matricularse en la Universidad de origen e inscribirse en la UNSA en las asignaturas que elijan, previa coordinación con la oficina encargada de Movilidad Estudiantil."
+    ]
+  },
+  {
+    "question": "¿Cuándo se procesa el trámite de Reserva de Matrícula?",
+    "answer": "El trámite de Reserva de Matrícula se procesa cuando se envía el expediente a la dirección de correo electrónico dsa@unsa.edu.pe del **20 al 24 de enero de 2025**.",
+    "ground_truth": "Solamente se tramita en el Primer Semestre.",
+    "contexts": [
+      "El expediente debe enviarse a la dirección de correo electrónico **dsa@unsa.edu.pe** [2] dentro del plazo del **20 al 24 de enero de 2025** [2]. La reserva se registra cuando su escuela esté habilitada para 2025 A [3].",
+      "El envío del expediente debe hacerse a **dsa@unsa.edu.pe** [10], en las fechas según cronograma: **del 20 al 24 de enero de 2025** [10].",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2].",
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "El cronograma establece que la Presentación de expedientes de convalidación a las escuelas se realizará desde el **17 de marzo** hasta el **28 de marzo** [12]."
+    ]
+  },
+  {
+    "question": "¿Hasta cuándo procede el retiro de matrícula en un curso por parte del estudiante?",
+    "answer": "El retiro de matrícula en un curso por parte del estudiante puede realizarse dentro del periodo de matrícula y hasta el consolidado o cierre de matrícula establecido en el cronograma académico aprobado. El estudiante puede retirarse de una o más asignaturas hasta quedar con un mínimo de 12 créditos por semestre.",
+    "ground_truth": "Dentro del periodo de matrícula y hasta el consolidado o cierre de matrícula establecido en el cronograma académico aprobado.",
+    "contexts": [
+      "Artículo 20. Se considera retiro de matrícula en un curso al apartamiento voluntario y autorizado del mismo por parte del estudiante, dentro del periodo de matrícula y hasta el consolidado o cierre de matrícula establecido en el cronograma académico aprobado. El estudiante podrá, sin expresión de causa, retirarse de una o más asignaturas en los que se hubiere matriculado, hasta quedar con un mínimo de 12 créditos por semestre. Esta facultad podrá usarse hasta por dos veces en una misma asignatura.",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2].",
+      "Artículo 23. Se considera anulación de matrícula, cuando el estudiante solicita el retiro de todos los cursos en los que se haya matriculado, por razones justificadas y en el plazo previsto en el cronograma académico para el consolidado o cierre de matrícula. El trámite correspondiente se realiza en su Facultad y anulación de la matrícula obliga al estudiante a la devolución del carné universitario en la Dirección Universitaria de Formación Académica (DUFA). Esta facultad podrá usarse hasta por dos veces.",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10].",
+      "Artículo 21. El retiro total de matrícula por motivos de salud y otras causas debidamente justificadas, procede en cualquier momento durante el semestre o año académico y la solicitud de retiro de matrícula se presenta en el Vicerrectorado Académico para su autorización."
+    ]
+  },
+  {
+    "question": "¿Cuál es el costo del derecho de trámite para el Levantamiento de Reserva de Matrícula 2025?",
+    "answer": "El costo del derecho de trámite para el levantamiento de reserva de matrícula no está especificado en los documentos proporcionados. Sin embargo, se menciona que el estudiante debe realizar un pago previo por derechos de reserva, que cuesta S/ 50.00, en Cajas UNSA. No se detalla un costo adicional específico para el levantamiento de la reserva de matrícula.",
+    "ground_truth": "S/ 6.00.",
+    "contexts": [
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**.",
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "El recibo de pago por derechos de reserva es de **S/ 50.00 (CINCUENTA 00/100 SOLES)** [2], y debe ser cancelado en **Cajas UNSA** [2].",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10].",
+      "Los derechos de reactualización de matrícula tienen un costo de **S/ 150.00** [1]. El pago debe realizarse directamente en **Caja UNSA (Calle Moral 316- Cercado)** o en las Cajas de las Áreas [1]."
+    ]
+  },
+  {
+    "question": "¿Cuál es el monto a pagar por derechos de reactualización de matrícula 2025?",
+    "answer": "El monto a pagar por derechos de reactualización de matrícula 2025 es **S/ 150.00**.",
+    "ground_truth": "S/ 150.00.",
+    "contexts": [
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**.",
+      "2.4 Reactualización de matrícula: Proceso que permite recuperar la condición de estudiante luego de haber dejado de matricularse por un periodo de tiempo. 2.5 Abandono de matrícula: Cuando el estudiante no rinde alguna o todas las evaluaciones programadas para el curso de acuerdo al sílabo correspondiente.",
+      "Los derechos de reactualización de matrícula tienen un costo de **S/ 150.00** [1]. El pago debe realizarse directamente en **Caja UNSA (Calle Moral 316- Cercado)** o en las Cajas de las Áreas [1].",
+      "Después de pagar, se debe **enviar al correo dsa@unsa.edu.pe la Boleta Electrónica**, indicando que se hizo el pago por Reactualización de matrícula para que la DSA habilite al estudiante en el sistema [1]. La reactualización de matrícula se registra en el sistema cuando su escuela esté habilitada para Matrículas 2025 A [1].",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2]."
+    ]
+  },
+  {
+    "question": "¿Cuánto cuesta la tasa por curso de Universidad Particular para la modalidad de ingreso 'Profesionales'?",
+    "answer": "Para la modalidad de Profesionales, el costo por curso convalidado de una Universidad Particular es de S/ 176.00.",
+    "ground_truth": "S/ 176.00.",
+    "contexts": [
+      "Para la modalidad de **Profesionales**, el costo por curso convalidado de Universidad Nacional (otra) o Universidad Particular es de S/ 176.00 [12].",
+      "Para la modalidad de **Profesionales**, el costo por curso convalidado de otra Escuela de la UNSA es de S/ 55.00 [12].",
+      "Para las modalidades Ordinario, CEPRUNSA, Traslados Internos o Traslados Externos, el costo por curso convalidado de una **Universidad Particular** es de S/ 105.00 [11, 12].",
+      "Para las modalidades Ordinario, CEPRUNSA, Traslados Internos o Traslados Externos, el costo por curso convalidado de una **Universidad Nacional (otra)** es de S/ 55.00 [11, 12].",
+      "Para las modalidades Ordinario, CEPRUNSA o Traslados Internos, el costo por curso convalidado de **otra Escuela de la UNSA** es de S/ 35.00 [11]."
+    ]
+  },
+  {
+    "question": "¿Cuál es la tasa por curso para Traslados Externos provenientes de otra Universidad Nacional?",
+    "answer": "No encontré información sobre la tasa por curso para Traslados Externos provenientes de otra Universidad Nacional.",
+    "ground_truth": "S/ 55.00.",
+    "contexts": [
+      "Artículo 20. Se considera retiro de matrícula en un curso al apartamiento voluntario y autorizado del mismo por parte del estudiante, dentro del periodo de matrícula y hasta el consolidado o cierre de matrícula establecido en el cronograma académico aprobado. El estudiante podrá, sin expresión de causa, retirarse de una o más asignaturas en los que se hubiere matriculado, hasta quedar con un mínimo de 12 créditos por semestre. Esta facultad podrá usarse hasta por dos veces en una misma asignatura.",
+      "Artículo 9. Los estudiantes extranjeros no requieren de visa para la matrícula; la misma debe regularizarse antes del inicio del semestre lectivo siguiente de acuerdo a Reglamento de la Universidad. Artículo 10. Los estudiantes provenientes de intercambio deberán matricularse en la Universidad de origen e inscribirse en la UNSA en las asignaturas que elijan, previa coordinación con la oficina encargada de Movilidad Estudiantil.",
+      "Artículo 18. El estudiante tiene derecho a llevar asignaturas en otra Escuela Profesional, si su Escuela no la oferta en ese semestre, siempre y cuando sea de igual creditaje y contenido, previa autorización de la Escuela de origen.",
+      "Artículo 27. Los estudiantes que hayan logrado una vacante en el proceso de admisión de traslados internos, se matricularan en su nueva Escuela Profesional en los cursos que les corresponda. Por Resolución del Vicerrectorado Académico se les cancelará la matrícula en la Escuela Profesional de procedencia. Dicha Resolución deberá ser presentada a la Escuela Profesional de destino, junto con los documentos que se señalan en el Art. 16 del presente Reglamento.",
+      "Artículo 12. La matrícula se realiza por periodo académico vía Internet. Los Decanos de Facultad en coordinación con los directores de Escuela Profesional son responsables del proceso de matrícula. La Dirección Universitaria de Formación Académica (DUFA), supervisa el proceso y la oficina de Informática da el soporte técnico correspondiente. La Dirección de la Escuela Profesional publica el horario de clases antes del registro de matrículas."
+    ]
+  },
+  {
+    "question": "¿Cuál es el monto exacto por derechos de reserva de matrícula?",
+    "answer": "El monto exacto por derechos de reserva de matrícula es S/ 50.00.",
+    "ground_truth": "S/ 50.00.",
+    "contexts": [
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**.",
+      "Artículo 16. Son requisitos para matricularse: 16.1 Pagar los derechos de matrícula correspondientes. 16.2 Acreditar poseer un seguro médico privado o público.",
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "Los derechos de reactualización de matrícula tienen un costo de **S/ 150.00** [1]. El pago debe realizarse directamente en **Caja UNSA (Calle Moral 316- Cercado)** o en las Cajas de las Áreas [1].",
+      "El recibo de pago por derechos de reserva es de **S/ 50.00 (CINCUENTA 00/100 SOLES)** [2], y debe ser cancelado en **Cajas UNSA** [2]."
+    ]
+  },
+  {
+    "question": "¿Qué artículo del Reglamento de Matrícula define el 'Curso Obligatorio'?",
+    "answer": "No encontré información sobre el 'Curso Obligatorio'.",
+    "ground_truth": "Artículo 2.2.",
+    "contexts": [
+      "Artículo 3. La matrícula, es el acto formal y voluntario que acredita la condición de estudiante y le obliga al cumplimiento de la Ley, el Estatuto y los Reglamentos respectivos.",
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "Artículo 16. Son requisitos para matricularse: 16.1 Pagar los derechos de matrícula correspondientes. 16.2 Acreditar poseer un seguro médico privado o público.",
+      "Artículo 1. El presente Reglamento tiene como base legal: 1.1 Ley N° 30220, Ley Universitaria. 1.2 Estatuto Universitario aprobado por Resolución Asamblea Universitaria N° 001-2015-UNSA y modificatorias aprobadas en sesión de Asamblea Universitaria de fecha 26 de julio, 25 de agosto y 14 de septiembre del 2016.",
+      "Se resuelve: 1. **APROBAR las modificatorias al Reglamento de Matrícula** de la Universidad Nacional de San Agustín de Arequipa, aprobado mediante Resolución Universitaria N° 435-2017, del 26 de junio de 2017, el mismo que consta de 08 Capítulos, 29 Artículos, 06 Disposiciones Transitorias y 03 Disposiciones Finales; y, que forma parte integrante de la presente resolución."
+    ]
+  },
+  {
+    "question": "¿Cuál es la dirección física de las Cajas UNSA para realizar pagos presenciales?",
+    "answer": "La dirección física de las Cajas UNSA para realizar pagos presenciales es Calle Moral 316, Cercado. Además, también se pueden realizar pagos en las Cajas de las Áreas correspondientes.",
+    "ground_truth": "Calle Moral 316-Cercado.",
+    "contexts": [
+      "Para pagar, se debe solicitar el código de pago en la URL **`https://ouis.unsa.edu.pe/unsapay`** (ingresando con su correo `unsa.edu.pe`) [4]. El pago se realiza en el **Banco de Crédito del Perú / Agentes BCP o Banca Móvil BCP a la cuenta UNSA VIRTUAL** [5]. La boleta electrónica se descarga en el correo `unsa.edu.pe` [5].",
+      "El recibo de pago por el trámite tiene un costo de **S/ 6.00** [9], y el pago se realiza en Cajas UNSA [9].",
+      "Las tasas deben ser canceladas por **todas las asignaturas solicitadas en un solo recibo** [4, 6]. El pago se realiza directamente en CAJAS-UNSA (Calle Moral 316), en los locales de Cercado, Ingenierías, Biomédicas y Sociales [6].",
+      "Los derechos de reactualización de matrícula tienen un costo de **S/ 150.00** [1]. El pago debe realizarse directamente en **Caja UNSA (Calle Moral 316- Cercado)** o en las Cajas de las Áreas [1].",
+      "En caso de **error u omisión** en la matrícula, esta puede ser rectificada en cada Escuela Profesional [4]. El proceso requiere presentar (enviar) la Ficha de Matrícula llenada y firmada, la constancia de matrícula y el recibo de pago por modificación de matrícula [4]. Para pagar, se debe solicitar el código de pago en la URL `https://ouis.unsa.edu.pe/unsapay/login` (usando el correo `unsa.edu.pe`) [4]. El pago se realiza en el **Banco de Crédito del Perú** (BCP, agentes o Banca Móvil) a la cuenta **UNSA VIRTUAL**, y la boleta electrónica se descarga en el correo institucional [4]."
+    ]
+  },
+  {
+    "question": "¿Cuál es la URL para solicitar el código de pago para modificaciones de matrícula?",
+    "answer": "La URL para solicitar el código de pago para modificaciones de matrícula es `https://ouis.unsa.edu.pe/unsapay/login`.",
+    "ground_truth": "https://ouis.unsa.edu.pe/unsapay/login.",
+    "contexts": [
+      "Artículo 17. El estudiante, luego de haber registrado los cursos en los cuales se matricula vía Internet, en el mismo acto, debe **validar su matrícula**. De no efectuar esta validación el Sistema no registrará dicha matrícula. Luego el estudiante debe guardar y/o imprimir su constancia de matrícula como testimonio de dicho registro.",
+      "Los derechos de reactualización de matrícula tienen un costo de **S/ 150.00** [1]. El pago debe realizarse directamente en **Caja UNSA (Calle Moral 316- Cercado)** o en las Cajas de las Áreas [1].",
+      "En caso de **error u omisión** en la matrícula, esta puede ser rectificada en cada Escuela Profesional [4]. El proceso requiere presentar (enviar) la Ficha de Matrícula llenada y firmada, la constancia de matrícula y el recibo de pago por modificación de matrícula [4]. Para pagar, se debe solicitar el código de pago en la URL `https://ouis.unsa.edu.pe/unsapay/login` (usando el correo `unsa.edu.pe`) [4]. El pago se realiza en el **Banco de Crédito del Perú** (BCP, agentes o Banca Móvil) a la cuenta **UNSA VIRTUAL**, y la boleta electrónica se descarga en el correo institucional [4].",
+      "Los requisitos deben enviarse en un archivo PDF [9]. Estos incluyen: Solicitud dirigida a dsa@unsa.edu.pe pidiendo el levantamiento de reserva [9], Recibo de pago por trámite (S/ 6.00) [9], Solicitud enviada al pedir la reserva de matrícula [9], y Copia simple del DNI [9].",
+      "Después de pagar, se debe **enviar al correo dsa@unsa.edu.pe la Boleta Electrónica**, indicando que se hizo el pago por Reactualización de matrícula para que la DSA habilite al estudiante en el sistema [1]. La reactualización de matrícula se registra en el sistema cuando su escuela esté habilitada para Matrículas 2025 A [1]."
+    ]
+  },
+  {
+    "question": "¿Qué porcentaje mínimo de similitud de contenidos deben tener las asignaturas para ser convalidadas?",
+    "answer": "Las asignaturas a convalidar deberán tener una similitud de por lo menos el **80% de sus contenidos**.",
+    "ground_truth": "Por lo menos el 80% de sus contenidos.",
+    "contexts": [
+      "Finalmente, el estudiante debe **VALIDAR SU MATRÍCULA** y está obligado a imprimir su Constancia de Matrícula [4].",
+      "Artículo 17. El estudiante, luego de haber registrado los cursos en los cuales se matricula vía Internet, en el mismo acto, debe **validar su matrícula**. De no efectuar esta validación el Sistema no registrará dicha matrícula. Luego el estudiante debe guardar y/o imprimir su constancia de matrícula como testimonio de dicho registro.",
+      "El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].",
+      "Artículo 15. Para matricularse en un determinado curso, el estudiante debe haber cumplido los prerrequisitos que el Plan de Estudios de su escuela considere de previo y obligatorio cumplimiento. Por ninguna razón se validará la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional y los prerrequisitos establecidos en el Plan de Estudios respectivo, bajo responsabilidad del Director de Escuela.",
+      "Las asignaturas a convalidar deberán tener **igual o mayor creditaje** y una similitud de por lo menos el **80% de sus contenidos** [2]. Se puede presentar más de una asignatura (sílabo) con sus notas correspondientes, que sumados cubran el contenido de la asignatura solicitada (considerando un único pago) [2]."
+    ]
+  },
+  {
+    "question": "¿Cuál es el número mínimo de créditos en que debe matricularse un estudiante según el Artículo 6 del Reglamento?",
+    "answer": "Según el Artículo 6 del Reglamento de Matrícula, los estudiantes tienen la obligación de matricularse en un número mínimo de **12 créditos** por semestre para conservar su condición de estudiante regular, salvo que le falten menos créditos para culminar la carrera.",
+    "ground_truth": "Un número mínimo de 12 créditos por semestre.",
+    "contexts": [
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "Artículo 6. Los estudiantes tienen la obligación de matricularse en un número mínimo de **12 créditos** por semestre para conservar su condición de estudiante regular, salvo que le falten menos créditos para culminar la carrera.",
+      "Artículo 20. Se considera retiro de matrícula en un curso al apartamiento voluntario y autorizado del mismo por parte del estudiante, dentro del periodo de matrícula y hasta el consolidado o cierre de matrícula establecido en el cronograma académico aprobado. El estudiante podrá, sin expresión de causa, retirarse de una o más asignaturas en los que se hubiere matriculado, hasta quedar con un mínimo de 12 créditos por semestre. Esta facultad podrá usarse hasta por dos veces en una misma asignatura.",
+      "Artículo 13. El número máximo de créditos en que normalmente puede matricularse un estudiante al semestre es fijado por el Plan de Estudios de la escuela correspondiente. Los estudiantes que no tengan ningún curso pendiente de aprobación podrán matricularse hasta en **seis (06) créditos adicionales** por semestre.",
+      "Artículo 15. Para matricularse en un determinado curso, el estudiante debe haber cumplido los prerrequisitos que el Plan de Estudios de su escuela considere de previo y obligatorio cumplimiento. Por ninguna razón se validará la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional y los prerrequisitos establecidos en el Plan de Estudios respectivo, bajo responsabilidad del Director de Escuela."
+    ]
+  },
+  {
+    "question": "¿Cuántos créditos adicionales pueden matricularse los estudiantes que no tengan ningún curso pendiente de aprobación?",
+    "answer": "Los estudiantes que no tengan ningún curso pendiente de aprobación pueden matricularse hasta en seis (06) créditos adicionales por semestre.",
+    "ground_truth": "Hasta en seis (06) créditos adicionales por semestre.",
+    "contexts": [
+      "Artículo 13. El número máximo de créditos en que normalmente puede matricularse un estudiante al semestre es fijado por el Plan de Estudios de la escuela correspondiente. Los estudiantes que no tengan ningún curso pendiente de aprobación podrán matricularse hasta en **seis (06) créditos adicionales** por semestre.",
+      "El estudiante debe ingresar al **Sistema de Registro de Matrícula** (ubicado en la Página Web de la Universidad) con su usuario y clave [3]. El Sistema es el encargado de verificar el **cumplimiento de prerrequisitos** y los **topes de crédito** definidos para cada Escuela [3]. El Sistema considera automáticamente **seis (6) créditos adicionales** para los estudiantes que no tengan ningún curso pendiente de aprobación [3].",
+      "Si el Estudiante no puede matricularse en un **mínimo de 12 créditos** por restricciones de prerrequisitos, podrá matricularse sólo en los créditos permitidos (Menos de 12 créditos) [3].",
+      "Los estudiantes que estén por egresar en el semestre académico 2025 A, podrán solicitar matrícula por excepción para llevar un **exceso de créditos** si les falta **una (1) asignatura** para egresar, correspondiendo solamente a este único curso [1, 2].",
+      "Artículo 6. Los estudiantes tienen la obligación de matricularse en un número mínimo de **12 créditos** por semestre para conservar su condición de estudiante regular, salvo que le falten menos créditos para culminar la carrera."
+    ]
+  },
+  {
+    "question": "¿Qué artículo regula la 'Evaluación por jurado'?",
+    "answer": "El Artículo 28 del Reglamento de Matrícula, Capítulo VI: De la Evaluación por Jurado, regula la Evaluación por jurado. Este artículo establece que los estudiantes que tengan pendiente de aprobación hasta dos (2) asignaturas, podrán matricularse en ellas para ser evaluados por un jurado, conforme al Reglamento específico.",
+    "ground_truth": "Artículo 28.",
+    "contexts": [
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "Artículo 14. La desaprobación de una misma materia por **tres (03) veces** da lugar a que el estudiante sea **separado temporalmente por un año de la Universidad**. Al término de este plazo, el estudiante solo se podrá matricular en la materia que desaprobó anteriormente, para retomar de manera regular a sus estudios en el ciclo siguiente. Si desaprueba por **cuarta (4ta) vez** procede su retiro definitivo.",
+      "Artículo 28. Los estudiantes que, para culminar su carrera profesional, tengan pendiente de aprobación hasta **dos (2) asignaturas**, podrán matricularse en ellos a efecto que se les nombre jurado para la evaluación respectiva, conforme al Reglamento específico. Las Escuelas que tienen como prerrequisito a las prácticas profesionales la aprobación de todas las asignaturas, aplicarán lo dispuesto en el presente artículo antes del inicio de dichas actividades.",
+      "De ser aprobada la matrícula por excepción, el **Director de la Escuela y el Decano** autorizarán la matrícula, dando conformidad y firmando en la ficha correspondiente [6].",
+      "Artículo 22. Se cancelará en forma automática la matrícula de los estudiantes, que hayan sido separados de la Universidad, por las causas y sanciones establecidas en el Estatuto."
+    ]
+  },
+  {
+    "question": "¿Cuál es el correo electrónico oficial para contactar sobre talleres extracurriculares?",
+    "answer": "El correo electrónico oficial para contactar sobre talleres extracurriculares es **upacdr_talleres@unsa.edu.pe**.",
+    "ground_truth": "upacdr_talleres@unsa.edu.pe.",
+    "contexts": [
+      "Para la inscripción en los cursos de **Talleres Extracurriculares**, el estudiante debe contactar a la Oficina de Promoción de Arte, Cultura, Deporte y Recreación de la UNSA, utilizando el correo **upacdr_talleres@unsa.edu.pe** [5].",
+      "La fecha de **INICIO DE CLASES** está fijada para el **31 DE MARZO** [5]. Se recomienda contactar y apersonarse a las respectivas escuelas [5]. El correo de la Dirección de Servicios Académicos es `dsa@unsa.edu.pe` y el teléfono 054-222787 [5].",
+      "El expediente debe enviarse a la dirección de correo electrónico **dsa@unsa.edu.pe** [2] dentro del plazo del **20 al 24 de enero de 2025** [2]. La reserva se registra cuando su escuela esté habilitada para 2025 A [3].",
+      "Después de pagar, se debe **enviar al correo dsa@unsa.edu.pe la Boleta Electrónica**, indicando que se hizo el pago por Reactualización de matrícula para que la DSA habilite al estudiante en el sistema [1]. La reactualización de matrícula se registra en el sistema cuando su escuela esté habilitada para Matrículas 2025 A [1].",
+      "La DSA enviará un correo institucional indicando que el estudiante puede descargar el talón de pago, cancelar y registrar matrícula virtualmente [1]. Al estudiante le corresponde el **Grupo 3 de matrículas** de su escuela, dado que no registró notas el año anterior [1]."
+    ]
+  },
+  {
+    "question": "¿En qué banco se debe efectuar el pago del talón de matrícula?",
+    "answer": "El pago del talón de matrícula debe efectuarse en el Banco de Crédito del Perú (BCP).",
+    "ground_truth": "Bco. de Crédito del Perú.",
+    "contexts": [
+      "Artículo 17. El estudiante, luego de haber registrado los cursos en los cuales se matricula vía Internet, en el mismo acto, debe **validar su matrícula**. De no efectuar esta validación el Sistema no registrará dicha matrícula. Luego el estudiante debe guardar y/o imprimir su constancia de matrícula como testimonio de dicho registro.",
+      "En caso de **error u omisión** en la matrícula, esta puede ser rectificada en cada Escuela Profesional [4]. El proceso requiere presentar (enviar) la Ficha de Matrícula llenada y firmada, la constancia de matrícula y el recibo de pago por modificación de matrícula [4]. Para pagar, se debe solicitar el código de pago en la URL `https://ouis.unsa.edu.pe/unsapay/login` (usando el correo `unsa.edu.pe`) [4]. El pago se realiza en el **Banco de Crédito del Perú** (BCP, agentes o Banca Móvil) a la cuenta **UNSA VIRTUAL**, y la boleta electrónica se descarga en el correo institucional [4].",
+      "Para iniciar, el estudiante debe ingresar al portal de matrículas de la universidad (`matricula.unsa.edu.pe`) para obtener su **talón de pago** [2]. Con dicho talón, el estudiante debe efectuar el pago en el **Banco de Crédito del Perú (BCP)** [3]. El talón detalla el concepto, el monto y las indicaciones necesarias para el pago en el Banco [3].",
+      "Los derechos de reactualización de matrícula tienen un costo de **S/ 150.00** [1]. El pago debe realizarse directamente en **Caja UNSA (Calle Moral 316- Cercado)** o en las Cajas de las Áreas [1].",
+      "Las tasas deben ser canceladas por **todas las asignaturas solicitadas en un solo recibo** [4, 6]. El pago se realiza directamente en CAJAS-UNSA (Calle Moral 316), en los locales de Cercado, Ingenierías, Biomédicas y Sociales [6]."
+    ]
+  },
+  {
+    "question": "¿Cuál es la Ley Universitaria base legal del Reglamento de Matrícula?",
+    "answer": "La Ley Universitaria base legal del Reglamento de Matrícula es la Ley N° 30220.",
+    "ground_truth": "Ley Nº 30220.",
+    "contexts": [
+      "Artículo 3. La matrícula, es el acto formal y voluntario que acredita la condición de estudiante y le obliga al cumplimiento de la Ley, el Estatuto y los Reglamentos respectivos.",
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "Artículo 23. Se considera anulación de matrícula, cuando el estudiante solicita el retiro de todos los cursos en los que se haya matriculado, por razones justificadas y en el plazo previsto en el cronograma académico para el consolidado o cierre de matrícula. El trámite correspondiente se realiza en su Facultad y anulación de la matrícula obliga al estudiante a la devolución del carné universitario en la Dirección Universitaria de Formación Académica (DUFA). Esta facultad podrá usarse hasta por dos veces.",
+      "Artículo 1. El presente Reglamento tiene como base legal: 1.1 Ley N° 30220, Ley Universitaria. 1.2 Estatuto Universitario aprobado por Resolución Asamblea Universitaria N° 001-2015-UNSA y modificatorias aprobadas en sesión de Asamblea Universitaria de fecha 26 de julio, 25 de agosto y 14 de septiembre del 2016.",
+      "Artículo 12. La matrícula se realiza por periodo académico vía Internet. Los Decanos de Facultad en coordinación con los directores de Escuela Profesional son responsables del proceso de matrícula. La Dirección Universitaria de Formación Académica (DUFA), supervisa el proceso y la oficina de Informática da el soporte técnico correspondiente. La Dirección de la Escuela Profesional publica el horario de clases antes del registro de matrículas."
+    ]
+  },
+  {
+    "question": "¿Qué documentos exactos se deben enviar en un solo archivo PDF para el Levantamiento de Reserva de Matrícula?",
+    "answer": "Para realizar el Levantamiento de Reserva de Matrícula, el estudiante debe presentar un expediente virtual a la DSA en formato PDF que contenga los siguientes documentos: - Solicitud redactada y firmada, indicando datos generales, Escuela y la cantidad exacta de años que solicita la reserva (1, 2 o hasta 3 años). - Constancia de matrícula del periodo anterior (2024). - Recibo de pago por derechos (S/ 50.00). - Copia simple del DNI. Todos estos documentos deben estar en un solo archivo PDF.",
+    "ground_truth": "1. Solicitud dirigida a dsa@unsa.edu.pe, 2. Recibo de pago por trámite (S/ 6.00), 3. Solicitud enviada al pedir la reserva de matrícula, 4. Copia simple DNI.",
+    "contexts": [
+      "Finalmente, el estudiante debe **VALIDAR SU MATRÍCULA** y está obligado a imprimir su Constancia de Matrícula [4].",
+      "El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].",
+      "Las asignaturas a convalidar deberán tener **igual o mayor creditaje** y una similitud de por lo menos el **80% de sus contenidos** [2]. Se puede presentar más de una asignatura (sílabo) con sus notas correspondientes, que sumados cubran el contenido de la asignatura solicitada (considerando un único pago) [2].",
+      "El estudiante debe presentar un **expediente virtual a la DSA** con los documentos en un solo archivo PDF [2]. Los requisitos son: Solicitud redactada y firmada, indicando datos generales, Escuela y la cantidad exacta de años que solicita la reserva (1, 2 o hasta 3 años), **Constancia de matrícula del periodo anterior (2024)** [2], Recibo de pago por derechos (S/ 50.00) [2], y Copia simple del DNI [2].",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5]."
+    ]
+  },
+  {
+    "question": "Describa el proceso completo para realizar la Reactualización de Matrícula 2025.",
+    "answer": "El proceso completo para realizar la Reactualización de Matrícula 2025 en la Universidad Nacional de San Agustín (UNSA) es el siguiente: 1. **Plazo para realizar el trámite**: Del **20 de enero** al **24 de enero de 2025**. 2. Una vez realizado el pago correspondiente, se debe **enviar la Boleta Electrónica** al correo electrónico `dsa@unsa.edu.pe`, indicando que se ha realizado el pago por Reactualización de matrícula. 3. La DSA habilitará al estudiante en el sistema una vez que se envíe la Boleta Electrónica y se verifique el pago. 4. Posteriormente, la DSA notificará al estudiante vía correo institucional para que descargue el talón de pago 2025 A y proceda a cancelarlo. 5. Finalmente, el estudiante deberá registrar su matrícula en la fecha del Grupo 3 de matrículas, según esté habilitada su escuela para matrículas 2025 A. Este proceso permite que los estudiantes que no han registrado matrícula durante los últimos tres años (2022, 2023 o 2024) puedan volver a inscribirse en la universidad.",
+    "ground_truth": "1. Pagar los derechos (S/ 150.00) en Caja UNSA o áreas. 2. Enviar la Boleta Electrónica a dsa@unsa.edu.pe indicando el pago. 3. Esperar el registro por la DSA cuando la escuela esté habilitada. 4. Descargar el talón de pago y registrar matrícula en la fecha del Grupo 3.",
+    "contexts": [
+      "Las Escuelas/Facultades deben registrar en el sistema los Planes de Funcionamiento completos, que incluyen las asignaturas ofertadas, reprogramadas, con grupos, aulas, capacidad real por grupo (aforo), docente y horario ofertado [1]. Estos planes deben considerar la Directiva del Vicerrectorado Académico y deben ser enviados a la DSA para su revisión y consiguiente pase para el inicio de las matrículas [1].",
+      "Después de pagar, se debe **enviar al correo dsa@unsa.edu.pe la Boleta Electrónica**, indicando que se hizo el pago por Reactualización de matrícula para que la DSA habilite al estudiante en el sistema [1]. La reactualización de matrícula se registra en el sistema cuando su escuela esté habilitada para Matrículas 2025 A [1].",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10].",
+      "El estudiante debe descargar la ficha de matrícula de `http://matricula.unsa.edu.pe` [4] y enviarla, debidamente llenada y firmada, a la **Escuela Profesional** en las fechas del Cronograma Académico 2025 A (del **20 al 24 de enero**) [5].",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2]."
+    ]
+  },
+  {
+    "question": "¿Cuáles son los pasos que debe seguir un estudiante para la matrícula por excepción 2025?",
+    "answer": "Un estudiante que esté por egresar en el semestre académico 2025 A y que le falte una asignatura para completar su carrera puede solicitar matrícula por excepción para llevar ese único curso de exceso de créditos. Para hacer esto, el estudiante debe asegurarse de que solo le falte una asignatura para egresar, ya que esta opción está diseñada específicamente para este caso. No se proporcionan detalles adicionales sobre los pasos específicos para realizar la solicitud de matrícula por excepción en los documentos proporcionados.",
+    "ground_truth": "Descargar la ficha de matrícula de la web, solicitar código de pago en UNSA Pay, pagar en BCP, enviar a la Escuela Profesional la ficha llena y firmada (del 20 al 24 de enero), y esperar evaluación y aprobación del Director y Decano.",
+    "contexts": [
+      "Los estudiantes que estén por egresar en el semestre académico 2025 A, podrán solicitar matrícula por excepción para llevar un **exceso de créditos** si les falta **una (1) asignatura** para egresar, correspondiendo solamente a este único curso [1, 2].",
+      "Cuarta.- Esta situación de excepción, permite al estudiante que este por egresar y que luego de su matrícula regular, le falte una asignatura para culminar su carrera, solicitar matrícula por excepción para llevar el exceso de créditos que corresponda a esta **única asignatura** con la que culmina su carrera.",
+      "Artículo 28. Los estudiantes que, para culminar su carrera profesional, tengan pendiente de aprobación hasta **dos (2) asignaturas**, podrán matricularse en ellos a efecto que se les nombre jurado para la evaluación respectiva, conforme al Reglamento específico. Las Escuelas que tienen como prerrequisito a las prácticas profesionales la aprobación de todas las asignaturas, aplicarán lo dispuesto en el presente artículo antes del inicio de dichas actividades.",
+      "Tercera.- Se considera matrícula en situación de excepción, para aquellos estudiantes que estén por egresar en el semestre académico al que corresponda la presente matrícula.",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5]."
+    ]
+  },
+  {
+    "question": "¿Cómo debe conformarse el expediente físico de convalidaciones en cuanto a los documentos requeridos?",
+    "answer": "El expediente físico de convalidaciones debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos. Este expediente debe ser presentado en físico a la escuela donde solicita convalidar, del **17 de marzo** al **28 de marzo**. No se proporciona una lista detallada de los documentos específicos que deben incluirse en el expediente físico en el contexto proporcionado, excepto la declaración jurada mencionada.",
+    "ground_truth": "Solicitud en formato WEB-UNSA, Certificado de estudios original (o apostillado), Sílabo del año aprobado (sellado/firmado), Copia fotostática de constancia de matrícula 2025 A, Recibo de pago total, Copia fotostática de DNI.",
+    "contexts": [
+      "Finalmente, el estudiante debe **VALIDAR SU MATRÍCULA** y está obligado a imprimir su Constancia de Matrícula [4].",
+      "Artículo 17. El estudiante, luego de haber registrado los cursos en los cuales se matricula vía Internet, en el mismo acto, debe **validar su matrícula**. De no efectuar esta validación el Sistema no registrará dicha matrícula. Luego el estudiante debe guardar y/o imprimir su constancia de matrícula como testimonio de dicho registro.",
+      "El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].",
+      "El estudiante debe presentar un **expediente virtual a la DSA** con los documentos en un solo archivo PDF [2]. Los requisitos son: Solicitud redactada y firmada, indicando datos generales, Escuela y la cantidad exacta de años que solicita la reserva (1, 2 o hasta 3 años), **Constancia de matrícula del periodo anterior (2024)** [2], Recibo de pago por derechos (S/ 50.00) [2], y Copia simple del DNI [2].",
+      "Las convalidaciones se realizan presentando asignaturas de otra escuela de la UNSA, o de otra universidad [1]. El estudiante debe tener **matrícula vigente (2025 A)** en la escuela donde presenta el expediente [1]."
+    ]
+  },
+  {
+    "question": "¿Cuál es el procedimiento para rectificar un error u omisión en la matrícula regular?",
+    "answer": "Para rectificar un error u omisión en la matrícula regular, el estudiante debe seguir estos pasos: 1. Presentar la Ficha de Matrícula debidamente diligenciada y firmada. 2. Entregar la constancia de matrícula. 3. Realizar el pago por modificación de matrícula en el Banco de Crédito del Perú (BCP), a través de sus agentes o Banca Móvil, a la cuenta UNSA VIRTUAL. 4. Descargar la boleta electrónica del pago realizado en el correo institucional. Este proceso debe realizarse antes del consolidado o cierre de matrícula programado en el Calendario Académico correspondiente.",
+    "ground_truth": "Presentar (enviar) a la Escuela Profesional la Ficha de Matrícula llena y firmada, la constancia de matrícula y el recibo de pago por modificación de matrícula pagado en BCP con código obtenido en UNSA Pay.",
+    "contexts": [
+      "2.4 Reactualización de matrícula: Proceso que permite recuperar la condición de estudiante luego de haber dejado de matricularse por un periodo de tiempo. 2.5 Abandono de matrícula: Cuando el estudiante no rinde alguna o todas las evaluaciones programadas para el curso de acuerdo al sílabo correspondiente.",
+      "Artículo 17. El estudiante, luego de haber registrado los cursos en los cuales se matricula vía Internet, en el mismo acto, debe **validar su matrícula**. De no efectuar esta validación el Sistema no registrará dicha matrícula. Luego el estudiante debe guardar y/o imprimir su constancia de matrícula como testimonio de dicho registro.",
+      "Artículo 29. El estudiante que haya rendido la evaluación por jurado, de acuerdo a Reglamento respectivo, tienen derecho a rectificar su matrícula antes del consolidado o cierre de matrícula programada en el Calendario Académico correspondiente.",
+      "En caso de **error u omisión** en la matrícula, esta puede ser rectificada en cada Escuela Profesional [4]. El proceso requiere presentar (enviar) la Ficha de Matrícula llenada y firmada, la constancia de matrícula y el recibo de pago por modificación de matrícula [4]. Para pagar, se debe solicitar el código de pago en la URL `https://ouis.unsa.edu.pe/unsapay/login` (usando el correo `unsa.edu.pe`) [4]. El pago se realiza en el **Banco de Crédito del Perú** (BCP, agentes o Banca Móvil) a la cuenta **UNSA VIRTUAL**, y la boleta electrónica se descarga en el correo institucional [4].",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10]."
+    ]
+  },
+  {
+    "question": "¿Qué debe contener el archivo PDF para solicitar la Reserva de Matrícula 2025?",
+    "answer": "El archivo PDF para solicitar la Reserva de Matrícula 2025 debe contener los siguientes documentos: - Solicitud redactada y firmada, indicando datos generales, la Escuela y la cantidad exacta de años que solicita la reserva (1, 2 o hasta 3 años). - Constancia de matrícula del periodo anterior (2024). - Recibo de pago por derechos (S/ 50.00). - Copia simple del DNI. Todos estos documentos deben estar en un solo archivo PDF y ser presentados a la DSA.",
+    "ground_truth": "Solicitud redactada y firmada indicando años de reserva, Constancia de matrícula del periodo anterior (2024), Recibo de pago por derechos (S/ 50.00), y Copia simple del DNI.",
+    "contexts": [
+      "Finalmente, el estudiante debe **VALIDAR SU MATRÍCULA** y está obligado a imprimir su Constancia de Matrícula [4].",
+      "El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].",
+      "El estudiante debe presentar un **expediente virtual a la DSA** con los documentos en un solo archivo PDF [2]. Los requisitos son: Solicitud redactada y firmada, indicando datos generales, Escuela y la cantidad exacta de años que solicita la reserva (1, 2 o hasta 3 años), **Constancia de matrícula del periodo anterior (2024)** [2], Recibo de pago por derechos (S/ 50.00) [2], y Copia simple del DNI [2].",
+      "Las asignaturas a convalidar deberán tener **igual o mayor creditaje** y una similitud de por lo menos el **80% de sus contenidos** [2]. Se puede presentar más de una asignatura (sílabo) con sus notas correspondientes, que sumados cubran el contenido de la asignatura solicitada (considerando un único pago) [2].",
+      "Los requisitos deben enviarse en un archivo PDF [9]. Estos incluyen: Solicitud dirigida a dsa@unsa.edu.pe pidiendo el levantamiento de reserva [9], Recibo de pago por trámite (S/ 6.00) [9], Solicitud enviada al pedir la reserva de matrícula [9], y Copia simple del DNI [9]."
+    ]
+  },
+  {
+    "question": "¿Cómo debe llenarse el formato de solicitud para convalidaciones si las asignaturas exceden las líneas del formato?",
+    "answer": "No encontré información específica sobre cómo llenar el formato de solicitud para convalidaciones si las asignaturas exceden las líneas del formato. Sin embargo, según los documentos proporcionados, es importante asegurarse de que todas las asignaturas a convalidar sean presentadas en el expediente, incluso si es necesario agregar hojas adicionales o anexos al formato original para incluirlas todas. Es recomendable contactar directamente a la oficina académica o a la escuela donde se solicita la convalidación para obtener orientación adicional sobre cómo proceder en este caso.",
+    "ground_truth": "Llenará la solicitud en otra(s) hoja(s) (sacar copia de ambos lados) escribiendo 01 asignatura por línea y enumerando todas las hojas en la parte superior.",
+    "contexts": [
+      "Finalmente, el estudiante debe **VALIDAR SU MATRÍCULA** y está obligado a imprimir su Constancia de Matrícula [4].",
+      "Artículo 17. El estudiante, luego de haber registrado los cursos en los cuales se matricula vía Internet, en el mismo acto, debe **validar su matrícula**. De no efectuar esta validación el Sistema no registrará dicha matrícula. Luego el estudiante debe guardar y/o imprimir su constancia de matrícula como testimonio de dicho registro.",
+      "El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5].",
+      "Las asignaturas a convalidar deberán tener **igual o mayor creditaje** y una similitud de por lo menos el **80% de sus contenidos** [2]. Se puede presentar más de una asignatura (sílabo) con sus notas correspondientes, que sumados cubran el contenido de la asignatura solicitada (considerando un único pago) [2]."
+    ]
+  },
+  {
+    "question": "¿Cuál es el proceso general de matrícula regular descrito en las pautas 2025 A?",
+    "answer": "El proceso general de matrícula regular para el período 2025 A en la Universidad Nacional de San Agustín (UNSA) implica que los estudiantes deben realizar la matrícula antes de la fecha de cierre de matrícula. Para los estudiantes que deseen reservar su matrícula para un periodo académico inmediato, pueden hacerlo voluntariamente, siempre que lo soliciten en la Dirección Universitaria de Formación Académica (DUFA) y hayan realizado el pago por concepto de trámite documentario. Este derecho a solicitar reserva de matrícula es válido por un máximo de tres (03) años consecutivos o alternos. Para aquellos estudiantes que han solicitado la reserva de matrícula y desean levantarla, deberán seguir las instrucciones proporcionadas por la Dirección de Secretaría Académica (DSA) vía correo institucional, descargando el talón de pago correspondiente y cancelándolo. Posteriormente, el estudiante debe registrar su matrícula en la fecha del Grupo 3 de matrículas, una vez que la Escuela Profesional esté habilitada para matrículas 2025 A. Es importante destacar que los estudiantes que no hayan registrado matrícula durante los últimos tres años (2022, 2023 o 2024) y deseen reactualizar su matrícula, tendrán que hacerlo dentro del plazo establecido del 20 de enero al 24 de enero de 2025.",
+    "ground_truth": "Ingresar al portal de matrículas para obtener talón, pagar en BCP, ingresar al Sistema de Registro de matrícula (verifica prerrequisitos y créditos), y finalmente validar matrícula e imprimir Constancia.",
+    "contexts": [
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**.",
+      "Artículo 28. Los estudiantes que, para culminar su carrera profesional, tengan pendiente de aprobación hasta **dos (2) asignaturas**, podrán matricularse en ellos a efecto que se les nombre jurado para la evaluación respectiva, conforme al Reglamento específico. Las Escuelas que tienen como prerrequisito a las prácticas profesionales la aprobación de todas las asignaturas, aplicarán lo dispuesto en el presente artículo antes del inicio de dichas actividades.",
+      "Artículo 27. Los estudiantes que hayan logrado una vacante en el proceso de admisión de traslados internos, se matricularan en su nueva Escuela Profesional en los cursos que les corresponda. Por Resolución del Vicerrectorado Académico se les cancelará la matrícula en la Escuela Profesional de procedencia. Dicha Resolución deberá ser presentada a la Escuela Profesional de destino, junto con los documentos que se señalan en el Art. 16 del presente Reglamento.",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10].",
+      "La Reactualización de Matrícula aplica solo a estudiantes que **no registraron matrícula hasta por tres (3) años**: el 2022, 2023 o 2024 [2]. El plazo para realizar este trámite es **del 20 de enero al 24 de enero de 2025** [2]."
+    ]
+  },
+  {
+    "question": "¿Qué requisitos deben cumplir los sílabos presentados para convalidación si provienen de otra universidad?",
+    "answer": "Los sílabos presentados para convalidación deben cumplir con los siguientes requisitos: - El estudiante debe estar matriculado vigente en la escuela donde presenta el expediente de convalidación. - Se deben presentar todas las asignaturas a convalidar sin omitir los cursos prerrequisitos. - Es necesario respetar los prerrequisitos establecidos en el Plan de Estudios de la Escuela Profesional de la UNSA.",
+    "ground_truth": "Deben ser del año en que aprobó la asignatura, con sellos y firmas del Decano de la Facultad y Secretario General de esa Universidad; si es del extranjero, con la apostilla respectiva.",
+    "contexts": [
+      "Artículo 15. Para matricularse en un determinado curso, el estudiante debe haber cumplido los prerrequisitos que el Plan de Estudios de su escuela considere de previo y obligatorio cumplimiento. Por ninguna razón se validará la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional y los prerrequisitos establecidos en el Plan de Estudios respectivo, bajo responsabilidad del Director de Escuela.",
+      "Las convalidaciones se realizan presentando asignaturas de otra escuela de la UNSA, o de otra universidad [1]. El estudiante debe tener **matrícula vigente (2025 A)** en la escuela donde presenta el expediente [1].",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5].",
+      "No se convalidan cursos aprobados en institutos [4]. Es obligatorio respetar las asignaturas prerrequisitos [4].",
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona."
+    ]
+  },
+  {
+    "question": "¿Qué sucede administrativamente después de que se aprueba una matrícula por excepción?",
+    "answer": "Después de que se aprueba una matrícula por excepción, el Director de la Escuela y el Decano autorizan la matrícula, dando conformidad y firmando en la ficha correspondiente. Esto implica que ambos deben validar y confirmar la solicitud de matrícula por excepción del estudiante.",
+    "ground_truth": "El Director y Decano autorizan firmando la ficha, registran la matrícula en el Sistema habilitado, cierran el Sistema y envían a la DSA la relación de alumnos con el motivo (resumen Sisacad).",
+    "contexts": [
+      "Cuarta.- Esta situación de excepción, permite al estudiante que este por egresar y que luego de su matrícula regular, le falte una asignatura para culminar su carrera, solicitar matrícula por excepción para llevar el exceso de créditos que corresponda a esta **única asignatura** con la que culmina su carrera.",
+      "Tercera.- Se considera matrícula en situación de excepción, para aquellos estudiantes que estén por egresar en el semestre académico al que corresponda la presente matrícula.",
+      "De ser aprobada la matrícula por excepción, el **Director de la Escuela y el Decano** autorizarán la matrícula, dando conformidad y firmando en la ficha correspondiente [6].",
+      "Las Facultades y/o Escuelas Profesionales son responsables de evaluar y si corresponde de registrar la matrícula por excepción, solicitada por sus estudiantes [1].",
+      "Para los casos no contemplados en los puntos anteriores (Casos Por Egresar y Currículo Rígido/Créditos), serán los **Decanos de Facultad** los que resuelvan lo pertinente conforme al marco normativo (Ley Universitaria 30220, Estatuto de la Universidad, Reglamento de matrícula) [3, 4]."
+    ]
+  },
+  {
+    "question": "¿Pueden los ingresantes del año académico 2025 solicitar Reserva de Matrícula?",
+    "answer": "Los ingresantes del año académico 2025 NO pueden solicitar Reserva de Matrícula, ya que no cumplen con el requisito de haber tenido matrícula en el año inmediato anterior (2024).",
+    "ground_truth": "NO pueden solicitar Reserva de Matricula, al no tener el requisito de: matrícula en el año inmediato anterior (2024).",
+    "contexts": [
+      "Artículo 13. El número máximo de créditos en que normalmente puede matricularse un estudiante al semestre es fijado por el Plan de Estudios de la escuela correspondiente. Los estudiantes que no tengan ningún curso pendiente de aprobación podrán matricularse hasta en **seis (06) créditos adicionales** por semestre.",
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "Los **ingresantes del año académico vigente (2025) NO pueden solicitar Reserva de Matrícula**, ya que no cumplen con el requisito de tener matrícula en el año inmediato anterior (2024) [1]. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos** [1]. Además, no deben haber registrado matrícula 2025 [1] y el trámite solamente se realiza en el **Primer Semestre** [1].",
+      "Artículo 6. Los estudiantes tienen la obligación de matricularse en un número mínimo de **12 créditos** por semestre para conservar su condición de estudiante regular, salvo que le falten menos créditos para culminar la carrera.",
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**."
+    ]
+  },
+  {
+    "question": "¿Se pueden convalidar cursos aprobados en institutos?",
+    "answer": "No se pueden convalidar cursos aprobados en institutos.",
+    "ground_truth": "No se convalidan cursos aprobados en institutos.",
+    "contexts": [
+      "Artículo 15. Para matricularse en un determinado curso, el estudiante debe haber cumplido los prerrequisitos que el Plan de Estudios de su escuela considere de previo y obligatorio cumplimiento. Por ninguna razón se validará la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional y los prerrequisitos establecidos en el Plan de Estudios respectivo, bajo responsabilidad del Director de Escuela.",
+      "Las convalidaciones se realizan presentando asignaturas de otra escuela de la UNSA, o de otra universidad [1]. El estudiante debe tener **matrícula vigente (2025 A)** en la escuela donde presenta el expediente [1].",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5].",
+      "No se convalidan cursos aprobados en institutos [4]. Es obligatorio respetar las asignaturas prerrequisitos [4].",
+      "2.2 Curso Obligatorio: Asignatura en la cual el estudiante tiene que registrar su matrícula, de acuerdo a su plan curricular en forma obligatoria. 2.3 Curso Electivo: Asignatura la cual el estudiante, elige en función a su Plan Curricular. Estos cursos también se podrán llevar en otra Escuela Profesional siempre y cuando sean susceptibles de ser convalidados."
+    ]
+  },
+  {
+    "question": "¿Es posible realizar la matrícula en horarios superpuestos según el reglamento?",
+    "answer": "Según el reglamento, está prohibida la matrícula en horarios superpuestos. Sin embargo, existen excepciones que pueden ser autorizadas por el Director de Escuela, siempre dentro del límite permitido por el Reglamento del proceso enseñanza-aprendizaje, que establece un límite del 20% de inasistencia.",
+    "ground_truth": "Queda prohibida la matrícula en horarios superpuestos.",
+    "contexts": [
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "Los **ingresantes del año académico vigente (2025) NO pueden solicitar Reserva de Matrícula**, ya que no cumplen con el requisito de tener matrícula en el año inmediato anterior (2024) [1]. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos** [1]. Además, no deben haber registrado matrícula 2025 [1] y el trámite solamente se realiza en el **Primer Semestre** [1].",
+      "Segunda.- Queda prohibida la matrícula en horarios superpuestos. Las excepcionalidades las autorizará el Director de Escuela, dentro del límite permitido por el Reglamento del proceso enseñanza aprendizaje (20% de inasistencia).",
+      "Artículo 28. Los estudiantes que, para culminar su carrera profesional, tengan pendiente de aprobación hasta **dos (2) asignaturas**, podrán matricularse en ellos a efecto que se les nombre jurado para la evaluación respectiva, conforme al Reglamento específico. Las Escuelas que tienen como prerrequisito a las prácticas profesionales la aprobación de todas las asignaturas, aplicarán lo dispuesto en el presente artículo antes del inicio de dichas actividades.",
+      "El registro del levantamiento de reserva se realiza según esté habilitada la escuela para matrículas 2025 A [10]. Posteriormente, la DSA indicará (vía correo institucional) que se descargue el talón de pago 2025 A y se cancele, correspondiendo que el estudiante registre matrícula en la **fecha del Grupo 3** [10]."
+    ]
+  },
+  {
+    "question": "¿Qué ocurre si un estudiante deja de matricularse por más de tres años consecutivos o alternos?",
+    "answer": "Si un estudiante deja de matricularse por más de tres años consecutivos o alternos, deberá volver a postular a la Universidad para recuperar su condición de estudiante.",
+    "ground_truth": "Deberán volver a postular a la Universidad.",
+    "contexts": [
+      "Artículo 26. Los estudiantes que dejen de matricularse por **más de tres (03) años consecutivos o alternos**, deberán volver a postular a la Universidad.",
+      "Los **ingresantes del año académico vigente (2025) NO pueden solicitar Reserva de Matrícula**, ya que no cumplen con el requisito de tener matrícula en el año inmediato anterior (2024) [1]. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos** [1]. Además, no deben haber registrado matrícula 2025 [1] y el trámite solamente se realiza en el **Primer Semestre** [1].",
+      "2.4 Reactualización de matrícula: Proceso que permite recuperar la condición de estudiante luego de haber dejado de matricularse por un periodo de tiempo. 2.5 Abandono de matrícula: Cuando el estudiante no rinde alguna o todas las evaluaciones programadas para el curso de acuerdo al sílabo correspondiente.",
+      "Artículo 6. Los estudiantes tienen la obligación de matricularse en un número mínimo de **12 créditos** por semestre para conservar su condición de estudiante regular, salvo que le falten menos créditos para culminar la carrera.",
+      "Primera.- La condición de abandono en la calificación final de un curso es equivalente a la desaprobación de una asignatura, solo para el conteo de matrículas ejecutadas."
+    ]
+  },
+  {
+    "question": "¿Puede un estudiante separado definitivamente de la Universidad levantar la condición de reserva de matrícula?",
+    "answer": "Un estudiante que haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias no puede levantar la condición de reserva de matrícula.",
+    "ground_truth": "No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+    "contexts": [
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "2.6 Retiro de matrícula: Acción y efecto de retirarse, de manera voluntaria, de algunos cursos previamente matriculados. 2.7 Anulación de matrícula: Retiro de matrícula de todos los cursos en los que se haya matriculado. 2.8 Reserva de matrícula: Acto voluntario de diferir la matrícula para otro periodo académico. 2.9 Evaluación por jurado: Es una evaluación de carácter extraordinaria y se somete voluntariamente el estudiante para demostrar que ha logrado los objetivos y metas propuestas en el sílabo correspondiente y solo procede para culminar la carrera profesional de acuerdo a Reglamento específico.",
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**.",
+      "Artículo 23. Se considera anulación de matrícula, cuando el estudiante solicita el retiro de todos los cursos en los que se haya matriculado, por razones justificadas y en el plazo previsto en el cronograma académico para el consolidado o cierre de matrícula. El trámite correspondiente se realiza en su Facultad y anulación de la matrícula obliga al estudiante a la devolución del carné universitario en la Dirección Universitaria de Formación Académica (DUFA). Esta facultad podrá usarse hasta por dos veces."
+    ]
+  },
+  {
+    "question": "¿Se permite validar la matrícula de estudiantes que incumplan el tope máximo de créditos o prerrequisitos?",
+    "answer": "No se permite validar la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional o los prerrequisitos establecidos en el Plan de Estudios respectivo.",
+    "ground_truth": "Por ninguna razón se validará la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional y los prerrequisitos.",
+    "contexts": [
+      "Artículo 15. Para matricularse en un determinado curso, el estudiante debe haber cumplido los prerrequisitos que el Plan de Estudios de su escuela considere de previo y obligatorio cumplimiento. Por ninguna razón se validará la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional y los prerrequisitos establecidos en el Plan de Estudios respectivo, bajo responsabilidad del Director de Escuela.",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5].",
+      "Las convalidaciones se realizan presentando asignaturas de otra escuela de la UNSA, o de otra universidad [1]. El estudiante debe tener **matrícula vigente (2025 A)** en la escuela donde presenta el expediente [1].",
+      "El estudiante debe ingresar al **Sistema de Registro de Matrícula** (ubicado en la Página Web de la Universidad) con su usuario y clave [3]. El Sistema es el encargado de verificar el **cumplimiento de prerrequisitos** y los **topes de crédito** definidos para cada Escuela [3]. El Sistema considera automáticamente **seis (6) créditos adicionales** para los estudiantes que no tengan ningún curso pendiente de aprobación [3].",
+      "Los **ingresantes del año académico vigente (2025) NO pueden solicitar Reserva de Matrícula**, ya que no cumplen con el requisito de tener matrícula en el año inmediato anterior (2024) [1]. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos** [1]. Además, no deben haber registrado matrícula 2025 [1] y el trámite solamente se realiza en el **Primer Semestre** [1]."
+    ]
+  },
+  {
+    "question": "¿Pueden asignarse las vacantes de los ingresantes no matriculados a otros postulantes?",
+    "answer": "No pueden asignarse las vacantes de los ingresantes no matriculados a otros postulantes una vez que ha finalizado el periodo de matrícula. Según el Artículo 4 del Reglamento de Matrícula, después de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados no podrán ser asignadas a ningún otro postulante o persona.",
+    "ground_truth": "Las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+    "contexts": [
+      "Artículo 25. El estudiante que haya hecho la reserva de matrícula, debe solicitar el **levantamiento de dicha condición** para continuar sus estudios. El levantamiento de la condición de reserva de matrícula debe ser solicitada en la Dirección Universitaria de Formación Académica (DUFA) dentro de las fechas programadas en el calendario académico de la Universidad, previo pago de las tasas correspondientes. No puede ser autorizado para levantar la condición de reserva de matrícula, quien haya sido separado definitivamente de la Universidad por razones académicas o disciplinarias.",
+      "2.6 Retiro de matrícula: Acción y efecto de retirarse, de manera voluntaria, de algunos cursos previamente matriculados. 2.7 Anulación de matrícula: Retiro de matrícula de todos los cursos en los que se haya matriculado. 2.8 Reserva de matrícula: Acto voluntario de diferir la matrícula para otro periodo académico. 2.9 Evaluación por jurado: Es una evaluación de carácter extraordinaria y se somete voluntariamente el estudiante para demostrar que ha logrado los objetivos y metas propuestas en el sílabo correspondiente y solo procede para culminar la carrera profesional de acuerdo a Reglamento específico.",
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "Artículo 24. La reserva de matrícula, es el acto voluntario del estudiante de diferir la matrícula para un periodo académico inmediato, debiendo solicitarlo en la Dirección Universitaria de Formación Académica (DUFA) y habiendo efectuado el pago por concepto de trámite documentario, siempre que lo haga antes de la fecha de cierre de matrícula. Los estudiantes tienen derecho a solicitar reserva de matrícula por un **máximo de tres (03) años consecutivos o alternos**.",
+      "Artículo 27. Los estudiantes que hayan logrado una vacante en el proceso de admisión de traslados internos, se matricularan en su nueva Escuela Profesional en los cursos que les corresponda. Por Resolución del Vicerrectorado Académico se les cancelará la matrícula en la Escuela Profesional de procedencia. Dicha Resolución deberá ser presentada a la Escuela Profesional de destino, junto con los documentos que se señalan en el Art. 16 del presente Reglamento."
+    ]
+  },
+  {
+    "question": "¿Es posible presentar expedientes de convalidación sin matrícula vigente en la escuela de destino?",
+    "answer": "No es posible presentar expedientes de convalidación sin tener matrícula vigente en la escuela de destino. Según los requisitos generales para las convalidaciones, el estudiante debe contar con matrícula vigente en la escuela donde presenta el expediente.",
+    "ground_truth": "No, debe tener matricula vigente (2025 A) en la escuela donde presenta expediente.",
+    "contexts": [
+      "Artículo 17. El estudiante, luego de haber registrado los cursos en los cuales se matricula vía Internet, en el mismo acto, debe **validar su matrícula**. De no efectuar esta validación el Sistema no registrará dicha matrícula. Luego el estudiante debe guardar y/o imprimir su constancia de matrícula como testimonio de dicho registro.",
+      "El expediente de convalidaciones, deberá presentarse completo **en físico** a la escuela donde solicita convalidar, según las fechas del cronograma [1]. Debe incluir una declaración jurada de la veracidad y legalidad de todos los documentos [1].",
+      "Las convalidaciones se realizan presentando asignaturas de otra escuela de la UNSA, o de otra universidad [1]. El estudiante debe tener **matrícula vigente (2025 A)** en la escuela donde presenta el expediente [1].",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5].",
+      "Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula** para incluir las asignaturas que ha convalidado (las que no estuvo matriculado inicialmente) [5, 6]."
+    ]
+  },
+  {
+    "question": "En el expediente de convalidaciones, ¿se pueden omitir cursos prerrequisitos?",
+    "answer": "No se pueden omitir cursos prerrequisitos en el expediente de convalidaciones. Es obligatorio respetar las asignaturas prerrequisitos, según lo establecido en el reglamento de matrícula y las normativas de convalidaciones.",
+    "ground_truth": "No, presentar todas las asignaturas que solicite convalidación (sin pasarse cursos prerrequisitos).",
+    "contexts": [
+      "Artículo 15. Para matricularse en un determinado curso, el estudiante debe haber cumplido los prerrequisitos que el Plan de Estudios de su escuela considere de previo y obligatorio cumplimiento. Por ninguna razón se validará la matrícula de estudiantes que incumplan el tope máximo de créditos semestrales establecido por su Escuela Profesional y los prerrequisitos establecidos en el Plan de Estudios respectivo, bajo responsabilidad del Director de Escuela.",
+      "El estudiante debe matricularse en las asignaturas que le corresponda llevar según oferta y créditos permitidos [5]. En el expediente se deben presentar todas las asignaturas a convalidar (sin pasarse cursos prerrequisitos) [5].",
+      "No se convalidan cursos aprobados en institutos [4]. Es obligatorio respetar las asignaturas prerrequisitos [4].",
+      "2.2 Curso Obligatorio: Asignatura en la cual el estudiante tiene que registrar su matrícula, de acuerdo a su plan curricular en forma obligatoria. 2.3 Curso Electivo: Asignatura la cual el estudiante, elige en función a su Plan Curricular. Estos cursos también se podrán llevar en otra Escuela Profesional siempre y cuando sean susceptibles de ser convalidados.",
+      "Una vez emitida la resolución de convalidaciones, el estudiante efectuará la **modificación de matrícula** para incluir las asignaturas que ha convalidado (las que no estuvo matriculado inicialmente) [5, 6]."
+    ]
+  },
+  {
+    "question": "¿Qué sucede si un estudiante desaprueba una misma materia por cuarta vez?",
+    "answer": "Si un estudiante desaprueba una misma materia por cuarta vez, procede su retiro definitivo de la Universidad.",
+    "ground_truth": "Procede su retiro definitivo.",
+    "contexts": [
+      "Artículo 26. Los estudiantes que dejen de matricularse por **más de tres (03) años consecutivos o alternos**, deberán volver a postular a la Universidad.",
+      "Artículo 4. Tiene la condición de estudiante de la Universidad, aquel que ha aprobado un proceso de admisión y alcanzado una vacante y se ha matriculado en su respectiva Escuela Profesional. Quien no se matricule en el periodo académico correspondiente, en el que fue admitido, perderá el derecho que la admisión le hubiese conferido. Los ingresantes a la Universidad están obligados a regularizar la documentación pendiente y luego matricularse. Luego de la finalización del periodo de matrícula, las vacantes de los ingresantes no matriculados, no podrán ser asignadas a ningún otro postulante o persona.",
+      "2.4 Reactualización de matrícula: Proceso que permite recuperar la condición de estudiante luego de haber dejado de matricularse por un periodo de tiempo. 2.5 Abandono de matrícula: Cuando el estudiante no rinde alguna o todas las evaluaciones programadas para el curso de acuerdo al sílabo correspondiente.",
+      "Primera.- La condición de abandono en la calificación final de un curso es equivalente a la desaprobación de una asignatura, solo para el conteo de matrículas ejecutadas.",
+      "Artículo 14. La desaprobación de una misma materia por **tres (03) veces** da lugar a que el estudiante sea **separado temporalmente por un año de la Universidad**. Al término de este plazo, el estudiante solo se podrá matricular en la materia que desaprobó anteriormente, para retomar de manera regular a sus estudios en el ciclo siguiente. Si desaprueba por **cuarta (4ta) vez** procede su retiro definitivo."
+    ]
+  }
+]
